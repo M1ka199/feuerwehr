@@ -290,6 +290,84 @@
   };
 
   /* -------------------------------------------------------
+     Statistik-Berechnung (Aktuelles Jahr)
+     ------------------------------------------------------- */
+  function computeYearStats(year) {
+    var ops = Store.einsaetze();
+    var targetYear = String(year || (ops.length ? yearOf(ops[0].datum) : new Date().getFullYear()));
+    var currentOps = ops.filter(function (op) {
+      return yearOf(op.datum) === targetYear;
+    });
+
+    var fire = 0;
+    var th = 0;
+    var other = 0;
+
+    currentOps.forEach(function (op) {
+      if (op.art === "Brand") {
+        fire++;
+      } else if (op.art === "TH") {
+        th++;
+      } else {
+        other++;
+      }
+    });
+
+    return {
+      year: targetYear,
+      total: currentOps.length,
+      fire: fire,
+      th: th,
+      other: other
+    };
+  }
+
+  function renderYearStats(containerId) {
+    var container = $(containerId);
+    if (!container) return;
+
+    var stats = computeYearStats();
+    container.innerHTML = "";
+
+    var banner = el("div", "stats-banner");
+    var grid = el("div", "stats-grid");
+
+    // Große Gesamtzahl
+    var main = el("div", "stat-main");
+    main.appendChild(el("div", "stat-main__number", String(stats.total)));
+    main.appendChild(
+      el(
+        "p",
+        "stat-main__label",
+        "Einsätze " + stats.year
+      )
+    );
+    grid.appendChild(main);
+
+    // Aufschlüsselung Brand, TH, Sonstige
+    var breakdown = el("div", "stat-breakdown");
+
+    var itemFire = el("div", "stat-item stat-item--fire");
+    itemFire.appendChild(el("div", "stat-item__value", String(stats.fire)));
+    itemFire.appendChild(el("p", "stat-item__name", "Brandeinsätze"));
+    breakdown.appendChild(itemFire);
+
+    var itemTh = el("div", "stat-item stat-item--th");
+    itemTh.appendChild(el("div", "stat-item__value", String(stats.th)));
+    itemTh.appendChild(el("p", "stat-item__name", "Techn. Hilfe (TH)"));
+    breakdown.appendChild(itemTh);
+
+    var itemOther = el("div", "stat-item stat-item--other");
+    itemOther.appendChild(el("div", "stat-item__value", String(stats.other)));
+    itemOther.appendChild(el("p", "stat-item__name", "Sonstige / Fehlalarme"));
+    breakdown.appendChild(itemOther);
+
+    grid.appendChild(breakdown);
+    banner.appendChild(grid);
+    container.appendChild(banner);
+  }
+
+  /* -------------------------------------------------------
      Gemeinsame Bausteine
      ------------------------------------------------------- */
   function initNav() {
@@ -379,9 +457,17 @@
 
     var body = el("div", "op-card__body");
     var meta = formatDate(op.datum) + (op.uhrzeit ? " · " + op.uhrzeit + " Uhr" : "");
-    if (op.ort) meta += " · " + op.ort;
     body.appendChild(el("p", "op-card__meta", meta));
-    body.appendChild(el("h3", "op-card__title", op.stichwort));
+
+    // Einsatzstichwort + zwingender Zeilenumbruch vor dem Einsatzort
+    var titleH3 = el("h3", "op-card__title");
+    titleH3.appendChild(document.createTextNode(op.stichwort));
+    if (op.ort) {
+      var locSpan = el("span", "op-location", op.ort);
+      titleH3.appendChild(locSpan);
+    }
+    body.appendChild(titleH3);
+
     if (op.beschreibung) {
       body.appendChild(el("p", "op-card__text", op.beschreibung));
     }
@@ -443,7 +529,7 @@
   }
 
   /* -------------------------------------------------------
-     Renderer: Personen
+     Renderer: Personen (Breiter, flacher Aufbau)
      ------------------------------------------------------- */
   function personCard(person) {
     var card = el("article", "person-card");
@@ -462,21 +548,24 @@
     card.appendChild(photo);
 
     var body = el("div", "person-card__body");
+    // Name: Kräftiges Dunkelblau
     body.appendChild(el("h3", "person-card__name", person.name));
+
+    // Dienstgrad: Direkt unter dem Namen in dezentem Grau (#6c757d), 0.9rem
     if (person.dienstgrad) {
       body.appendChild(el("p", "person-card__rank", person.dienstgrad));
     }
+
+    // Funktion: Direkt unter dem Dienstgrad in Sandfarbe (#c29b38), font-weight: 600, font-size: 1rem
     if (person.funktion) {
       body.appendChild(el("p", "person-card__role", person.funktion));
     }
 
     var foot = el("div", "person-card__foot");
     if (person.kontakt) {
-      var mail = el("a", "btn btn--outline btn--sm btn--block", "E-Mail schreiben");
+      var mail = el("a", "person-card__email-link", "E-Mail");
       mail.href = "mailto:" + person.kontakt;
       foot.appendChild(mail);
-    } else {
-      foot.appendChild(el("p", "text-sm text-muted mb-0", "Kontakt über das Kontaktformular"));
     }
     body.appendChild(foot);
 
@@ -493,6 +582,62 @@
     list.forEach(function (person) {
       container.appendChild(personCard(person));
     });
+  }
+
+  /* -------------------------------------------------------
+     Dynamisches Schnupperdienst-Formular
+     ------------------------------------------------------- */
+  function initSchnupperdienstForm() {
+    var form = $("#schnupperdienst-formular");
+    if (!form) return;
+
+    var adultSection = $("#sd-erwachsene-felder");
+    var youthSection = $("#sd-jugend-felder");
+
+    function updateFields() {
+      var checked = form.querySelector('input[name="sdInteresse"]:checked');
+      var mode = checked ? checked.value : "erwachsene";
+
+      if (mode === "jugend") {
+        if (adultSection) adultSection.hidden = true;
+        if (youthSection) youthSection.hidden = false;
+
+        // Erwachsene-Felder: required entfernen
+        $$("input", adultSection).forEach(function (inp) {
+          inp.removeAttribute("required");
+        });
+        // Jugend-Felder: Pflichtfelder setzen
+        var elternName = fld(form, "sdElternName");
+        var elternMail = fld(form, "sdElternMail");
+        var elternTel = fld(form, "sdElternTel");
+        if (elternName) elternName.setAttribute("required", "");
+        if (elternMail) elternMail.setAttribute("required", "");
+        if (elternTel) elternTel.setAttribute("required", "");
+      } else {
+        if (adultSection) adultSection.hidden = false;
+        if (youthSection) youthSection.hidden = true;
+
+        // Erwachsene-Felder: Pflichtfelder setzen
+        var sdName = fld(form, "sdName");
+        var sdAlter = fld(form, "sdAlter");
+        var sdMail = fld(form, "sdMail");
+        if (sdName) sdName.setAttribute("required", "");
+        if (sdAlter) sdAlter.setAttribute("required", "");
+        if (sdMail) sdMail.setAttribute("required", "");
+
+        // Jugend-Felder: required entfernen
+        $$("input", youthSection).forEach(function (inp) {
+          inp.removeAttribute("required");
+        });
+      }
+    }
+
+    var radios = $$('input[name="sdInteresse"]', form);
+    radios.forEach(function (r) {
+      r.addEventListener("change", updateFields);
+    });
+
+    updateFields();
   }
 
   /* -------------------------------------------------------
@@ -519,6 +664,9 @@
       var seenRadios = {};
 
       fields.forEach(function (field) {
+        // Unsichtbare / inaktive Abschnitte ignorieren
+        if (field.closest("[hidden]")) return;
+
         var label = field.getAttribute("data-label");
         var required = field.hasAttribute("required");
         var value = "";
@@ -572,10 +720,14 @@
         false
       );
       form.reset();
+      if (form.id === "schnupperdienst-formular") {
+        initSchnupperdienstForm();
+      }
     });
   }
 
   function initForms() {
+    initSchnupperdienstForm();
     $$("form[data-form]").forEach(initForm);
     // Ziel-E-Mail-Adressen aus den Einstellungen anzeigen
     $$("[data-settings-mail]").forEach(function (node) {
@@ -594,6 +746,9 @@
 
   PAGES.start = function () {
     var settings = Store.settings();
+
+    // Jahresstatistik auf Startseite
+    renderYearStats("#startseite-statistik");
 
     var opsBox = $("#startseite-einsaetze");
     if (opsBox) {
@@ -626,6 +781,9 @@
   };
 
   PAGES.einsaetze = function () {
+    // Jahresstatistik auf Einsätze-Seite
+    renderYearStats("#einsaetze-statistik");
+
     var container = $("#einsatz-liste");
     if (!container) return;
 
@@ -739,7 +897,7 @@
       head.appendChild(el("span", "level__line"));
       section.appendChild(head);
 
-      var grid = el("div", "grid grid--4");
+      var grid = el("div", "kommando-grid");
       list.forEach(function (person) {
         grid.appendChild(personCard(person));
       });

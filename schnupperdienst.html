@@ -8,7 +8,7 @@
   <link rel="icon" href="image_0.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="schnupperdienst">
@@ -63,36 +63,91 @@
           <p class="form-message" id="schnupperdienst-status" role="status" hidden></p>
           <form class="form" id="schnupperdienst-formular" data-form="schnupperdienst"
                 data-subject="Anmeldung Schnupperdienst" novalidate>
-            <div class="form-row form-row--2">
-              <div class="field">
-                <label for="sd-name">Name <span class="req" aria-hidden="true">*</span></label>
-                <input id="sd-name" name="sdName" type="text" autocomplete="name"
-                       data-label="Name" required>
+
+            <!-- Auswahlfeld ganz oben: Einsatzabteilung oder Kinder-/Jugendfeuerwehr -->
+            <fieldset class="field" style="border:0;padding:0;margin:0">
+              <legend class="filter-group__label">Interesse an <span class="req" aria-hidden="true">*</span></legend>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="sdInteresse" value="erwachsene" checked
+                         data-label="Bereich">
+                  <span>Einsatzabteilung (Erwachsene ab 16 Jahren)</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="sdInteresse" value="jugend"
+                         data-label="Bereich">
+                  <span>Kinder- / Jugendfeuerwehr (6 bis 17 Jahre)</span>
+                </label>
               </div>
-              <div class="field">
-                <label for="sd-alter">Alter <span class="req" aria-hidden="true">*</span></label>
-                <input id="sd-alter" name="sdAlter" type="number" min="6" max="99"
-                       data-label="Alter" required>
-                <span class="field__hint">Ab 6 Jahren Kinderfeuerwehr, ab 10 Jahren Jugendfeuerwehr.</span>
+            </fieldset>
+
+            <!-- Felder für Einsatzabteilung (Erwachsene) -->
+            <div id="sd-erwachsene-felder">
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="sd-name">Name <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-name" name="sdName" type="text" autocomplete="name"
+                         data-label="Name" required>
+                </div>
+                <div class="field">
+                  <label for="sd-alter">Alter <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-alter" name="sdAlter" type="number" min="16" max="99"
+                         data-label="Alter" required>
+                </div>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="sd-mail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-mail" name="sdMail" type="email" autocomplete="email"
+                         data-label="E-Mail" required>
+                </div>
+                <div class="field">
+                  <label for="sd-telefon">Telefon</label>
+                  <input id="sd-telefon" name="sdTelefon" type="tel" autocomplete="tel"
+                         data-label="Telefon">
+                </div>
               </div>
             </div>
-            <div class="form-row form-row--2">
-              <div class="field">
-                <label for="sd-mail">E-Mail <span class="req" aria-hidden="true">*</span></label>
-                <input id="sd-mail" name="sdMail" type="email" autocomplete="email"
-                       data-label="E-Mail" required>
+
+            <!-- Felder für Kinder- / Jugendfeuerwehr (Eltern + Kind) -->
+            <div id="sd-jugend-felder" hidden>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="sd-eltern-name">Name des Elternteils / Erziehungsberechtigten <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-eltern-name" name="sdElternName" type="text" autocomplete="name"
+                         data-label="Name des Elternteils">
+                </div>
+                <div class="field">
+                  <label for="sd-eltern-mail">E-Mail des Elternteils <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-eltern-mail" name="sdElternMail" type="email" autocomplete="email"
+                         data-label="E-Mail des Elternteils">
+                </div>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="sd-eltern-tel">Telefon des Elternteils <span class="req" aria-hidden="true">*</span></label>
+                  <input id="sd-eltern-tel" name="sdElternTel" type="tel" autocomplete="tel"
+                         data-label="Telefon des Elternteils">
+                </div>
+                <div class="field">
+                  <label for="sd-kind-name">Name des Kindes</label>
+                  <input id="sd-kind-name" name="sdKindName" type="text"
+                         data-label="Name des Kindes">
+                </div>
               </div>
               <div class="field">
-                <label for="sd-telefon">Telefon</label>
-                <input id="sd-telefon" name="sdTelefon" type="tel" autocomplete="tel"
-                       data-label="Telefon">
+                <label for="sd-kind-alter">Alter des Kindes</label>
+                <input id="sd-kind-alter" name="sdKindAlter" type="number" min="6" max="17"
+                       data-label="Alter des Kindes">
+                <span class="field__hint">6–9 Jahre: Kinderfeuerwehr · 10–17 Jahre: Jugendfeuerwehr.</span>
               </div>
             </div>
+
             <div class="field">
               <label for="sd-nachricht">Vorerfahrung / Nachricht</label>
               <textarea id="sd-nachricht" name="sdNachricht"
                         data-label="Vorerfahrung / Nachricht"
-                        placeholder="Hast du bereits Erfahrung bei einer Feuerwehr? Gibt es etwas, das wir wissen sollten?"></textarea>
+                        placeholder="Hast du bzw. Ihr Kind bereits Erfahrung bei einer Feuerwehr? Gibt es etwas, das wir wissen sollten?"></textarea>
             </div>
             <p class="form-note">
               Mit dem Absenden öffnet sich Ihr E-Mail-Programm mit einer vorbereiteten Nachricht.
