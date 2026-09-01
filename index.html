@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Offizielle Seite der Freiwilligen Feuerwehr Wulften am Harz: aktuelle Einsätze, Ortskommando, Schnupperdienst und Mitgliedschaft.">
+  <link rel="icon" href="image_0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="start">
+
+  <!-- Notruf-Banner -->
+  <div class="emergency-bar">
+    Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <span class="brand__text">
+          <span class="brand__name">Feuerwehr Wulften am Harz</span>
+          <span class="brand__sub">Freiwillige Feuerwehr</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+        ☰ Menü
+      </button>
+      <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
+          <li><a href="kommando.html">Ortskommando</a></li>
+          <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+          <li><a href="beitritt.html">Mitglied werden</a></li>
+          <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__inner">
+        <img class="hero__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <h1>Freiwillige Feuerwehr Wulften am Harz</h1>
+        <p class="hero__lead">
+          Ehrenamtlich, rund um die Uhr einsatzbereit – für die Menschen in Wulften und der Region.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--accent" href="beitritt.html">Mitglied werden</a>
+          <a class="btn btn--ghost-light" href="einsaetze.html">Einsätze ansehen</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letzte Einsätze -->
+    <section class="section" id="einsaetze">
+      <div class="container">
+        <div class="section__head">
+          <h2>Letzte Einsätze</h2>
+          <p>Ein Auszug aus unserem aktuellen Einsatzgeschehen.</p>
+        </div>
+        <!-- Neue Jahresstatistik -->
+        <div id="startseite-statistik"></div>
+        <div class="ops-grid" id="startseite-einsaetze"></div>
+        <div class="section__foot">
+          <a class="btn btn--primary" href="einsaetze.html">Zum vollständigen Einsatzverlauf</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wichtigste Personen -->
+    <section class="section section--alt" id="fuehrung">
+      <div class="container">
+        <div class="section__head">
+          <h2>Die wichtigsten Personen</h2>
+          <p>Ihre Ansprechpartnerinnen und Ansprechpartner der Ortsfeuerwehr.</p>
+        </div>
+        <div class="kommando-grid" id="startseite-personen"></div>
+        <div class="section__foot">
+          <a class="btn btn--primary" href="kommando.html">Zum gesamten Ortskommando</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Schnupperdienst-Teaser -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-banner">
+          <h2 id="teaser-titel">Lust auf einen Schnupperdienst?</h2>
+          <p id="teaser-text">
+            Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich und ohne Vorkenntnisse.
+          </p>
+          <a class="btn btn--light" href="schnupperdienst.html" id="teaser-button">
+            Zum Schnupperdienst anmelden
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <h3>Feuerwehrhaus</h3>
+          <p class="mb-0">
+            Freiwillige Feuerwehr Wulften am Harz<br>
+            Bahnhofstraße 1<br>
+            37199 Wulften am Harz
+          </p>
+        </div>
+        <div>
+          <h3>Notfallnummern</h3>
+          <ul>
+            <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
+            <li>Polizei: <a href="tel:110">110</a></li>
+            <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Schnellzugriff</h3>
+          <ul>
+            <li><a href="einsaetze.html">Einsatzverlauf</a></li>
+            <li><a href="kommando.html">Ortskommando</a></li>
+            <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+            <li><a href="beitritt.html">Mitglied werden</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
+        <span>
+          <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="admin.html">Interner Bereich</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal für Einsatzberichte -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titel" hidden>
+    <button class="modal__backdrop" type="button" data-modal-close aria-label="Dialog schließen"></button>
+    <div class="modal__dialog">
+      <div class="modal__head">
+        <h2 id="modal-titel">Einsatz</h2>
+        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">×</button>
+      </div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

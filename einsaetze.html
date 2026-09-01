@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Einsätze – Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Chronologischer Einsatzverlauf der Freiwilligen Feuerwehr Wulften am Harz mit Filter nach Jahr und Einsatzart.">
+  <link rel="icon" href="image_0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="einsaetze">
+
+  <div class="emergency-bar">
+    Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <span class="brand__text">
+          <span class="brand__name">Feuerwehr Wulften am Harz</span>
+          <span class="brand__sub">Freiwillige Feuerwehr</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+        ☰ Menü
+      </button>
+      <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
+          <li><a href="kommando.html">Ortskommando</a></li>
+          <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+          <li><a href="beitritt.html">Mitglied werden</a></li>
+          <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <h1>Einsatzverlauf</h1>
+        <p>Alle dokumentierten Einsätze der Ortsfeuerwehr – filterbar nach Jahr und Einsatzart.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- Neue Jahresstatistik -->
+        <div id="einsaetze-statistik"></div>
+
+        <div class="filter-group">
+          <span class="filter-group__label" id="label-jahr">Nach Jahr filtern</span>
+          <div class="filters" id="filter-jahr" role="group" aria-labelledby="label-jahr"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-group__label" id="label-art">Nach Einsatzart filtern</span>
+          <div class="filters" id="filter-art" role="group" aria-labelledby="label-art"></div>
+        </div>
+        <p class="text-sm text-muted" id="einsatz-anzahl" aria-live="polite"></p>
+        <div id="einsatz-liste"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <h3>Feuerwehrhaus</h3>
+          <p class="mb-0">
+            Freiwillige Feuerwehr Wulften am Harz<br>
+            Bahnhofstraße 1<br>
+            37199 Wulften am Harz
+          </p>
+        </div>
+        <div>
+          <h3>Notfallnummern</h3>
+          <ul>
+            <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
+            <li>Polizei: <a href="tel:110">110</a></li>
+            <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Schnellzugriff</h3>
+          <ul>
+            <li><a href="einsaetze.html">Einsatzverlauf</a></li>
+            <li><a href="kommando.html">Ortskommando</a></li>
+            <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+            <li><a href="beitritt.html">Mitglied werden</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
+        <span>
+          <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="admin.html">Interner Bereich</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titel" hidden>
+    <button class="modal__backdrop" type="button" data-modal-close aria-label="Dialog schließen"></button>
+    <div class="modal__dialog">
+      <div class="modal__head">
+        <h2 id="modal-titel">Einsatz</h2>
+        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">×</button>
+      </div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
