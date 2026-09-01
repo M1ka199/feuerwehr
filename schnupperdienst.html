@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ortskommando – Freiwillige Feuerwehr Wulften am Harz</title>
-  <meta name="description" content="Das Ortskommando der Freiwilligen Feuerwehr Wulften am Harz mit Führung, Gruppenführung und Funktionsträgern.">
+  <title>Schnupperdienst – Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Unverbindlich zum Schnupperdienst der Freiwilligen Feuerwehr Wulften am Harz anmelden.">
   <link rel="icon" href="image_0.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="kommando">
+<body data-page="schnupperdienst">
 
   <div class="emergency-bar">
     Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
@@ -45,14 +45,64 @@
   <main>
     <section class="page-head">
       <div class="container">
-        <h1>Unser Ortskommando</h1>
-        <p>Führung, Gruppenführung und Fachbeauftragte der Freiwilligen Feuerwehr Wulften am Harz.</p>
+        <h1 id="seiten-titel">Lust auf einen Schnupperdienst?</h1>
+        <p id="seiten-text">
+          Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich und ohne Vorkenntnisse.
+        </p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div id="kommando-ebenen"></div>
+      <div class="container container--narrow">
+        <div class="card">
+          <h2>Anmeldung zum Schnupperdienst</h2>
+          <p class="text-sm text-muted">
+            Wir melden uns bei dir und stimmen einen passenden Termin ab. Anfragen gehen an
+            <a data-settings-mail="schnupperdienst" href="#">unsere Jugend- und Ausbildungsverantwortlichen</a>.
+          </p>
+          <p class="form-message" id="schnupperdienst-status" role="status" hidden></p>
+          <form class="form" id="schnupperdienst-formular" data-form="schnupperdienst"
+                data-subject="Anmeldung Schnupperdienst" novalidate>
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="sd-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input id="sd-name" name="sdName" type="text" autocomplete="name"
+                       data-label="Name" required>
+              </div>
+              <div class="field">
+                <label for="sd-alter">Alter <span class="req" aria-hidden="true">*</span></label>
+                <input id="sd-alter" name="sdAlter" type="number" min="6" max="99"
+                       data-label="Alter" required>
+                <span class="field__hint">Ab 6 Jahren Kinderfeuerwehr, ab 10 Jahren Jugendfeuerwehr.</span>
+              </div>
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="sd-mail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input id="sd-mail" name="sdMail" type="email" autocomplete="email"
+                       data-label="E-Mail" required>
+              </div>
+              <div class="field">
+                <label for="sd-telefon">Telefon</label>
+                <input id="sd-telefon" name="sdTelefon" type="tel" autocomplete="tel"
+                       data-label="Telefon">
+              </div>
+            </div>
+            <div class="field">
+              <label for="sd-nachricht">Vorerfahrung / Nachricht</label>
+              <textarea id="sd-nachricht" name="sdNachricht"
+                        data-label="Vorerfahrung / Nachricht"
+                        placeholder="Hast du bereits Erfahrung bei einer Feuerwehr? Gibt es etwas, das wir wissen sollten?"></textarea>
+            </div>
+            <p class="form-note">
+              Mit dem Absenden öffnet sich Ihr E-Mail-Programm mit einer vorbereiteten Nachricht.
+              Es werden keine Daten auf dieser Website gespeichert.
+            </p>
+            <div>
+              <button class="btn btn--primary" type="submit">Anmeldung absenden</button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   </main>

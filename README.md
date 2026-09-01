@@ -1,78 +1,94 @@
 # Freiwillige Feuerwehr Wulften am Harz – Website & CMS
 
-Moderne, mobiloptimierte Website im Kachel-Design mit integriertem,
-dateibasiertem CMS. Kein PHP, keine Datenbank – reines HTML, CSS und JavaScript.
+Schlichte, mobiloptimierte Website mit integriertem, dateibasiertem Content-Management-System.
+Reines HTML, CSS und JavaScript – **keine Datenbank, kein PHP, kein Build-Prozess**.
 
 ## Dateien
 
-| Datei            | Zweck                                                     |
-| ---------------- | --------------------------------------------------------- |
-| `index.html`     | Startseite: Hero-Banner, letzte Einsätze, Führung, Termine, Kontaktformular, Schnupperdienst-Banner |
-| `einsaetze.html` | Chronologischer Einsatzverlauf mit Filter nach Jahr und Art |
-| `kommando.html`  | Komplettes Ortskommando als Kachelübersicht                |
-| `termine.html`   | Alle Termine und Dienste (kommend / vergangen)             |
-| `admin.html`     | Passwortgeschütztes CMS                                    |
-| `app.js`         | Datenhaltung, Seitenlogik und CMS-Logik                    |
-| `style.css`      | Komplettes Stylesheet, alle Farben/Größen als CSS-Variablen |
-| `data.json`      | Inhalte (Einstellungen, Einsätze, Personen, Termine)       |
-| `image_0.png`    | Wappen / Logo                                              |
+| Datei                  | Zweck |
+|------------------------|-------|
+| `index.html`           | Startseite: Hero-Banner, letzte Einsätze, wichtigste Personen, Schnupperdienst-Teaser |
+| `einsaetze.html`       | Chronologischer Einsatzverlauf mit Filter nach Jahr und Einsatzart |
+| `kommando.html`        | Gesamtes Ortskommando, gegliedert in Hierarchie-Stufen |
+| `schnupperdienst.html` | Anmeldeformular für den Schnupperdienst |
+| `beitritt.html`        | Aufnahmeantrag / Mitglied werden |
+| `kontakt.html`         | Allgemeines Kontaktformular und Kontaktdaten |
+| `admin.html`           | Passwortgeschütztes CMS (nicht in der Navigation verlinkt) |
+| `app.js`               | Gesamte Logik für Website und CMS |
+| `style.css`            | Komplettes Stylesheet, alle Design-Vorgaben als CSS-Variablen in `:root` |
+| `data.json`            | Alle Inhalte: Einstellungen, Einsätze, Personen |
+| `image_0.png`          | Wappen / Logo |
 
-## Veröffentlichen
+## Start
 
-Alle Dateien per FTP in das Web-Verzeichnis hochladen. Fertig.
+Die Seite muss über einen Webserver aufgerufen werden, weil `data.json` per `fetch()` geladen
+wird. Ein Doppelklick auf `index.html` (`file://`) funktioniert **nicht**.
 
-> Zum lokalen Testen einen kleinen Webserver verwenden (z. B. `npx serve`).
-> Ein direkter Aufruf per `file://` funktioniert nicht, weil `data.json`
-> dann vom Browser blockiert wird.
+* **Live-Betrieb:** alle Dateien per FTP in ein Verzeichnis des Webspace laden – fertig.
+* **Lokal testen:** einen beliebigen kleinen Webserver im Projektordner starten und
+  `http://localhost:.../index.html` öffnen.
+
+## Das CMS
+
+Aufruf über `admin.html` (auch dezent im Footer verlinkt).
+
+* **Passwort:** `feuerwehr112` – änderbar in `app.js` unter `CONFIG.adminPassword`.
+* Die Anmeldung gilt nur für die aktuelle Browsersitzung.
+
+### Verwaltungsbereiche
+
+1. **Einsätze** – Datum, Uhrzeit, Alarmierungsstichwort, Einsatzart
+   (Brand, TH, Katastrophe, Fehlalarm), Ort, Bild inkl. Bildausschnitt,
+   Kurzbeschreibung und ausführlicher Bericht.
+2. **Ortskommando** – Name, Dienstgrad, Funktion, E-Mail, Profilbild inkl.
+   Bildausschnitt, Zuordnung zu einer Hierarchie-Stufe sowie der Schalter
+   „Auf Startseite anzeigen“.
+3. **Einstellungen** – Titel der drei Hierarchie-Stufen, Texte des
+   Schnupperdienst-Teasers sowie die Ziel-E-Mail-Adressen der drei Formulare.
+4. **Daten sichern** – Export, Import und Zurücksetzen.
 
 ### Bilder
 
-- **Hero-Banner:** Ein Foto namens `hero.jpg` neben `index.html` legen – es wird
-  automatisch als Hintergrund mit Dark-Overlay verwendet. Ohne diese Datei
-  erscheint der blaue Farbverlauf.
-- **Einsatz- und Personenbilder:** Ordner `bilder/` anlegen, Fotos hochladen und
-  den Pfad (z. B. `bilder/einsatz-2026-014.jpg`) im CMS eintragen. Ohne Bild wird
-  eine farbige Standardkachel bzw. ein Initialen-Platzhalter angezeigt.
+Bilder lassen sich auf zwei Wegen hinterlegen:
 
-## CMS bedienen
+* **Pfad / URL** (empfohlen): Bild per FTP hochladen, z. B. nach `bilder/einsatz1.jpg`,
+  und den Pfad im Feld eintragen.
+* **Datei-Upload:** Das Bild wird direkt in `data.json` eingebettet. Bequem, macht die
+  Datei aber groß – deshalb Uploads auf 1,5 MB begrenzt. Für viele Bilder ist der
+  Pfad-Weg deutlich sparsamer.
 
-Der Zugang ist bewusst nicht im Hauptmenü verlinkt: `admin.html` direkt aufrufen
-oder den Link „Interner Bereich“ im Footer nutzen.
+Über die Schaltflächen **Oben / Zentrum / Unten** wird der sichtbare Bildausschnitt
+festgelegt (technisch `object-position`) – praktisch bei Porträts.
 
-1. Mit dem Admin-Passwort anmelden (Standard: `feuerwehr112`).
-2. Inhalte pflegen:
-   - **Einsätze** – Datum, Uhrzeit, Stichwort, Art (Brand/THL), Ort,
-     Kachelbild, Kurzbeschreibung und ausführlicher Bericht.
-   - **Ortskommando** – Personen mit Dienstgrad, Funktion, Bild und Kontakt.
-     Der Schalter „Startseite: Ja/Nein“ (`showOnFrontpage`) steuert, wer in der
-     Kurzübersicht der Startseite erscheint.
-   - **Dienstplan / Termine** – Übungsdienste und Veranstaltungen.
-   - **Schnupperdienst & Formular** – Bannertext, Button-Beschriftung,
-     Ziel-E-Mail-Adresse sowie die Felder des Kontaktformulars (Bezeichnung,
-     Typ, Pflichtfeld, Auswahl-Optionen).
-3. Unter **Daten & Sicherung** die Schaltfläche **data.json exportieren**
-   klicken und die Datei per FTP hochladen (vorhandene `data.json`
-   überschreiben). Erst dann sehen alle Besucher die neuen Inhalte.
+### Wichtig: Änderungen veröffentlichen
 
-**Passwort ändern:** in `app.js` ganz oben unter `CONFIG.adminPassword`.
-Das Passwort steht im Quelltext und schützt nur vor zufälligen Zugriffen.
-Für echten Schutz zusätzlich einen `.htaccess`-Passwortschutz für `admin.html`
-einrichten.
+Alle Änderungen im CMS werden zunächst **nur im Browser** gespeichert (LocalStorage).
+Damit sie für alle Besucher sichtbar werden:
 
-## Design anpassen
+1. Im Reiter **Daten sichern** auf „data.json herunterladen“ klicken.
+2. Die heruntergeladene `data.json` auf dem Webserver ersetzen.
 
-Alle Farben, Schriften, Abstände und Radien stehen im `:root`-Block ganz oben
-in `style.css`:
+„Lokale Änderungen verwerfen“ löscht den Browserspeicher und lädt wieder die
+`data.json` vom Server.
 
-- Primary (Tiefblau) `#002d62`
-- Alert (Feuerwehrrot) `#d32f2f`
-- Akzent (Sand/Gold) `#c29b38` / `#8b7355`
-- Hintergrund `#f8f9fa` / `#ffffff`
-- Text (Anthrazit) `#212529`
-- Überschriften: `Oswald` (Fallback `Montserrat`), Fließtext: `Inter`
-- Kacheln: `--radius-lg: 12px`, Schatten `--shadow-card`, Hover-Lift −4 px
+## Formulare
 
-Die Webfonts werden über Google Fonts eingebunden. Sollen sie lokal liegen
-(z. B. aus Datenschutzgründen), die Schriftdateien hochladen, die
-`<link>`-Zeilen in den HTML-Dateien entfernen und stattdessen `@font-face`
-in `style.css` ergänzen.
+Die drei Formulare (Schnupperdienst, Beitritt, Kontakt) prüfen die Pflichtfelder und
+öffnen anschließend das E-Mail-Programm der Besucherin bzw. des Besuchers mit einer
+fertig vorbereiteten Nachricht. Es werden keinerlei Daten auf der Website gespeichert –
+das ist datenschutzfreundlich und kommt ohne serverseitiges Skript aus.
+Die Empfängeradressen werden im CMS unter **Einstellungen** gepflegt.
+
+## Anpassen
+
+* **Farben, Schriftgrößen, Abstände:** ausschließlich im Block `:root` am Anfang von
+  `style.css`.
+* **Hero-Bild:** eine Datei `hero.jpg` in den Projektordner legen – sie wird automatisch
+  verwendet. Ohne diese Datei greift ein Farbverlauf.
+* **Adresse, Notfallnummern, Impressum:** direkt im Footer der HTML-Dateien.
+
+## Sicherheitshinweis
+
+Der Passwortschutz des CMS ist ein einfacher Schutz im Browser und ersetzt keine
+serverseitige Absicherung. Für den öffentlichen Betrieb empfiehlt sich zusätzlich ein
+Verzeichnisschutz (z. B. `.htaccess` mit Passwortabfrage) für `admin.html`.

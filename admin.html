@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin / CMS – Feuerwehr Wulften am Harz</title>
+  <title>Interner Bereich – Feuerwehr Wulften am Harz</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="image_0.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="admin-body" data-page="admin">
@@ -18,275 +18,246 @@
       <h1>CMS – Feuerwehr Wulften am Harz</h1>
       <div class="admin-header__actions">
         <a class="btn btn--light btn--sm" href="index.html">Zur Website</a>
-        <button class="btn btn--ghost-light btn--sm" type="button" id="logout">Abmelden</button>
+        <button class="btn btn--ghost-light btn--sm" type="button" id="abmelden">Abmelden</button>
       </div>
     </div>
   </header>
 
-  <!-- Login -->
-  <section class="container login-wrap" id="login-bereich">
-    <div class="card">
-      <h2>Anmeldung</h2>
-      <p class="text-sm text-muted">
-        Bitte geben Sie das Admin-Passwort ein, um Einsätze, Personen, Termine und
-        das Kontaktformular zu verwalten.
-      </p>
-      <form class="form" id="login-formular">
-        <div class="field">
-          <label for="passwort">Passwort</label>
-          <input type="password" id="passwort" name="passwort" autocomplete="current-password" required>
-        </div>
-        <p class="form-message" id="login-fehler" role="alert" hidden></p>
-        <button class="btn btn--primary btn--block" type="submit">Anmelden</button>
-      </form>
-    </div>
-  </section>
+  <main class="container">
 
-  <!-- CMS -->
-  <section class="container" id="admin-bereich" hidden>
-
-    <div class="tabs" role="tablist">
-      <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-tab="tab-einsaetze">Einsätze</button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-personen">Ortskommando</button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-termine">Dienstplan / Termine</button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-schnupper">Schnupperdienst &amp; Formular</button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-daten">Daten &amp; Sicherung</button>
-    </div>
-
-    <!-- Einsatz-Manager -->
-    <div class="tab-panel" id="tab-einsaetze" role="tabpanel">
-      <div class="admin-grid">
-        <form class="card form" id="einsatz-formular">
-          <h2 id="einsatz-formular-titel">Neuen Einsatz anlegen</h2>
-          <input type="hidden" name="id">
-
-          <div class="form-row form-row--2">
-            <div class="field">
-              <label for="e-datum">Datum <span class="req">*</span></label>
-              <input type="date" id="e-datum" name="datum" required>
-            </div>
-            <div class="field">
-              <label for="e-uhrzeit">Uhrzeit</label>
-              <input type="time" id="e-uhrzeit" name="uhrzeit">
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="e-stichwort">Alarmierungsstichwort <span class="req">*</span></label>
-            <input type="text" id="e-stichwort" name="stichwort" placeholder="z. B. F2 – Kellerbrand" required>
-          </div>
-
-          <div class="form-row form-row--2">
-            <div class="field">
-              <label for="e-art">Art</label>
-              <select id="e-art" name="art">
-                <option>Brand</option>
-                <option>THL</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="e-ort">Einsatzort</label>
-              <input type="text" id="e-ort" name="ort" placeholder="z. B. Wulften, Hauptstraße">
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="e-bild">Kachelbild (Bild-URL / Dateiname)</label>
-            <input type="text" id="e-bild" name="bild" placeholder="z. B. bilder/einsatz-2026-014.jpg">
-            <span class="field__hint">
-              Bild vorher per FTP in den Ordner <code>bilder/</code> laden. Leer lassen
-              für die farbige Standardkachel.
-            </span>
-          </div>
-
-          <div class="field">
-            <label for="e-beschreibung">Kurzbeschreibung (Kachel)</label>
-            <textarea id="e-beschreibung" name="beschreibung" placeholder="Ein bis zwei Sätze für die Übersichtskachel."></textarea>
-          </div>
-
-          <div class="field">
-            <label for="e-bericht">Ausführlicher Bericht</label>
-            <textarea id="e-bericht" name="bericht" placeholder="Wird über „Bericht lesen“ angezeigt. Keine personenbezogenen Daten veröffentlichen."></textarea>
-          </div>
-
-          <div class="admin-item__actions">
-            <button class="btn btn--primary" type="submit">Speichern</button>
-            <button class="btn btn--outline" type="button" id="einsatz-abbrechen" hidden>Abbrechen</button>
-          </div>
-        </form>
-
-        <div>
-          <h2>Erfasste Einsätze</h2>
-          <div class="admin-list" id="einsatz-liste"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Personen-Manager -->
-    <div class="tab-panel" id="tab-personen" role="tabpanel" hidden>
-      <div class="admin-grid">
-        <form class="card form" id="person-formular">
-          <h2 id="person-formular-titel">Neue Person anlegen</h2>
-          <input type="hidden" name="id">
-
-          <div class="field">
-            <label for="p-name">Name <span class="req">*</span></label>
-            <input type="text" id="p-name" name="name" required>
-          </div>
-
-          <div class="form-row form-row--2">
-            <div class="field">
-              <label for="p-dienstgrad">Dienstgrad</label>
-              <input type="text" id="p-dienstgrad" name="dienstgrad" placeholder="z. B. Hauptbrandmeister">
-            </div>
-            <div class="field">
-              <label for="p-funktion">Funktion <span class="req">*</span></label>
-              <input type="text" id="p-funktion" name="funktion" placeholder="z. B. Ortsbrandmeister" required>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="p-bild">Bild-Link</label>
-            <input type="text" id="p-bild" name="bild" placeholder="z. B. bilder/person.jpg">
-            <span class="field__hint">Leer lassen für den Platzhalter mit Initialen.</span>
-          </div>
-
-          <div class="field">
-            <label for="p-kontakt">Kontakt (E-Mail oder Telefon)</label>
-            <input type="text" id="p-kontakt" name="kontakt">
-          </div>
-
-          <label class="checkbox-field" for="p-frontpage">
-            <input type="checkbox" id="p-frontpage" name="showOnFrontpage">
-            Auf Startseite anzeigen (Ja/Nein)
-          </label>
-
-          <div class="admin-item__actions">
-            <button class="btn btn--primary" type="submit">Speichern</button>
-            <button class="btn btn--outline" type="button" id="person-abbrechen" hidden>Abbrechen</button>
-          </div>
-        </form>
-
-        <div>
-          <h2>Ortskommando</h2>
-          <p class="text-sm text-muted">
-            Über den Schalter „Startseite: Ja/Nein“ steuern Sie direkt, wer in der
-            Kurzübersicht auf der Startseite erscheint.
-          </p>
-          <div class="admin-list" id="person-liste"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Termine-Manager -->
-    <div class="tab-panel" id="tab-termine" role="tabpanel" hidden>
-      <div class="admin-grid">
-        <form class="card form" id="termin-formular">
-          <h2 id="termin-formular-titel">Neuen Termin anlegen</h2>
-          <input type="hidden" name="id">
-
-          <div class="form-row form-row--2">
-            <div class="field">
-              <label for="t-datum">Datum <span class="req">*</span></label>
-              <input type="date" id="t-datum" name="datum" required>
-            </div>
-            <div class="field">
-              <label for="t-uhrzeit">Uhrzeit</label>
-              <input type="time" id="t-uhrzeit" name="uhrzeit" value="19:00">
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="t-titel">Titel <span class="req">*</span></label>
-            <input type="text" id="t-titel" name="titel" placeholder="z. B. Übungsdienst: Atemschutz" required>
-          </div>
-
-          <div class="field">
-            <label for="t-ort">Ort</label>
-            <input type="text" id="t-ort" name="ort" value="Feuerwehrhaus Wulften">
-          </div>
-
-          <div class="field">
-            <label for="t-hinweis">Hinweis</label>
-            <textarea id="t-hinweis" name="hinweis" placeholder="z. B. Einsatzkleidung mitbringen"></textarea>
-          </div>
-
-          <div class="admin-item__actions">
-            <button class="btn btn--primary" type="submit">Speichern</button>
-            <button class="btn btn--outline" type="button" id="termin-abbrechen" hidden>Abbrechen</button>
-          </div>
-        </form>
-
-        <div>
-          <h2>Dienstplan</h2>
-          <div class="admin-list" id="termin-liste"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Schnupperdienst & Formular -->
-    <div class="tab-panel" id="tab-schnupper" role="tabpanel" hidden>
-      <form class="card form" id="schnupper-formular">
-        <h2>Schnupperdienst-Banner &amp; Kontaktformular</h2>
-        <p class="text-sm text-muted">
-          Hier passen Sie den Text des Schnupperdienst-Banners, die Ziel-E-Mail-Adresse
-          und die Felder des Kontaktformulars an.
-        </p>
-
-        <div class="field">
-          <label for="s-titel">Überschrift des Banners</label>
-          <input type="text" id="s-titel" name="titel">
-        </div>
-
-        <div class="field">
-          <label for="s-text">Text des Banners</label>
-          <textarea id="s-text" name="text"></textarea>
-        </div>
-
-        <div class="form-row form-row--2">
-          <div class="field">
-            <label for="s-button">Beschriftung des Buttons</label>
-            <input type="text" id="s-button" name="buttonText">
-          </div>
-          <div class="field">
-            <label for="s-email">Ziel-E-Mail-Adresse</label>
-            <input type="email" id="s-email" name="email">
-          </div>
-        </div>
-
-        <h3>Formularfelder</h3>
-        <p class="text-sm text-muted">
-          Reihenfolge = Anzeigereihenfolge im Formular. Bei „Auswahlliste“ die
-          Optionen mit Komma trennen.
-        </p>
-        <div class="stack-sm" id="feld-liste"></div>
-
-        <div class="admin-item__actions">
-          <button class="btn btn--outline" type="button" id="feld-hinzufuegen">Feld hinzufügen</button>
-          <button class="btn btn--primary" type="submit">Einstellungen speichern</button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Daten & Sicherung -->
-    <div class="tab-panel" id="tab-daten" role="tabpanel" hidden>
+    <!-- Login -->
+    <section class="login-wrap" id="login-bereich">
       <div class="card">
-        <h2>Daten &amp; Sicherung</h2>
+        <h2>Anmeldung</h2>
         <p class="text-sm text-muted">
-          Alle Änderungen werden zunächst in diesem Browser gespeichert. Damit die
-          Inhalte für alle Besucher sichtbar werden, exportieren Sie die
-          <strong>data.json</strong> und laden Sie die Datei per FTP in das
-          Website-Verzeichnis hoch (vorhandene Datei überschreiben).
+          Bitte geben Sie das Passwort für den internen Bereich ein.
         </p>
-        <div class="admin-item__actions">
-          <button class="btn btn--primary" type="button" id="export">data.json exportieren</button>
-          <button class="btn btn--outline" type="button" id="import">data.json importieren</button>
-          <button class="btn btn--danger" type="button" id="zuruecksetzen">Auf Serverstand zurücksetzen</button>
-        </div>
-        <input type="file" id="import-datei" accept="application/json,.json" class="visually-hidden">
+        <p class="form-message" id="login-status" role="alert" hidden></p>
+        <form class="form" id="login-formular" novalidate>
+          <div class="field">
+            <label for="passwort">Passwort</label>
+            <input id="passwort" name="passwort" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Anmelden</button>
+        </form>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- CMS -->
+    <section id="cms-bereich" hidden>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-btn is-active" type="button" role="tab" data-tab="einsaetze" aria-selected="true">Einsätze</button>
+        <button class="tab-btn" type="button" role="tab" data-tab="personen" aria-selected="false">Ortskommando</button>
+        <button class="tab-btn" type="button" role="tab" data-tab="einstellungen" aria-selected="false">Einstellungen</button>
+        <button class="tab-btn" type="button" role="tab" data-tab="daten" aria-selected="false">Daten sichern</button>
+      </div>
+
+      <!-- Einsätze -->
+      <div class="tab-panel" data-panel="einsaetze" role="tabpanel">
+        <div class="admin-grid">
+          <div class="card">
+            <h2 id="einsatz-formular-titel">Neuen Einsatz anlegen</h2>
+            <form class="form" id="einsatz-formular" novalidate>
+              <input type="hidden" name="id">
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="e-datum">Datum <span class="req">*</span></label>
+                  <input id="e-datum" name="datum" type="date" required>
+                </div>
+                <div class="field">
+                  <label for="e-uhrzeit">Uhrzeit</label>
+                  <input id="e-uhrzeit" name="uhrzeit" type="time">
+                </div>
+              </div>
+              <div class="field">
+                <label for="e-stichwort">Alarmierungsstichwort <span class="req">*</span></label>
+                <input id="e-stichwort" name="stichwort" type="text" placeholder="z. B. F2 – Gartenlaubenbrand" required>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="e-art">Einsatzart</label>
+                  <select id="e-art" name="art"></select>
+                </div>
+                <div class="field">
+                  <label for="e-ort">Einsatzort</label>
+                  <input id="e-ort" name="ort" type="text">
+                </div>
+              </div>
+
+              <div class="field">
+                <label>Einsatzbild</label>
+                <div class="image-tool" id="einsatz-bild-tool">
+                  <div class="image-tool__preview"></div>
+                  <input type="file" accept="image/*" aria-label="Einsatzbild hochladen">
+                  <input class="image-tool__url" type="text" placeholder="oder Bildpfad / URL, z. B. bilder/einsatz1.jpg" aria-label="Bildpfad oder URL">
+                  <div>
+                    <span class="filter-group__label">Bildausschnitt</span>
+                    <div class="crop-options"></div>
+                  </div>
+                  <span class="field__hint">Hochgeladene Bilder werden direkt in den Daten gespeichert – bitte klein halten (max. 1,5 MB).</span>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="e-beschreibung">Kurzbeschreibung</label>
+                <textarea id="e-beschreibung" name="beschreibung" style="min-height:5rem"></textarea>
+              </div>
+              <div class="field">
+                <label for="e-bericht">Einsatzbericht</label>
+                <textarea id="e-bericht" name="bericht"></textarea>
+                <span class="field__hint">Leerzeile zwischen Absätzen einfügen.</span>
+              </div>
+              <div class="admin-item__actions">
+                <button class="btn btn--primary" type="submit">Speichern</button>
+                <button class="btn btn--outline" type="button" id="einsatz-abbrechen" hidden>Abbrechen</button>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <h2>Vorhandene Einsätze</h2>
+            <div class="admin-list" id="einsatz-verwaltung"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personen -->
+      <div class="tab-panel" data-panel="personen" role="tabpanel" hidden>
+        <div class="admin-grid">
+          <div class="card">
+            <h2 id="person-formular-titel">Neue Person anlegen</h2>
+            <form class="form" id="person-formular" novalidate>
+              <input type="hidden" name="id">
+              <div class="field">
+                <label for="p-name">Name <span class="req">*</span></label>
+                <input id="p-name" name="name" type="text" required>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="field">
+                  <label for="p-dienstgrad">Dienstgrad</label>
+                  <input id="p-dienstgrad" name="dienstgrad" type="text" placeholder="z. B. Oberlöschmeister">
+                </div>
+                <div class="field">
+                  <label for="p-funktion">Funktion</label>
+                  <input id="p-funktion" name="funktion" type="text" placeholder="z. B. Jugendfeuerwehrwart">
+                </div>
+              </div>
+              <div class="field">
+                <label for="p-stufe">Hierarchie-Stufe</label>
+                <select id="p-stufe" name="stufe"></select>
+              </div>
+              <div class="field">
+                <label for="p-kontakt">E-Mail</label>
+                <input id="p-kontakt" name="kontakt" type="email">
+              </div>
+
+              <div class="field">
+                <label>Profilbild</label>
+                <div class="image-tool" id="person-bild-tool">
+                  <div class="image-tool__preview"></div>
+                  <input type="file" accept="image/*" aria-label="Profilbild hochladen">
+                  <input class="image-tool__url" type="text" placeholder="oder Bildpfad / URL, z. B. bilder/person1.jpg" aria-label="Bildpfad oder URL">
+                  <div>
+                    <span class="filter-group__label">Bildausschnitt</span>
+                    <div class="crop-options"></div>
+                  </div>
+                </div>
+              </div>
+
+              <label class="checkbox-field">
+                <input type="checkbox" name="showOnFrontpage">
+                Auf Startseite anzeigen
+              </label>
+
+              <div class="admin-item__actions">
+                <button class="btn btn--primary" type="submit">Speichern</button>
+                <button class="btn btn--outline" type="button" id="person-abbrechen" hidden>Abbrechen</button>
+              </div>
+            </form>
+          </div>
+
+          <div>
+            <h2>Ortskommando</h2>
+            <div class="admin-list" id="person-verwaltung"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Einstellungen -->
+      <div class="tab-panel" data-panel="einstellungen" role="tabpanel" hidden>
+        <div class="card" style="max-width:680px">
+          <h2>Einstellungen</h2>
+          <form class="form" id="einstellungen-formular" novalidate>
+            <h3>Hierarchie-Ebenen im Ortskommando</h3>
+            <div class="field">
+              <label for="s-stufe1">Titel Stufe 1</label>
+              <input id="s-stufe1" name="stufe1" type="text">
+            </div>
+            <div class="field">
+              <label for="s-stufe2">Titel Stufe 2</label>
+              <input id="s-stufe2" name="stufe2" type="text">
+            </div>
+            <div class="field">
+              <label for="s-stufe3">Titel Stufe 3</label>
+              <input id="s-stufe3" name="stufe3" type="text">
+            </div>
+
+            <h3>Schnupperdienst</h3>
+            <div class="field">
+              <label for="s-teaser-titel">Überschrift</label>
+              <input id="s-teaser-titel" name="teaserTitel" type="text">
+            </div>
+            <div class="field">
+              <label for="s-teaser-text">Text</label>
+              <textarea id="s-teaser-text" name="teaserText" style="min-height:6rem"></textarea>
+            </div>
+            <div class="field">
+              <label for="s-teaser-button">Button-Beschriftung</label>
+              <input id="s-teaser-button" name="teaserButton" type="text">
+            </div>
+
+            <h3>Ziel-E-Mail-Adressen der Formulare</h3>
+            <div class="field">
+              <label for="s-mail-sd">Schnupperdienst</label>
+              <input id="s-mail-sd" name="mailSchnupperdienst" type="email">
+            </div>
+            <div class="field">
+              <label for="s-mail-bt">Mitglied werden / Beitritt</label>
+              <input id="s-mail-bt" name="mailBeitritt" type="email">
+            </div>
+            <div class="field">
+              <label for="s-mail-kt">Allgemeiner Kontakt</label>
+              <input id="s-mail-kt" name="mailKontakt" type="email">
+            </div>
+
+            <div>
+              <button class="btn btn--primary" type="submit">Einstellungen speichern</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Daten -->
+      <div class="tab-panel" data-panel="daten" role="tabpanel" hidden>
+        <div class="card" style="max-width:680px">
+          <h2>Daten sichern &amp; übertragen</h2>
+          <p class="text-sm text-muted">
+            Alle Änderungen werden zunächst nur in diesem Browser gespeichert. Damit sie für
+            alle Besucher sichtbar werden, laden Sie die Datei <code>data.json</code>
+            herunter und ersetzen Sie damit die Datei auf dem Webserver.
+          </p>
+          <div class="stack-sm">
+            <button class="btn btn--primary" type="button" id="export-json">data.json herunterladen</button>
+            <label class="btn btn--outline" for="import-json">data.json einlesen</label>
+            <input id="import-json" type="file" accept="application/json,.json" class="visually-hidden">
+            <button class="btn btn--danger" type="button" id="reset-daten">Lokale Änderungen verwerfen</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
 
   <div class="toast" id="toast" role="status" hidden></div>
 

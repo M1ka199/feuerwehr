@@ -8,7 +8,7 @@
   <link rel="icon" href="image_0.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="einsaetze">
@@ -26,18 +26,17 @@
           <span class="brand__sub">Freiwillige Feuerwehr</span>
         </span>
       </a>
-
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
         ☰ Menü
       </button>
-
       <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
         <ul>
           <li><a href="index.html">Startseite</a></li>
-          <li><a class="is-current" href="einsaetze.html">Einsätze</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
           <li><a href="kommando.html">Ortskommando</a></li>
-          <li><a href="termine.html">Termine &amp; Dienste</a></li>
-          <li><a class="nav-cta" href="index.html#kontakt">Kontakt</a></li>
+          <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+          <li><a href="beitritt.html">Mitglied werden</a></li>
+          <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
         </ul>
       </nav>
     </div>
@@ -47,32 +46,22 @@
     <section class="page-head">
       <div class="container">
         <h1>Einsatzverlauf</h1>
-        <p>
-          Alle veröffentlichten Einsätze unserer Ortsfeuerwehr – chronologisch
-          nach Jahren sortiert und nach Einsatzart filterbar.
-        </p>
+        <p>Alle dokumentierten Einsätze der Ortsfeuerwehr – filterbar nach Jahr und Einsatzart.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
         <div class="filter-group">
-          <span class="filter-group__label">Nach Jahr filtern</span>
-          <div class="filters" id="jahr-filter"></div>
+          <span class="filter-group__label" id="label-jahr">Nach Jahr filtern</span>
+          <div class="filters" id="filter-jahr" role="group" aria-labelledby="label-jahr"></div>
         </div>
-
         <div class="filter-group">
-          <span class="filter-group__label">Nach Art filtern</span>
-          <div class="filters">
-            <button class="filter-btn is-active" type="button" data-art-filter="alle">Alle Einsätze</button>
-            <button class="filter-btn" type="button" data-art-filter="brand">Brand</button>
-            <button class="filter-btn" type="button" data-art-filter="thl">THL</button>
-          </div>
+          <span class="filter-group__label" id="label-art">Nach Einsatzart filtern</span>
+          <div class="filters" id="filter-art" role="group" aria-labelledby="label-art"></div>
         </div>
-
-        <p class="text-sm text-muted" id="archiv-anzahl"></p>
-
-        <div id="einsaetze-archiv"></div>
+        <p class="text-sm text-muted" id="einsatz-anzahl" aria-live="polite"></p>
+        <div id="einsatz-liste"></div>
       </div>
     </section>
   </main>
@@ -84,7 +73,7 @@
           <h3>Feuerwehrhaus</h3>
           <p class="mb-0">
             Freiwillige Feuerwehr Wulften am Harz<br>
-            Hauptstraße 1<br>
+            Bahnhofstraße 1<br>
             37199 Wulften am Harz
           </p>
         </div>
@@ -94,33 +83,36 @@
             <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
             <li>Polizei: <a href="tel:110">110</a></li>
             <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
-            <li>Leitstelle Göttingen: <a href="tel:+4955140050">0551 400 50</a></li>
           </ul>
         </div>
         <div>
-          <h3>Rechtliches</h3>
+          <h3>Schnellzugriff</h3>
           <ul>
-            <li><a href="index.html#impressum">Impressum</a></li>
-            <li><a href="index.html#datenschutz">Datenschutz</a></li>
-            <li><a href="admin.html">Interner Bereich</a></li>
+            <li><a href="einsaetze.html">Einsatzverlauf</a></li>
+            <li><a href="kommando.html">Ortskommando</a></li>
+            <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+            <li><a href="beitritt.html">Mitglied werden</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
           </ul>
         </div>
       </div>
       <div class="site-footer__bottom">
         <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
-        <span>Ehrenamt rettet Leben.</span>
+        <span>
+          <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="admin.html">Interner Bereich</a>
+        </span>
       </div>
     </div>
   </footer>
 
-  <div class="modal" id="modal-einsatz" role="dialog" aria-modal="true" aria-labelledby="einsatz-detail-titel" hidden>
-    <button class="modal__backdrop" type="button" data-modal-close aria-label="Schließen"></button>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titel" hidden>
+    <button class="modal__backdrop" type="button" data-modal-close aria-label="Dialog schließen"></button>
     <div class="modal__dialog">
       <div class="modal__head">
-        <h2 id="einsatz-detail-titel">Einsatz</h2>
-        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">✕</button>
+        <h2 id="modal-titel">Einsatz</h2>
+        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">×</button>
       </div>
-      <div id="einsatz-detail-inhalt"></div>
+      <div id="modal-body"></div>
     </div>
   </div>
 

@@ -1,47 +1,21 @@
 {
   "einstellungen": {
+    "stufen": [
+      { "id": 1, "titel": "Ortsbrandmeister & Stellvertretung" },
+      { "id": 2, "titel": "Gruppenführung" },
+      { "id": 3, "titel": "Fachbeauftragte & Funktionsträger" }
+    ],
     "schnupperdienst": {
       "titel": "Lust auf einen Schnupperdienst?",
-      "text": "Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich, kostenlos und ohne Vorkenntnisse. Wir zeigen dir Fahrzeuge, Technik und den Alltag im Ehrenamt. Mitmachen kann jede und jeder ab 10 Jahren.",
-      "buttonText": "Jetzt anmelden / Kontakt aufnehmen",
-      "email": "kontakt@feuerwehr-wulften.de",
-      "felder": [
-        {
-          "id": "anliegen",
-          "label": "Ihr Anliegen",
-          "typ": "auswahl",
-          "pflicht": false,
-          "optionen": "Allgemeine Frage, Schnupperdienst / Mitmachen, Förderverein"
-        },
-        {
-          "id": "name",
-          "label": "Name",
-          "typ": "text",
-          "pflicht": true,
-          "optionen": ""
-        },
-        {
-          "id": "kontakt",
-          "label": "E-Mail oder Telefon",
-          "typ": "text",
-          "pflicht": true,
-          "optionen": ""
-        },
-        {
-          "id": "alter",
-          "label": "Alter (bei Interesse an der Jugendfeuerwehr)",
-          "typ": "text",
-          "pflicht": false,
-          "optionen": ""
-        },
-        {
-          "id": "nachricht",
-          "label": "Nachricht",
-          "typ": "textfeld",
-          "pflicht": true,
-          "optionen": ""
-        }
-      ]
+      "text": "Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich, kostenlos und ohne Vorkenntnisse. Wir zeigen dir Fahrzeuge, Technik und den Alltag im Ehrenamt.",
+      "buttonText": "Zum Schnupperdienst anmelden",
+      "email": "schnupperdienst@feuerwehr-wulften.de"
+    },
+    "beitritt": {
+      "email": "beitritt@feuerwehr-wulften.de"
+    },
+    "kontakt": {
+      "email": "kontakt@feuerwehr-wulften.de"
     }
   },
   "einsaetze": [
@@ -53,6 +27,7 @@
       "art": "Brand",
       "ort": "Wulften, Am Sportplatz",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Brennende Gartenlaube in unmittelbarer Nähe zur Nachbarbebauung.",
       "bericht": "Beim Eintreffen der ersten Kräfte stand die Gartenlaube bereits in Vollbrand. Über ein C-Rohr unter Atemschutz wurde der Brand abgelöscht und ein Übergreifen auf die Nachbarbebauung verhindert. Im Anschluss folgten ausgedehnte Nachlöscharbeiten mit Kontrolle durch die Wärmebildkamera. Verletzt wurde niemand."
     },
@@ -61,9 +36,10 @@
       "datum": "2026-08-11",
       "uhrzeit": "07:15",
       "stichwort": "H1 – Ölspur",
-      "art": "THL",
+      "art": "TH",
       "ort": "Wulften, Hauptstraße",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Ausgedehnte Ölspur über rund 400 Meter im Ortskern.",
       "bericht": "Während des Berufsverkehrs wurde eine Ölspur über rund 400 Meter gemeldet. Die Einsatzstelle wurde abgesichert, die Spur mit Bindemittel abgestreut und anschließend an den Bauhof der Gemeinde übergeben."
     },
@@ -72,9 +48,10 @@
       "datum": "2026-07-29",
       "uhrzeit": "21:03",
       "stichwort": "H2 – Verkehrsunfall, Person eingeklemmt",
-      "art": "THL",
+      "art": "TH",
       "ort": "L 530 zwischen Wulften und Hattorf",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Technische Rettung einer eingeklemmten Person.",
       "bericht": "Nach einem Zusammenstoß zweier Fahrzeuge war eine Person im Fahrzeug eingeklemmt. Nach Sicherstellung des Brandschutzes erfolgte die patientenorientierte Rettung mit hydraulischem Rettungsgerät in enger Abstimmung mit Rettungsdienst und Notarzt."
     },
@@ -82,21 +59,23 @@
       "id": "e-2026-011",
       "datum": "2026-07-02",
       "uhrzeit": "14:20",
-      "stichwort": "F1 – Rauchentwicklung im Gebäude",
-      "art": "Brand",
+      "stichwort": "F1 – Gemeldeter Zimmerbrand",
+      "art": "Fehlalarm",
       "ort": "Wulften, Bahnhofstraße",
       "bild": "",
-      "beschreibung": "Angebranntes Kochgut in einer Wohnung.",
-      "bericht": "Ursache der starken Rauchentwicklung war angebranntes Kochgut auf dem Herd. Die Wohnung wurde mit der Wärmebildkamera kontrolliert und mit dem Hochleistungslüfter entraucht. Verletzte gab es nicht."
+      "bildPosition": "center",
+      "beschreibung": "Ausgelöste Rauchwarnmelder durch angebranntes Kochgut.",
+      "bericht": "Die gemeldete Rauchentwicklung stammte von angebranntem Kochgut. Ein Feuer lag nicht vor. Die Wohnung wurde mit der Wärmebildkamera kontrolliert und belüftet – Einsatzende nach 30 Minuten."
     },
     {
       "id": "e-2026-010",
       "datum": "2026-06-18",
       "uhrzeit": "16:55",
       "stichwort": "H1 – Sturmschaden / Baum auf Fahrbahn",
-      "art": "THL",
+      "art": "TH",
       "ort": "Wulften, Lindenweg",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Umgestürzter Baum blockierte die Fahrbahn.",
       "bericht": "Nach einer Gewitterfront war ein Baum auf die Fahrbahn gestürzt. Der Baum wurde mit der Motorsäge zerkleinert, die Straße geräumt und anschließend wieder freigegeben."
     },
@@ -108,17 +87,31 @@
       "art": "Brand",
       "ort": "Ortsrand Wulften",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Überörtliche Unterstützung bei einem Großbrand.",
       "bericht": "Als überörtliche Unterstützung rückten wir mit dem Tanklöschfahrzeug und mehreren Atemschutzgeräteträgern aus. Neben der Brandbekämpfung übernahmen wir die Wasserversorgung über eine lange Wegstrecke. Die Einsatzdauer betrug rund fünf Stunden."
+    },
+    {
+      "id": "e-2026-004",
+      "datum": "2026-02-21",
+      "uhrzeit": "05:40",
+      "stichwort": "Unwetterlage – Sturmtief",
+      "art": "Katastrophe",
+      "ort": "Gemeindegebiet Wulften",
+      "bild": "",
+      "bildPosition": "center",
+      "beschreibung": "Flächenlage mit zahlreichen Einsatzstellen im gesamten Gemeindegebiet.",
+      "bericht": "Ein Sturmtief führte zu einer Flächenlage mit zwölf abgearbeiteten Einsatzstellen. Die Einsatzleitung erfolgte über den Bereitstellungsraum am Feuerwehrhaus, unterstützt durch die Nachbarwehren."
     },
     {
       "id": "e-2025-021",
       "datum": "2025-11-14",
       "uhrzeit": "19:48",
       "stichwort": "H1 – Tragehilfe für den Rettungsdienst",
-      "art": "THL",
+      "art": "TH",
       "ort": "Wulften, Am Anger",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Unterstützung des Rettungsdienstes im Treppenhaus.",
       "bericht": "Der Rettungsdienst forderte Unterstützung bei der schonenden Rettung einer Person aus dem Obergeschoss. Der Transport erfolgte mit dem Schleifkorb über das enge Treppenhaus."
     },
@@ -130,8 +123,21 @@
       "art": "Brand",
       "ort": "Feldmark Wulften",
       "bild": "",
+      "bildPosition": "center",
       "beschreibung": "Brennendes Stoppelfeld nahe der Ortslage.",
       "bericht": "Rund ein Hektar Stoppelfeld stand in Brand. Mit mehreren D- und C-Rohren sowie einer Riegelstellung zum angrenzenden Waldrand konnte eine Ausbreitung verhindert werden."
+    },
+    {
+      "id": "e-2025-012",
+      "datum": "2025-06-27",
+      "uhrzeit": "10:05",
+      "stichwort": "Automatischer Brandmeldealarm",
+      "art": "Fehlalarm",
+      "ort": "Gewerbegebiet Wulften",
+      "bild": "",
+      "bildPosition": "center",
+      "beschreibung": "Auslösung einer Brandmeldeanlage durch Staubentwicklung.",
+      "bericht": "Die Brandmeldeanlage hatte durch Staub bei Reinigungsarbeiten ausgelöst. Nach Kontrolle des Objekts konnte die Anlage zurückgestellt werden."
     }
   ],
   "personen": [
@@ -140,8 +146,10 @@
       "name": "Michael Bode",
       "dienstgrad": "Erster Hauptbrandmeister",
       "funktion": "Ortsbrandmeister",
+      "stufe": 1,
       "showOnFrontpage": true,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "ortsbrandmeister@feuerwehr-wulften.de"
     },
     {
@@ -149,35 +157,54 @@
       "name": "Sabine Krüger",
       "dienstgrad": "Hauptbrandmeisterin",
       "funktion": "Stellvertretende Ortsbrandmeisterin",
+      "stufe": 1,
       "showOnFrontpage": true,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "stellvertretung@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-8",
+      "name": "Dennis Hartmann",
+      "dienstgrad": "Oberlöschmeister",
+      "funktion": "Gruppenführer 1. Gruppe",
+      "stufe": 2,
+      "showOnFrontpage": false,
+      "bild": "",
+      "bildPosition": "center",
+      "kontakt": "gruppenfuehrung1@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-9",
+      "name": "Katja Siebert",
+      "dienstgrad": "Löschmeisterin",
+      "funktion": "Gruppenführerin 2. Gruppe",
+      "stufe": 2,
+      "showOnFrontpage": false,
+      "bild": "",
+      "bildPosition": "center",
+      "kontakt": "gruppenfuehrung2@feuerwehr-wulften.de"
     },
     {
       "id": "p-3",
       "name": "Tobias Lehmann",
       "dienstgrad": "Oberlöschmeister",
       "funktion": "Jugendfeuerwehrwart",
+      "stufe": 3,
       "showOnFrontpage": true,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "jugendwart@feuerwehr-wulften.de"
-    },
-    {
-      "id": "p-4",
-      "name": "Andrea Wolters",
-      "dienstgrad": "Löschmeisterin",
-      "funktion": "Schriftführerin",
-      "showOnFrontpage": false,
-      "bild": "",
-      "kontakt": "schriftfuehrung@feuerwehr-wulften.de"
     },
     {
       "id": "p-5",
       "name": "Frank Osterloh",
       "dienstgrad": "Hauptfeuerwehrmann",
       "funktion": "Gerätewart",
+      "stufe": 3,
       "showOnFrontpage": false,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "geraetewart@feuerwehr-wulften.de"
     },
     {
@@ -185,68 +212,33 @@
       "name": "Jens Rothert",
       "dienstgrad": "Oberfeuerwehrmann",
       "funktion": "Atemschutzbeauftragter",
+      "stufe": 3,
       "showOnFrontpage": false,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "atemschutz@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-4",
+      "name": "Andrea Wolters",
+      "dienstgrad": "Löschmeisterin",
+      "funktion": "Schriftführerin",
+      "stufe": 3,
+      "showOnFrontpage": false,
+      "bild": "",
+      "bildPosition": "center",
+      "kontakt": "schriftfuehrung@feuerwehr-wulften.de"
     },
     {
       "id": "p-7",
       "name": "Carolin Meiners",
       "dienstgrad": "Feuerwehrfrau",
       "funktion": "Kassenwartin / Förderverein",
+      "stufe": 3,
       "showOnFrontpage": false,
       "bild": "",
+      "bildPosition": "center",
       "kontakt": "kasse@feuerwehr-wulften.de"
-    }
-  ],
-  "termine": [
-    {
-      "id": "t-1",
-      "datum": "2026-09-11",
-      "uhrzeit": "19:00",
-      "titel": "Übungsdienst: Technische Hilfeleistung",
-      "ort": "Feuerwehrhaus Wulften",
-      "hinweis": "Einsatzkleidung vollständig mitbringen."
-    },
-    {
-      "id": "t-2",
-      "datum": "2026-09-25",
-      "uhrzeit": "19:00",
-      "titel": "Übungsdienst: Atemschutz-Belastungsübung",
-      "ort": "Feuerwehrhaus Wulften",
-      "hinweis": "Nur für Atemschutzgeräteträger mit gültiger G26.3."
-    },
-    {
-      "id": "t-3",
-      "datum": "2026-10-09",
-      "uhrzeit": "18:30",
-      "titel": "Jugendfeuerwehr: Knoten und Stiche",
-      "ort": "Feuerwehrhaus Wulften",
-      "hinweis": "Schnuppergäste ab 10 Jahren herzlich willkommen."
-    },
-    {
-      "id": "t-4",
-      "datum": "2026-10-23",
-      "uhrzeit": "19:00",
-      "titel": "Gemeinsamer Dienst mit der Ortsfeuerwehr Hattorf",
-      "ort": "Feuerwehrhaus Hattorf",
-      "hinweis": "Abfahrt 18:40 Uhr am Feuerwehrhaus Wulften."
-    },
-    {
-      "id": "t-5",
-      "datum": "2026-11-14",
-      "uhrzeit": "18:00",
-      "titel": "Laternenumzug mit Begleitung durch die Feuerwehr",
-      "ort": "Dorfplatz Wulften",
-      "hinweis": "Treffpunkt für Einsatzkräfte um 17:15 Uhr."
-    },
-    {
-      "id": "t-6",
-      "datum": "2026-12-05",
-      "uhrzeit": "19:00",
-      "titel": "Jahreshauptversammlung",
-      "ort": "Feuerwehrhaus Wulften",
-      "hinweis": "Mit Ehrungen und Beförderungen. Dienstanzug."
     }
   ]
 }

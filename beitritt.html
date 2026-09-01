@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mitglied werden – Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Aufnahmeantrag für die Einsatzabteilung, Jugendfeuerwehr, Kinderfeuerwehr oder die fördernde Mitgliedschaft.">
+  <link rel="icon" href="image_0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="beitritt">
+
+  <div class="emergency-bar">
+    Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <span class="brand__text">
+          <span class="brand__name">Feuerwehr Wulften am Harz</span>
+          <span class="brand__sub">Freiwillige Feuerwehr</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+        ☰ Menü
+      </button>
+      <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
+          <li><a href="kommando.html">Ortskommando</a></li>
+          <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+          <li><a href="beitritt.html">Mitglied werden</a></li>
+          <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <h1>Mitglied werden</h1>
+        <p>
+          Ob aktiver Dienst, Jugend- und Kinderfeuerwehr oder fördernde Mitgliedschaft –
+          wir freuen uns über jede Unterstützung.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="card">
+          <h2>Aufnahmeantrag</h2>
+          <p class="text-sm text-muted">
+            Ihr Antrag geht an
+            <a data-settings-mail="beitritt" href="#">unsere Mitgliederverwaltung</a>.
+          </p>
+          <p class="form-message" id="beitritt-status" role="status" hidden></p>
+          <form class="form" id="beitritt-formular" data-form="beitritt"
+                data-subject="Aufnahmeantrag / Beitritt" novalidate>
+
+            <fieldset class="field" style="border:0;padding:0;margin:0">
+              <legend class="filter-group__label">Gewünschte Abteilung <span class="req" aria-hidden="true">*</span></legend>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="abteilung" value="Aktive Einsatzabteilung"
+                         data-label="Abteilung" required>
+                  <span>Aktive Einsatzabteilung <span class="text-muted">(ab 16 Jahren)</span></span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="abteilung" value="Jugendfeuerwehr"
+                         data-label="Abteilung" required>
+                  <span>Jugendfeuerwehr <span class="text-muted">(10 bis 18 Jahre)</span></span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="abteilung" value="Kinderfeuerwehr"
+                         data-label="Abteilung" required>
+                  <span>Kinderfeuerwehr <span class="text-muted">(6 bis 10 Jahre)</span></span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="abteilung" value="Fördernde Mitgliedschaft / Förderverein"
+                         data-label="Abteilung" required>
+                  <span>Fördernde Mitgliedschaft / Förderverein</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="bt-vorname">Vorname <span class="req" aria-hidden="true">*</span></label>
+                <input id="bt-vorname" name="btVorname" type="text" autocomplete="given-name"
+                       data-label="Vorname" required>
+              </div>
+              <div class="field">
+                <label for="bt-nachname">Nachname <span class="req" aria-hidden="true">*</span></label>
+                <input id="bt-nachname" name="btNachname" type="text" autocomplete="family-name"
+                       data-label="Nachname" required>
+              </div>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="bt-geburtsdatum">Geburtsdatum <span class="req" aria-hidden="true">*</span></label>
+                <input id="bt-geburtsdatum" name="btGeburtsdatum" type="date"
+                       data-label="Geburtsdatum" required>
+              </div>
+              <div class="field">
+                <label for="bt-telefon">Telefon</label>
+                <input id="bt-telefon" name="btTelefon" type="tel" autocomplete="tel"
+                       data-label="Telefon">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="bt-strasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label>
+              <input id="bt-strasse" name="btStrasse" type="text" autocomplete="street-address"
+                     data-label="Straße und Hausnummer" required>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="bt-plz">PLZ <span class="req" aria-hidden="true">*</span></label>
+                <input id="bt-plz" name="btPlz" type="text" inputmode="numeric" autocomplete="postal-code"
+                       data-label="PLZ" required>
+              </div>
+              <div class="field">
+                <label for="bt-ort">Ort <span class="req" aria-hidden="true">*</span></label>
+                <input id="bt-ort" name="btOrt" type="text" autocomplete="address-level2"
+                       data-label="Ort" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="bt-mail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+              <input id="bt-mail" name="btMail" type="email" autocomplete="email"
+                     data-label="E-Mail" required>
+            </div>
+
+            <div class="field">
+              <label for="bt-bemerkung">Bemerkung</label>
+              <textarea id="bt-bemerkung" name="btBemerkung" data-label="Bemerkung"
+                        placeholder="Vorerfahrung, Führerscheinklassen, Rückfragen …"></textarea>
+            </div>
+
+            <p class="form-note">
+              Bei Minderjährigen ist zusätzlich die Zustimmung der Erziehungsberechtigten erforderlich.
+              Mit dem Absenden öffnet sich Ihr E-Mail-Programm mit einer vorbereiteten Nachricht.
+            </p>
+            <div>
+              <button class="btn btn--primary" type="submit">Antrag absenden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <h3>Feuerwehrhaus</h3>
+          <p class="mb-0">
+            Freiwillige Feuerwehr Wulften am Harz<br>
+            Bahnhofstraße 1<br>
+            37199 Wulften am Harz
+          </p>
+        </div>
+        <div>
+          <h3>Notfallnummern</h3>
+          <ul>
+            <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
+            <li>Polizei: <a href="tel:110">110</a></li>
+            <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Schnellzugriff</h3>
+          <ul>
+            <li><a href="einsaetze.html">Einsatzverlauf</a></li>
+            <li><a href="kommando.html">Ortskommando</a></li>
+            <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
+            <li><a href="beitritt.html">Mitglied werden</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
+        <span>
+          <a href="#">Impressum</a> · <a href="#">Datenschutz</a> · <a href="admin.html">Interner Bereich</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
