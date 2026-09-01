@@ -2,12 +2,15 @@
    Freiwillige Feuerwehr Wulften am Harz
    app.js – Datenhaltung, Website-Logik und CMS
    ---------------------------------------------------------
+   Seiten:  index.html | einsaetze.html | kommando.html |
+            termine.html | admin.html
+   Steuerung über <body data-page="...">
+
    Datenhaltung:
    - Erstaufruf: data.json wird geladen (Grundbestand).
-   - Änderungen im CMS werden im LocalStorage des Browsers
-     gespeichert und sofort auf der Website angezeigt.
-   - Über "data.json exportieren" wird eine neue data.json
-     erzeugt, die per FTP auf den Server gelegt werden kann.
+   - Änderungen im CMS liegen im LocalStorage des Browsers.
+   - Über "data.json exportieren" entsteht eine neue data.json,
+     die per FTP auf den Server geladen wird.
    ========================================================= */
 (function () {
   'use strict';
@@ -22,7 +25,19 @@
     dataUrl: 'data.json'
   };
 
-  var EMPTY = { einsaetze: [], personen: [], termine: [] };
+  var STANDARD_EINSTELLUNGEN = {
+    schnupperdienst: {
+      titel: 'Lust auf einen Schnupperdienst?',
+      text: 'Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich und ohne Vorkenntnisse.',
+      buttonText: 'Jetzt anmelden / Kontakt aufnehmen',
+      email: 'kontakt@feuerwehr-wulften.de',
+      felder: [
+        { id: 'name', label: 'Name', typ: 'text', pflicht: true, optionen: '' },
+        { id: 'kontakt', label: 'E-Mail oder Telefon', typ: 'text', pflicht: true, optionen: '' },
+        { id: 'nachricht', label: 'Nachricht', typ: 'textfeld', pflicht: true, optionen: '' }
+      ]
+    }
+  };
 
   /* -------------------------------------------------------
      Hilfsfunktionen
@@ -49,10 +64,7 @@
 
   function uid(prefix) {
     return (
-      prefix +
-      '-' +
-      Date.now().toString(36) +
-      '-' +
+      prefix + '-' + Date.now().toString(36) + '-' +
       Math.random().toString(36).slice(2, 7)
     );
   }
@@ -74,12 +86,23 @@
     var d = parseDate(value);
     if (!d) return value || '';
     return (
-      String(d.getDate()).padStart(2, '0') +
-      '.' +
-      String(d.getMonth() + 1).padStart(2, '0') +
-      '.' +
+      String(d.getDate()).padStart(2, '0') + '.' +
+      String(d.getMonth() + 1).padStart(2, '0') + '.' +
       d.getFullYear()
     );
+  }
+
+  function jahrVon(value) {
+    var d = parseDate(value);
+    return d ? String(d.getFullYear()) : '';
+  }
+
+  function metaZeile(item) {
+    return [
+      formatDate(item.datum),
+      item.uhrzeit ? item.uhrzeit + ' Uhr' : '',
+      item.ort || ''
+    ].filter(Boolean).join(' · ');
   }
 
   function sortByDateDesc(list) {
@@ -109,11 +132,46 @@
       .join('');
   }
 
+  function artKey(art) {
+    return String(art || '').toLowerCase() === 'brand' ? 'brand' : 'thl';
+  }
+
   function normalize(raw) {
     var data = raw && typeof raw === 'object' ? raw : {};
+    var einstellungen = data.einstellungen || {};
+    var schnupper = einstellungen.schnupperdienst || {};
+
     return {
-      einsaetze: Array.isArray(data.einsaetze) ? data.einsaetze : [],
-      personen: Array.isArray(data.personen) ? data.personen : [],
+      einstellungen: {
+        schnupperdienst: {
+          titel: schnupper.titel || STANDARD_EINSTELLUNGEN.schnupperdienst.titel,
+          text: schnupper.text || STANDARD_EINSTELLUNGEN.schnupperdienst.text,
+          buttonText:
+            schnupper.buttonText ||
+            STANDARD_EINSTELLUNGEN.schnupperdienst.buttonText,
+          email: schnupper.email || STANDARD_EINSTELLUNGEN.schnupperdienst.email,
+          felder:
+            Array.isArray(schnupper.felder) && schnupper.felder.length
+              ? schnupper.felder
+              : STANDARD_EINSTELLUNGEN.schnupperdienst.felder.slice()
+        }
+      },
+      einsaetze: (Array.isArray(data.einsaetze) ? data.einsaetze : []).map(
+        function (op) {
+          op.bild = op.bild || '';
+          return op;
+        }
+      ),
+      // Migration: früheres Feld "kern" -> "showOnFrontpage"
+      personen: (Array.isArray(data.personen) ? data.personen : []).map(
+        function (p) {
+          if (typeof p.showOnFrontpage !== 'boolean') {
+            p.showOnFrontpage = Boolean(p.kern);
+          }
+          delete p.kern;
+          return p;
+        }
+      ),
       termine: Array.isArray(data.termine) ? data.termine : []
     };
   }
@@ -122,7 +180,7 @@
      Datenspeicher
      ------------------------------------------------------- */
   var Store = {
-    data: EMPTY,
+    data: normalize(null),
 
     load: function () {
       var local = null;
@@ -155,10 +213,7 @@
 
     save: function () {
       try {
-        window.localStorage.setItem(
-          CONFIG.storageKey,
-          JSON.stringify(Store.data)
-        );
+        window.localStorage.setItem(CONFIG.storageKey, JSON.stringify(Store.data));
         return true;
       } catch (err) {
         return false;
@@ -211,37 +266,50 @@
   };
 
   /* -------------------------------------------------------
-     Gemeinsame Renderer
+     Gemeinsame Kachel-Renderer
      ------------------------------------------------------- */
-  function artKey(art) {
-    return String(art || '').toLowerCase() === 'brand' ? 'brand' : 'thl';
-  }
-
-  function renderOperation(op) {
+  function renderOpCard(op) {
     var key = artKey(op.art);
-    var wrap = el('article', 'op op--' + key);
+    var card = el('article', 'op-card op-card--' + key);
 
-    var meta = el('div', 'op__meta');
-    meta.appendChild(el('span', 'badge badge--' + key, op.art || 'Einsatz'));
-    meta.appendChild(
-      el(
-        'span',
-        null,
-        formatDate(op.datum) + (op.uhrzeit ? ' · ' + op.uhrzeit + ' Uhr' : '')
-      )
-    );
-    if (op.ort) meta.appendChild(el('span', null, '· ' + op.ort));
-    wrap.appendChild(meta);
-
-    wrap.appendChild(el('h3', 'op__title', op.stichwort || 'Einsatz'));
-    if (op.beschreibung) {
-      wrap.appendChild(el('p', 'op__text', op.beschreibung));
+    var media = el('div', 'op-card__media');
+    if (op.bild) {
+      var img = el('img');
+      img.src = op.bild;
+      img.alt = 'Einsatzbild: ' + (op.stichwort || 'Einsatz');
+      img.loading = 'lazy';
+      media.appendChild(img);
+    } else {
+      media.appendChild(
+        el('span', 'op-card__media-fallback', key === 'brand' ? 'Brand' : 'THL')
+      );
     }
-    return wrap;
+    var badge = el('span', 'badge badge--' + key + ' op-card__badge', op.art || 'Einsatz');
+    media.appendChild(badge);
+    card.appendChild(media);
+
+    var body = el('div', 'op-card__body');
+    body.appendChild(el('p', 'op-card__meta', metaZeile(op)));
+    body.appendChild(el('h3', 'op-card__title', op.stichwort || 'Einsatz'));
+    if (op.beschreibung) {
+      body.appendChild(el('p', 'op-card__text', op.beschreibung));
+    }
+
+    var foot = el('div', 'op-card__foot');
+    var btn = el('button', 'btn btn--outline btn--sm', 'Bericht lesen');
+    btn.type = 'button';
+    btn.addEventListener('click', function () {
+      openOpDetail(op);
+    });
+    foot.appendChild(btn);
+    body.appendChild(foot);
+
+    card.appendChild(body);
+    return card;
   }
 
-  function renderPerson(person) {
-    var card = el('article', 'card person');
+  function renderPersonCard(person) {
+    var card = el('article', 'card card--hover person');
 
     if (person.bild) {
       var img = el('img', 'person__photo');
@@ -251,11 +319,7 @@
       card.appendChild(img);
     } else {
       card.appendChild(
-        el(
-          'div',
-          'person__photo person__photo--placeholder',
-          initials(person.name)
-        )
+        el('div', 'person__photo person__photo--placeholder', initials(person.name))
       );
     }
 
@@ -266,35 +330,27 @@
     }
     if (person.kontakt) {
       var link = el('a', 'person__mail', person.kontakt);
-      link.href = person.kontakt.indexOf('@') > -1
-        ? 'mailto:' + person.kontakt
-        : 'tel:' + person.kontakt.replace(/\s/g, '');
+      link.href =
+        person.kontakt.indexOf('@') > -1
+          ? 'mailto:' + person.kontakt
+          : 'tel:' + person.kontakt.replace(/\s/g, '');
       card.appendChild(link);
     }
     return card;
   }
 
-  function renderDate(item) {
+  function renderDateCard(item) {
     var d = parseDate(item.datum);
     var li = el('li', 'date-item');
 
     var day = el('div', 'date-item__day');
-    day.appendChild(
-      el('span', null, d ? MONTHS[d.getMonth()].slice(0, 3) : '')
-    );
+    day.appendChild(el('span', null, d ? MONTHS[d.getMonth()].slice(0, 3) : ''));
     day.appendChild(document.createTextNode(d ? String(d.getDate()) : '–'));
     li.appendChild(day);
 
     var body = el('div');
-    body.appendChild(el('p', 'date-item__title', item.titel || 'Dienst'));
-    var info = [
-      formatDate(item.datum),
-      item.uhrzeit ? item.uhrzeit + ' Uhr' : '',
-      item.ort || ''
-    ]
-      .filter(Boolean)
-      .join(' · ');
-    body.appendChild(el('p', 'date-item__info', info));
+    body.appendChild(el('h3', 'date-item__title', item.titel || 'Dienst'));
+    body.appendChild(el('p', 'date-item__info', metaZeile(item)));
     if (item.hinweis) {
       body.appendChild(el('p', 'date-item__info', item.hinweis));
     }
@@ -314,94 +370,15 @@
     });
   }
 
-  /* =======================================================
-     TEIL 1: Öffentliche Website (index.html)
-     ======================================================= */
-  function initSite() {
-    var navToggle = $('.nav-toggle');
-    var nav = $('#hauptnavigation');
-
-    if (navToggle && nav) {
-      navToggle.addEventListener('click', function () {
-        var open = nav.classList.toggle('is-open');
-        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      nav.addEventListener('click', function (event) {
-        if (event.target.tagName === 'A') {
-          nav.classList.remove('is-open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    var jahr = $('#jahr');
-    if (jahr) jahr.textContent = String(new Date().getFullYear());
-
-    setupModals();
-    setupContactForm();
-
-    Store.load().then(renderSite);
-  }
-
-  function renderSite() {
-    var einsaetze = sortByDateDesc(Store.data.einsaetze);
-    var personen = Store.data.personen;
-
-    fill(
-      $('#einsaetze-kompakt'),
-      einsaetze.slice(0, 3),
-      renderOperation,
-      'Zurzeit sind keine Einsätze veröffentlicht.'
-    );
-
-    fill(
-      $('#fuehrung-kompakt'),
-      personen.filter(function (p) {
-        return p.kern;
-      }),
-      renderPerson,
-      'Zurzeit sind keine Ansprechpartner hinterlegt.'
-    );
-
-    fill(
-      $('#termine-liste'),
-      sortByDateAsc(Store.data.termine).slice(0, 4),
-      renderDate,
-      'Zurzeit sind keine Termine eingetragen.'
-    );
-
-    var count = $('#einsatz-anzahl');
-    if (count) count.textContent = String(einsaetze.length);
-
-    fill(
-      $('#kommando-komplett'),
-      personen,
-      renderPerson,
-      'Zurzeit sind keine Personen hinterlegt.'
-    );
-
-    renderOperationsModal('alle');
-  }
-
-  var activeFilter = 'alle';
-
-  function renderOperationsModal(filter) {
-    activeFilter = filter || 'alle';
-    var list = sortByDateDesc(Store.data.einsaetze).filter(function (op) {
-      if (activeFilter === 'alle') return true;
-      return artKey(op.art) === activeFilter;
-    });
-    fill(
-      $('#einsaetze-komplett'),
-      list,
-      renderOperation,
-      'Für diese Auswahl liegen keine Einsätze vor.'
-    );
-    $$('.filter-btn').forEach(function (btn) {
-      btn.classList.toggle('is-active', btn.dataset.filter === activeFilter);
+  function frontpagePersonen() {
+    return Store.data.personen.filter(function (p) {
+      return p.showOnFrontpage === true;
     });
   }
 
+  /* -------------------------------------------------------
+     Modal-Grundfunktionen
+     ------------------------------------------------------- */
   var lastFocused = null;
 
   function openModal(id) {
@@ -441,44 +418,191 @@
         if (!modal.hidden) closeModal(modal);
       });
     });
+  }
 
-    $$('.filter-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        renderOperationsModal(btn.dataset.filter);
+  function openOpDetail(op) {
+    var modal = document.getElementById('modal-einsatz');
+    if (!modal) {
+      window.location.href = 'einsaetze.html#' + op.id;
+      return;
+    }
+    var key = artKey(op.art);
+    $('#einsatz-detail-titel').textContent = op.stichwort || 'Einsatz';
+
+    var body = $('#einsatz-detail-inhalt');
+    body.innerHTML = '';
+
+    var meta = el('p', 'op-card__meta');
+    meta.appendChild(el('span', 'badge badge--' + key, op.art || 'Einsatz'));
+    meta.appendChild(document.createTextNode(' ' + metaZeile(op)));
+    body.appendChild(meta);
+
+    if (op.bild) {
+      var img = el('img');
+      img.src = op.bild;
+      img.alt = 'Einsatzbild: ' + (op.stichwort || '');
+      img.style.borderRadius = 'var(--radius)';
+      img.style.margin = 'var(--space-md) 0';
+      body.appendChild(img);
+    }
+
+    body.appendChild(el('p', null, op.bericht || op.beschreibung || 'Für diesen Einsatz liegt noch kein Bericht vor.'));
+    openModal('modal-einsatz');
+  }
+
+  /* -------------------------------------------------------
+     Gemeinsame Seitenelemente (Header, Footer)
+     ------------------------------------------------------- */
+  function setupChrome() {
+    var navToggle = $('.nav-toggle');
+    var nav = $('#hauptnavigation');
+
+    if (navToggle && nav) {
+      navToggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
+      nav.addEventListener('click', function (event) {
+        if (event.target.tagName === 'A') {
+          nav.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    var jahr = $('#jahr');
+    if (jahr) jahr.textContent = String(new Date().getFullYear());
+
+    setupModals();
+  }
+
+  /* =======================================================
+     TEIL 1: Startseite
+     ======================================================= */
+  function initStart() {
+    Store.load().then(function () {
+      fill(
+        $('#einsaetze-kompakt'),
+        sortByDateDesc(Store.data.einsaetze).slice(0, 3),
+        renderOpCard,
+        'Zurzeit sind keine Einsätze veröffentlicht.'
+      );
+
+      fill(
+        $('#fuehrung-kompakt'),
+        frontpagePersonen(),
+        renderPersonCard,
+        'Zurzeit sind keine Ansprechpartner für die Startseite freigegeben.'
+      );
+
+      fill(
+        $('#termine-liste'),
+        sortByDateAsc(Store.data.termine).slice(0, 4),
+        renderDateCard,
+        'Zurzeit sind keine Termine eingetragen.'
+      );
+
+      renderSchnupperBanner();
+      buildContactForm();
     });
   }
 
-  function setupContactForm() {
+  function renderSchnupperBanner() {
+    var s = Store.data.einstellungen.schnupperdienst;
+    var titel = $('#schnupper-titel');
+    var text = $('#schnupper-text');
+    var btn = $('#schnupper-button');
+    if (titel) titel.textContent = s.titel;
+    if (text) text.textContent = s.text;
+    if (btn) btn.textContent = s.buttonText;
+  }
+
+  /* ---- Dynamisches Kontakt-/Schnupperformular ------------ */
+  function buildContactForm() {
     var form = $('#kontakt-formular');
     if (!form) return;
-    var message = $('#kontakt-hinweis');
 
-    form.addEventListener('submit', function (event) {
+    var s = Store.data.einstellungen.schnupperdienst;
+    var felderWrap = $('#kontakt-felder');
+    felderWrap.innerHTML = '';
+
+    s.felder.forEach(function (feld) {
+      var wrap = el('div', 'field');
+      var inputId = 'kf-' + feld.id;
+
+      var label = el('label', null, feld.label || feld.id);
+      label.htmlFor = inputId;
+      if (feld.pflicht) {
+        label.appendChild(document.createTextNode(' '));
+        label.appendChild(el('span', 'req', '*'));
+      }
+      wrap.appendChild(label);
+
+      var input;
+      if (feld.typ === 'textfeld') {
+        input = el('textarea');
+      } else if (feld.typ === 'auswahl') {
+        input = el('select');
+        String(feld.optionen || '')
+          .split(',')
+          .map(function (o) {
+            return o.trim();
+          })
+          .filter(Boolean)
+          .forEach(function (option) {
+            input.appendChild(el('option', null, option));
+          });
+      } else {
+        input = el('input');
+        input.type = feld.typ === 'email' ? 'email' : 'text';
+      }
+
+      input.id = inputId;
+      input.name = feld.id;
+      if (feld.pflicht) input.dataset.pflicht = 'ja';
+      input.dataset.label = feld.label || feld.id;
+      wrap.appendChild(input);
+      felderWrap.appendChild(wrap);
+    });
+
+    var mailto = $('#kontakt-mail-adresse');
+    if (mailto) {
+      mailto.textContent = s.email;
+      mailto.href = 'mailto:' + s.email;
+    }
+
+    form.onsubmit = function (event) {
       event.preventDefault();
-      var name = fld(form, 'name').value.trim();
-      var kontakt = fld(form, 'kontakt').value.trim();
-      var text = fld(form, 'nachricht').value.trim();
+      var message = $('#kontakt-hinweis');
+      var werte = [];
+      var fehlend = [];
 
-      if (!name || !kontakt || !text) {
+      $$('#kontakt-felder [name]', form).forEach(function (input) {
+        var wert = String(input.value || '').trim();
+        if (input.dataset.pflicht === 'ja' && !wert) {
+          fehlend.push(input.dataset.label);
+        }
+        if (wert) werte.push(input.dataset.label + ': ' + wert);
+      });
+
+      if (fehlend.length) {
         message.hidden = false;
         message.className = 'form-message form-message--error';
         message.textContent =
-          'Bitte füllen Sie Name, E-Mail/Telefon und Nachricht aus.';
+          'Bitte füllen Sie folgende Pflichtfelder aus: ' + fehlend.join(', ') + '.';
         return;
       }
 
-      var betreff = fld(form, 'anliegen').value;
-      var body =
-        'Anliegen: ' + betreff + '\n' +
-        'Name: ' + name + '\n' +
-        'Kontakt: ' + kontakt + '\n\n' +
-        text;
+      var betreff = '[Website] Nachricht über das Kontaktformular';
+      var erstesFeld = $$('#kontakt-felder [name]', form)[0];
+      if (erstesFeld && erstesFeld.tagName === 'SELECT' && erstesFeld.value) {
+        betreff = '[Website] ' + erstesFeld.value;
+      }
 
       window.location.href =
-        'mailto:kontakt@feuerwehr-wulften.de' +
-        '?subject=' + encodeURIComponent('[Website] ' + betreff) +
-        '&body=' + encodeURIComponent(body);
+        'mailto:' + Store.data.einstellungen.schnupperdienst.email +
+        '?subject=' + encodeURIComponent(betreff) +
+        '&body=' + encodeURIComponent(werte.join('\n'));
 
       message.hidden = false;
       message.className = 'form-message form-message--ok';
@@ -486,11 +610,149 @@
         'Vielen Dank! Ihr E-Mail-Programm wurde mit der Nachricht geöffnet. ' +
         'Bitte senden Sie die E-Mail dort ab.';
       form.reset();
+    };
+  }
+
+  /* =======================================================
+     TEIL 2: Unterseite Einsätze
+     ======================================================= */
+  var opFilter = { art: 'alle', jahr: 'alle' };
+
+  function initEinsaetze() {
+    Store.load().then(function () {
+      buildYearFilter();
+      $$('[data-art-filter]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          opFilter.art = btn.dataset.artFilter;
+          renderOpArchive();
+        });
+      });
+      renderOpArchive();
+
+      var hash = window.location.hash.replace('#', '');
+      if (hash) {
+        var op = Store.find('einsaetze', hash);
+        if (op) openOpDetail(op);
+      }
+    });
+  }
+
+  function buildYearFilter() {
+    var wrap = $('#jahr-filter');
+    if (!wrap) return;
+    var jahre = [];
+    Store.data.einsaetze.forEach(function (op) {
+      var j = jahrVon(op.datum);
+      if (j && jahre.indexOf(j) === -1) jahre.push(j);
+    });
+    jahre.sort().reverse();
+
+    wrap.innerHTML = '';
+    ['alle'].concat(jahre).forEach(function (jahr) {
+      var btn = el('button', 'filter-btn', jahr === 'alle' ? 'Alle Jahre' : jahr);
+      btn.type = 'button';
+      btn.dataset.jahrFilter = jahr;
+      btn.addEventListener('click', function () {
+        opFilter.jahr = jahr;
+        renderOpArchive();
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderOpArchive() {
+    var container = $('#einsaetze-archiv');
+    if (!container) return;
+
+    var list = sortByDateDesc(Store.data.einsaetze).filter(function (op) {
+      var artOk = opFilter.art === 'alle' || artKey(op.art) === opFilter.art;
+      var jahrOk = opFilter.jahr === 'alle' || jahrVon(op.datum) === opFilter.jahr;
+      return artOk && jahrOk;
+    });
+
+    $$('[data-art-filter]').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.dataset.artFilter === opFilter.art);
+    });
+    $$('[data-jahr-filter]').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.dataset.jahrFilter === opFilter.jahr);
+    });
+
+    var anzahl = $('#archiv-anzahl');
+    if (anzahl) {
+      anzahl.textContent =
+        list.length === 1 ? '1 Einsatz' : list.length + ' Einsätze';
+    }
+
+    container.innerHTML = '';
+    if (!list.length) {
+      container.appendChild(
+        el('p', 'empty', 'Für diese Auswahl liegen keine Einsätze vor.')
+      );
+      return;
+    }
+
+    var aktuellesJahr = null;
+    var grid = null;
+    list.forEach(function (op) {
+      var jahr = jahrVon(op.datum);
+      if (jahr !== aktuellesJahr) {
+        aktuellesJahr = jahr;
+        container.appendChild(el('h2', 'timeline-year', jahr));
+        grid = el('div', 'ops-grid');
+        container.appendChild(grid);
+      }
+      grid.appendChild(renderOpCard(op));
     });
   }
 
   /* =======================================================
-     TEIL 2: CMS / Admin-Bereich (admin.html)
+     TEIL 3: Unterseiten Ortskommando & Termine
+     ======================================================= */
+  function initKommando() {
+    Store.load().then(function () {
+      fill(
+        $('#kommando-komplett'),
+        Store.data.personen,
+        renderPersonCard,
+        'Zurzeit sind keine Personen hinterlegt.'
+      );
+    });
+  }
+
+  function initTermine() {
+    Store.load().then(function () {
+      var heute = new Date();
+      heute.setHours(0, 0, 0, 0);
+      var alle = sortByDateAsc(Store.data.termine);
+
+      var kommend = alle.filter(function (t) {
+        var d = parseDate(t.datum);
+        return d && d >= heute;
+      });
+      var vergangen = alle
+        .filter(function (t) {
+          var d = parseDate(t.datum);
+          return !d || d < heute;
+        })
+        .reverse();
+
+      fill(
+        $('#termine-kommend'),
+        kommend,
+        renderDateCard,
+        'Zurzeit sind keine kommenden Termine eingetragen.'
+      );
+      fill(
+        $('#termine-vergangen'),
+        vergangen,
+        renderDateCard,
+        'Keine vergangenen Termine vorhanden.'
+      );
+    });
+  }
+
+  /* =======================================================
+     TEIL 4: CMS / Admin-Bereich
      ======================================================= */
   function initAdmin() {
     var loginView = $('#login-bereich');
@@ -510,7 +772,7 @@
 
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      if (loginForm.passwort.value === CONFIG.adminPassword) {
+      if (fld(loginForm, 'passwort').value === CONFIG.adminPassword) {
         window.sessionStorage.setItem(CONFIG.sessionKey, 'ok');
         loginError.hidden = true;
         loginForm.reset();
@@ -527,7 +789,6 @@
       window.location.reload();
     });
 
-    // Reiter
     $$('.tab-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         $$('.tab-btn').forEach(function (other) {
@@ -543,6 +804,7 @@
     setupOpsManager();
     setupPeopleManager();
     setupDatesManager();
+    setupSettingsManager();
     setupDataTools();
   }
 
@@ -562,6 +824,7 @@
     renderOpsAdmin();
     renderPeopleAdmin();
     renderDatesAdmin();
+    renderSettingsAdmin();
   }
 
   function adminItem(title, subtitle, onEdit, onDelete) {
@@ -600,7 +863,9 @@
         stichwort: fld(form, 'stichwort').value.trim(),
         art: fld(form, 'art').value,
         ort: fld(form, 'ort').value.trim(),
-        beschreibung: fld(form, 'beschreibung').value.trim()
+        bild: fld(form, 'bild').value.trim(),
+        beschreibung: fld(form, 'beschreibung').value.trim(),
+        bericht: fld(form, 'bericht').value.trim()
       };
 
       if (!entry.datum || !entry.stichwort) {
@@ -642,9 +907,7 @@
       list.appendChild(
         adminItem(
           op.stichwort,
-          formatDate(op.datum) +
-            (op.uhrzeit ? ' · ' + op.uhrzeit + ' Uhr' : '') +
-            ' · ' + (op.art || ''),
+          metaZeile(op) + ' · ' + (op.art || '') + (op.bild ? ' · mit Bild' : ''),
           function () {
             var form = $('#einsatz-formular');
             fld(form, 'id').value = op.id;
@@ -653,7 +916,9 @@
             fld(form, 'stichwort').value = op.stichwort || '';
             fld(form, 'art').value = op.art || 'Brand';
             fld(form, 'ort').value = op.ort || '';
+            fld(form, 'bild').value = op.bild || '';
             fld(form, 'beschreibung').value = op.beschreibung || '';
+            fld(form, 'bericht').value = op.bericht || '';
             $('#einsatz-formular-titel').textContent = 'Einsatz bearbeiten';
             $('#einsatz-abbrechen').hidden = false;
             form.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -681,7 +946,7 @@
         name: fld(form, 'name').value.trim(),
         dienstgrad: fld(form, 'dienstgrad').value.trim(),
         funktion: fld(form, 'funktion').value.trim(),
-        kern: fld(form, 'kern').checked,
+        showOnFrontpage: fld(form, 'showOnFrontpage').checked,
         bild: fld(form, 'bild').value.trim(),
         kontakt: fld(form, 'kontakt').value.trim()
       };
@@ -721,33 +986,56 @@
       return;
     }
     Store.data.personen.forEach(function (person) {
-      list.appendChild(
-        adminItem(
-          person.name,
-          person.funktion +
-            (person.dienstgrad ? ' · ' + person.dienstgrad : '') +
-            (person.kern ? ' · Kernführung' : ''),
-          function () {
-            var form = $('#person-formular');
-            fld(form, 'id').value = person.id;
-            fld(form, 'name').value = person.name || '';
-            fld(form, 'dienstgrad').value = person.dienstgrad || '';
-            fld(form, 'funktion').value = person.funktion || '';
-            fld(form, 'kern').checked = Boolean(person.kern);
-            fld(form, 'bild').value = person.bild || '';
-            fld(form, 'kontakt').value = person.kontakt || '';
-            $('#person-formular-titel').textContent = 'Person bearbeiten';
-            $('#person-abbrechen').hidden = false;
-            form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          },
-          function () {
-            if (!window.confirm('Person „' + person.name + '“ löschen?')) return;
-            Store.remove('personen', person.id);
-            renderPeopleAdmin();
-            toast('Person gelöscht.');
-          }
-        )
+      var row = adminItem(
+        person.name,
+        person.funktion +
+          (person.dienstgrad ? ' · ' + person.dienstgrad : '') +
+          (person.showOnFrontpage ? ' · auf Startseite' : ''),
+        function () {
+          var form = $('#person-formular');
+          fld(form, 'id').value = person.id;
+          fld(form, 'name').value = person.name || '';
+          fld(form, 'dienstgrad').value = person.dienstgrad || '';
+          fld(form, 'funktion').value = person.funktion || '';
+          fld(form, 'showOnFrontpage').checked = Boolean(person.showOnFrontpage);
+          fld(form, 'bild').value = person.bild || '';
+          fld(form, 'kontakt').value = person.kontakt || '';
+          $('#person-formular-titel').textContent = 'Person bearbeiten';
+          $('#person-abbrechen').hidden = false;
+          form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+        function () {
+          if (!window.confirm('Person „' + person.name + '“ löschen?')) return;
+          Store.remove('personen', person.id);
+          renderPeopleAdmin();
+          toast('Person gelöscht.');
+        }
       );
+
+      // Schnellschalter: Startseite ja/nein
+      var toggle = el(
+        'button',
+        'btn btn--sm ' + (person.showOnFrontpage ? 'btn--accent' : 'btn--outline'),
+        person.showOnFrontpage ? 'Startseite: Ja' : 'Startseite: Nein'
+      );
+      toggle.type = 'button';
+      toggle.title = 'Auf Startseite anzeigen ein-/ausschalten';
+      toggle.addEventListener('click', function () {
+        person.showOnFrontpage = !person.showOnFrontpage;
+        Store.update('personen', person.id, person);
+        renderPeopleAdmin();
+        toast(
+          person.showOnFrontpage
+            ? person.name + ' wird auf der Startseite angezeigt.'
+            : person.name + ' wird nur im Ortskommando angezeigt.'
+        );
+      });
+      $('.admin-item__actions', row).insertBefore(
+        toggle,
+        $('.admin-item__actions', row).firstChild
+      );
+
+      list.appendChild(row);
     });
   }
 
@@ -806,9 +1094,7 @@
       list.appendChild(
         adminItem(
           item.titel,
-          formatDate(item.datum) +
-            (item.uhrzeit ? ' · ' + item.uhrzeit + ' Uhr' : '') +
-            (item.ort ? ' · ' + item.ort : ''),
+          metaZeile(item),
           function () {
             var form = $('#termin-formular');
             fld(form, 'id').value = item.id;
@@ -832,7 +1118,125 @@
     });
   }
 
-  /* ---- Datei-Werkzeuge (Export / Import / Zurücksetzen) -- */
+  /* ---- Schnupperdienst-/Formular-Verwaltung -------------- */
+  function setupSettingsManager() {
+    var form = $('#schnupper-formular');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var felder = $$('#feld-liste .field-row').map(function (row) {
+        return {
+          id: $('[data-feld="id"]', row).value.trim() || uid('f'),
+          label: $('[data-feld="label"]', row).value.trim(),
+          typ: $('[data-feld="typ"]', row).value,
+          pflicht: $('[data-feld="pflicht"]', row).checked,
+          optionen: $('[data-feld="optionen"]', row).value.trim()
+        };
+      }).filter(function (feld) {
+        return feld.label;
+      });
+
+      if (!felder.length) {
+        toast('Bitte mindestens ein Formularfeld anlegen.', true);
+        return;
+      }
+
+      Store.data.einstellungen.schnupperdienst = {
+        titel: fld(form, 'titel').value.trim(),
+        text: fld(form, 'text').value.trim(),
+        buttonText: fld(form, 'buttonText').value.trim(),
+        email: fld(form, 'email').value.trim(),
+        felder: felder
+      };
+      Store.save();
+      renderSettingsAdmin();
+      toast('Einstellungen gespeichert.');
+    });
+
+    $('#feld-hinzufuegen').addEventListener('click', function () {
+      $('#feld-liste').appendChild(
+        settingsFieldRow({ id: '', label: '', typ: 'text', pflicht: false, optionen: '' })
+      );
+    });
+  }
+
+  function settingsFieldRow(feld) {
+    var row = el('div', 'field-row');
+
+    var labelWrap = el('div', 'field');
+    labelWrap.appendChild(el('label', null, 'Feldbezeichnung'));
+    var label = el('input');
+    label.type = 'text';
+    label.value = feld.label || '';
+    label.dataset.feld = 'label';
+    labelWrap.appendChild(label);
+    var optionen = el('input');
+    optionen.type = 'text';
+    optionen.placeholder = 'Auswahl-Optionen, mit Komma getrennt';
+    optionen.value = feld.optionen || '';
+    optionen.dataset.feld = 'optionen';
+    labelWrap.appendChild(optionen);
+    row.appendChild(labelWrap);
+
+    var typWrap = el('div', 'field');
+    typWrap.appendChild(el('label', null, 'Typ'));
+    var typ = el('select');
+    typ.dataset.feld = 'typ';
+    [
+      ['text', 'Textzeile'],
+      ['email', 'E-Mail'],
+      ['textfeld', 'Mehrzeilig'],
+      ['auswahl', 'Auswahlliste']
+    ].forEach(function (pair) {
+      var option = el('option', null, pair[1]);
+      option.value = pair[0];
+      typ.appendChild(option);
+    });
+    typ.value = feld.typ || 'text';
+    typWrap.appendChild(typ);
+    row.appendChild(typWrap);
+
+    var pflichtWrap = el('label', 'checkbox-field');
+    var pflicht = el('input');
+    pflicht.type = 'checkbox';
+    pflicht.checked = Boolean(feld.pflicht);
+    pflicht.dataset.feld = 'pflicht';
+    pflichtWrap.appendChild(pflicht);
+    pflichtWrap.appendChild(document.createTextNode('Pflichtfeld'));
+    row.appendChild(pflichtWrap);
+
+    var id = el('input');
+    id.type = 'hidden';
+    id.value = feld.id || '';
+    id.dataset.feld = 'id';
+    row.appendChild(id);
+
+    var del = el('button', 'btn btn--danger btn--sm', 'Feld entfernen');
+    del.type = 'button';
+    del.addEventListener('click', function () {
+      row.remove();
+    });
+    row.appendChild(del);
+
+    return row;
+  }
+
+  function renderSettingsAdmin() {
+    var form = $('#schnupper-formular');
+    var s = Store.data.einstellungen.schnupperdienst;
+    fld(form, 'titel').value = s.titel;
+    fld(form, 'text').value = s.text;
+    fld(form, 'buttonText').value = s.buttonText;
+    fld(form, 'email').value = s.email;
+
+    var liste = $('#feld-liste');
+    liste.innerHTML = '';
+    s.felder.forEach(function (feld) {
+      liste.appendChild(settingsFieldRow(feld));
+    });
+  }
+
+  /* ---- Datei-Werkzeuge ---------------------------------- */
   function setupDataTools() {
     $('#export').addEventListener('click', function () {
       var blob = new Blob([JSON.stringify(Store.data, null, 2)], {
@@ -888,13 +1292,19 @@
   }
 
   /* -------------------------------------------------------
-     Start
+     Start / Routing
      ------------------------------------------------------- */
+  var PAGES = {
+    start: initStart,
+    einsaetze: initEinsaetze,
+    kommando: initKommando,
+    termine: initTermine,
+    admin: initAdmin
+  };
+
   document.addEventListener('DOMContentLoaded', function () {
-    if (document.body.dataset.page === 'admin') {
-      initAdmin();
-    } else {
-      initSite();
-    }
+    setupChrome();
+    var page = document.body.dataset.page || 'start';
+    (PAGES[page] || initStart)();
   });
 })();

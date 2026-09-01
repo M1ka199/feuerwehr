@@ -1,4 +1,49 @@
 {
+  "einstellungen": {
+    "schnupperdienst": {
+      "titel": "Lust auf einen Schnupperdienst?",
+      "text": "Komm einfach zu einem unserer Übungsdienste dazu – unverbindlich, kostenlos und ohne Vorkenntnisse. Wir zeigen dir Fahrzeuge, Technik und den Alltag im Ehrenamt. Mitmachen kann jede und jeder ab 10 Jahren.",
+      "buttonText": "Jetzt anmelden / Kontakt aufnehmen",
+      "email": "kontakt@feuerwehr-wulften.de",
+      "felder": [
+        {
+          "id": "anliegen",
+          "label": "Ihr Anliegen",
+          "typ": "auswahl",
+          "pflicht": false,
+          "optionen": "Allgemeine Frage, Schnupperdienst / Mitmachen, Förderverein"
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "typ": "text",
+          "pflicht": true,
+          "optionen": ""
+        },
+        {
+          "id": "kontakt",
+          "label": "E-Mail oder Telefon",
+          "typ": "text",
+          "pflicht": true,
+          "optionen": ""
+        },
+        {
+          "id": "alter",
+          "label": "Alter (bei Interesse an der Jugendfeuerwehr)",
+          "typ": "text",
+          "pflicht": false,
+          "optionen": ""
+        },
+        {
+          "id": "nachricht",
+          "label": "Nachricht",
+          "typ": "textfeld",
+          "pflicht": true,
+          "optionen": ""
+        }
+      ]
+    }
+  },
   "einsaetze": [
     {
       "id": "e-2026-014",
@@ -7,7 +52,9 @@
       "stichwort": "F2 – Gartenlaubenbrand",
       "art": "Brand",
       "ort": "Wulften, Am Sportplatz",
-      "beschreibung": "Brennende Gartenlaube in unmittelbarer Nähe zur Nachbarbebauung. Ablöschen mit einem C-Rohr unter Atemschutz, anschließend Nachlöscharbeiten."
+      "bild": "",
+      "beschreibung": "Brennende Gartenlaube in unmittelbarer Nähe zur Nachbarbebauung.",
+      "bericht": "Beim Eintreffen der ersten Kräfte stand die Gartenlaube bereits in Vollbrand. Über ein C-Rohr unter Atemschutz wurde der Brand abgelöscht und ein Übergreifen auf die Nachbarbebauung verhindert. Im Anschluss folgten ausgedehnte Nachlöscharbeiten mit Kontrolle durch die Wärmebildkamera. Verletzt wurde niemand."
     },
     {
       "id": "e-2026-013",
@@ -16,7 +63,9 @@
       "stichwort": "H1 – Ölspur",
       "art": "THL",
       "ort": "Wulften, Hauptstraße",
-      "beschreibung": "Ausgedehnte Ölspur über rund 400 Meter. Abstreuen mit Bindemittel und Übergabe an den Bauhof."
+      "bild": "",
+      "beschreibung": "Ausgedehnte Ölspur über rund 400 Meter im Ortskern.",
+      "bericht": "Während des Berufsverkehrs wurde eine Ölspur über rund 400 Meter gemeldet. Die Einsatzstelle wurde abgesichert, die Spur mit Bindemittel abgestreut und anschließend an den Bauhof der Gemeinde übergeben."
     },
     {
       "id": "e-2026-012",
@@ -25,7 +74,9 @@
       "stichwort": "H2 – Verkehrsunfall, Person eingeklemmt",
       "art": "THL",
       "ort": "L 530 zwischen Wulften und Hattorf",
-      "beschreibung": "Technische Rettung einer eingeklemmten Person mit hydraulischem Rettungsgerät, Sicherstellung des Brandschutzes, Unterstützung des Rettungsdienstes."
+      "bild": "",
+      "beschreibung": "Technische Rettung einer eingeklemmten Person.",
+      "bericht": "Nach einem Zusammenstoß zweier Fahrzeuge war eine Person im Fahrzeug eingeklemmt. Nach Sicherstellung des Brandschutzes erfolgte die patientenorientierte Rettung mit hydraulischem Rettungsgerät in enger Abstimmung mit Rettungsdienst und Notarzt."
     },
     {
       "id": "e-2026-011",
@@ -34,7 +85,9 @@
       "stichwort": "F1 – Rauchentwicklung im Gebäude",
       "art": "Brand",
       "ort": "Wulften, Bahnhofstraße",
-      "beschreibung": "Angebranntes Kochgut. Kontrolle mit der Wärmebildkamera, Belüftung der Wohnung, keine Verletzten."
+      "bild": "",
+      "beschreibung": "Angebranntes Kochgut in einer Wohnung.",
+      "bericht": "Ursache der starken Rauchentwicklung war angebranntes Kochgut auf dem Herd. Die Wohnung wurde mit der Wärmebildkamera kontrolliert und mit dem Hochleistungslüfter entraucht. Verletzte gab es nicht."
     },
     {
       "id": "e-2026-010",
@@ -43,7 +96,9 @@
       "stichwort": "H1 – Sturmschaden / Baum auf Fahrbahn",
       "art": "THL",
       "ort": "Wulften, Lindenweg",
-      "beschreibung": "Umgestürzter Baum blockierte die Fahrbahn. Zerkleinerung mit der Motorsäge und Räumung der Straße."
+      "bild": "",
+      "beschreibung": "Umgestürzter Baum blockierte die Fahrbahn.",
+      "bericht": "Nach einer Gewitterfront war ein Baum auf die Fahrbahn gestürzt. Der Baum wurde mit der Motorsäge zerkleinert, die Straße geräumt und anschließend wieder freigegeben."
     },
     {
       "id": "e-2026-009",
@@ -52,7 +107,31 @@
       "stichwort": "F3 – Feuer Wirtschaftsgebäude",
       "art": "Brand",
       "ort": "Ortsrand Wulften",
-      "beschreibung": "Überörtliche Unterstützung mit Tanklöschfahrzeug und Atemschutzgeräteträgern, Einsatzdauer rund fünf Stunden."
+      "bild": "",
+      "beschreibung": "Überörtliche Unterstützung bei einem Großbrand.",
+      "bericht": "Als überörtliche Unterstützung rückten wir mit dem Tanklöschfahrzeug und mehreren Atemschutzgeräteträgern aus. Neben der Brandbekämpfung übernahmen wir die Wasserversorgung über eine lange Wegstrecke. Die Einsatzdauer betrug rund fünf Stunden."
+    },
+    {
+      "id": "e-2025-021",
+      "datum": "2025-11-14",
+      "uhrzeit": "19:48",
+      "stichwort": "H1 – Tragehilfe für den Rettungsdienst",
+      "art": "THL",
+      "ort": "Wulften, Am Anger",
+      "bild": "",
+      "beschreibung": "Unterstützung des Rettungsdienstes im Treppenhaus.",
+      "bericht": "Der Rettungsdienst forderte Unterstützung bei der schonenden Rettung einer Person aus dem Obergeschoss. Der Transport erfolgte mit dem Schleifkorb über das enge Treppenhaus."
+    },
+    {
+      "id": "e-2025-018",
+      "datum": "2025-09-05",
+      "uhrzeit": "12:30",
+      "stichwort": "F2 – Flächenbrand",
+      "art": "Brand",
+      "ort": "Feldmark Wulften",
+      "bild": "",
+      "beschreibung": "Brennendes Stoppelfeld nahe der Ortslage.",
+      "bericht": "Rund ein Hektar Stoppelfeld stand in Brand. Mit mehreren D- und C-Rohren sowie einer Riegelstellung zum angrenzenden Waldrand konnte eine Ausbreitung verhindert werden."
     }
   ],
   "personen": [
@@ -61,7 +140,7 @@
       "name": "Michael Bode",
       "dienstgrad": "Erster Hauptbrandmeister",
       "funktion": "Ortsbrandmeister",
-      "kern": true,
+      "showOnFrontpage": true,
       "bild": "",
       "kontakt": "ortsbrandmeister@feuerwehr-wulften.de"
     },
@@ -70,7 +149,7 @@
       "name": "Sabine Krüger",
       "dienstgrad": "Hauptbrandmeisterin",
       "funktion": "Stellvertretende Ortsbrandmeisterin",
-      "kern": true,
+      "showOnFrontpage": true,
       "bild": "",
       "kontakt": "stellvertretung@feuerwehr-wulften.de"
     },
@@ -79,7 +158,7 @@
       "name": "Tobias Lehmann",
       "dienstgrad": "Oberlöschmeister",
       "funktion": "Jugendfeuerwehrwart",
-      "kern": true,
+      "showOnFrontpage": true,
       "bild": "",
       "kontakt": "jugendwart@feuerwehr-wulften.de"
     },
@@ -88,7 +167,7 @@
       "name": "Andrea Wolters",
       "dienstgrad": "Löschmeisterin",
       "funktion": "Schriftführerin",
-      "kern": false,
+      "showOnFrontpage": false,
       "bild": "",
       "kontakt": "schriftfuehrung@feuerwehr-wulften.de"
     },
@@ -97,7 +176,7 @@
       "name": "Frank Osterloh",
       "dienstgrad": "Hauptfeuerwehrmann",
       "funktion": "Gerätewart",
-      "kern": false,
+      "showOnFrontpage": false,
       "bild": "",
       "kontakt": "geraetewart@feuerwehr-wulften.de"
     },
@@ -106,7 +185,7 @@
       "name": "Jens Rothert",
       "dienstgrad": "Oberfeuerwehrmann",
       "funktion": "Atemschutzbeauftragter",
-      "kern": false,
+      "showOnFrontpage": false,
       "bild": "",
       "kontakt": "atemschutz@feuerwehr-wulften.de"
     },
@@ -115,7 +194,7 @@
       "name": "Carolin Meiners",
       "dienstgrad": "Feuerwehrfrau",
       "funktion": "Kassenwartin / Förderverein",
-      "kern": false,
+      "showOnFrontpage": false,
       "bild": "",
       "kontakt": "kasse@feuerwehr-wulften.de"
     }
@@ -152,6 +231,22 @@
       "titel": "Gemeinsamer Dienst mit der Ortsfeuerwehr Hattorf",
       "ort": "Feuerwehrhaus Hattorf",
       "hinweis": "Abfahrt 18:40 Uhr am Feuerwehrhaus Wulften."
+    },
+    {
+      "id": "t-5",
+      "datum": "2026-11-14",
+      "uhrzeit": "18:00",
+      "titel": "Laternenumzug mit Begleitung durch die Feuerwehr",
+      "ort": "Dorfplatz Wulften",
+      "hinweis": "Treffpunkt für Einsatzkräfte um 17:15 Uhr."
+    },
+    {
+      "id": "t-6",
+      "datum": "2026-12-05",
+      "uhrzeit": "19:00",
+      "titel": "Jahreshauptversammlung",
+      "ort": "Feuerwehrhaus Wulften",
+      "hinweis": "Mit Ehrungen und Beförderungen. Dienstanzug."
     }
   ]
 }

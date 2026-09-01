@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ortskommando – Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Das komplette Ortskommando der Freiwilligen Feuerwehr Wulften am Harz mit Funktion, Dienstgrad und Kontakt.">
+  <link rel="icon" href="image_0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="kommando">
+
+  <div class="emergency-bar">
+    Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
+  </div>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <span class="brand__text">
+          <span class="brand__name">Feuerwehr Wulften am Harz</span>
+          <span class="brand__sub">Freiwillige Feuerwehr</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+        ☰ Menü
+      </button>
+
+      <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="index.html">Startseite</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
+          <li><a class="is-current" href="kommando.html">Ortskommando</a></li>
+          <li><a href="termine.html">Termine &amp; Dienste</a></li>
+          <li><a class="nav-cta" href="index.html#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="container">
+        <h1>Ortskommando</h1>
+        <p>
+          Alle Funktionsträgerinnen und Funktionsträger unserer Ortsfeuerwehr auf
+          einen Blick – mit Dienstgrad, Aufgabe und direktem Kontakt.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid--4" id="kommando-komplett"></div>
+
+        <div class="section__foot">
+          <a class="btn btn--primary" href="index.html#kontakt">Kontakt aufnehmen</a>
+          <a class="btn btn--outline" href="index.html#schnupperdienst">Schnupperdienst</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <h3>Feuerwehrhaus</h3>
+          <p class="mb-0">
+            Freiwillige Feuerwehr Wulften am Harz<br>
+            Hauptstraße 1<br>
+            37199 Wulften am Harz
+          </p>
+        </div>
+        <div>
+          <h3>Notfallnummern</h3>
+          <ul>
+            <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
+            <li>Polizei: <a href="tel:110">110</a></li>
+            <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
+            <li>Leitstelle Göttingen: <a href="tel:+4955140050">0551 400 50</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Rechtliches</h3>
+          <ul>
+            <li><a href="index.html#impressum">Impressum</a></li>
+            <li><a href="index.html#datenschutz">Datenschutz</a></li>
+            <li><a href="admin.html">Interner Bereich</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
+        <span>Ehrenamt rettet Leben.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

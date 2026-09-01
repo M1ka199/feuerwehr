@@ -6,6 +6,9 @@
   <title>Admin / CMS – Feuerwehr Wulften am Harz</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="image_0.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="admin-body" data-page="admin">
@@ -25,8 +28,8 @@
     <div class="card">
       <h2>Anmeldung</h2>
       <p class="text-sm text-muted">
-        Bitte geben Sie das Admin-Passwort ein, um Einsätze, Personen und Termine
-        zu verwalten.
+        Bitte geben Sie das Admin-Passwort ein, um Einsätze, Personen, Termine und
+        das Kontaktformular zu verwalten.
       </p>
       <form class="form" id="login-formular">
         <div class="field">
@@ -44,8 +47,9 @@
 
     <div class="tabs" role="tablist">
       <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-tab="tab-einsaetze">Einsätze</button>
-      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-personen">Personen</button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-personen">Ortskommando</button>
       <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-termine">Dienstplan / Termine</button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-schnupper">Schnupperdienst &amp; Formular</button>
       <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-daten">Daten &amp; Sicherung</button>
     </div>
 
@@ -87,8 +91,22 @@
           </div>
 
           <div class="field">
-            <label for="e-beschreibung">Kurzbeschreibung</label>
-            <textarea id="e-beschreibung" name="beschreibung" placeholder="Was wurde gemacht? Keine personenbezogenen Daten veröffentlichen."></textarea>
+            <label for="e-bild">Kachelbild (Bild-URL / Dateiname)</label>
+            <input type="text" id="e-bild" name="bild" placeholder="z. B. bilder/einsatz-2026-014.jpg">
+            <span class="field__hint">
+              Bild vorher per FTP in den Ordner <code>bilder/</code> laden. Leer lassen
+              für die farbige Standardkachel.
+            </span>
+          </div>
+
+          <div class="field">
+            <label for="e-beschreibung">Kurzbeschreibung (Kachel)</label>
+            <textarea id="e-beschreibung" name="beschreibung" placeholder="Ein bis zwei Sätze für die Übersichtskachel."></textarea>
+          </div>
+
+          <div class="field">
+            <label for="e-bericht">Ausführlicher Bericht</label>
+            <textarea id="e-bericht" name="bericht" placeholder="Wird über „Bericht lesen“ angezeigt. Keine personenbezogenen Daten veröffentlichen."></textarea>
           </div>
 
           <div class="admin-item__actions">
@@ -138,9 +156,9 @@
             <input type="text" id="p-kontakt" name="kontakt">
           </div>
 
-          <label class="checkbox-field" for="p-kern">
-            <input type="checkbox" id="p-kern" name="kern">
-            Auf der Startseite als Kernführung anzeigen
+          <label class="checkbox-field" for="p-frontpage">
+            <input type="checkbox" id="p-frontpage" name="showOnFrontpage">
+            Auf Startseite anzeigen (Ja/Nein)
           </label>
 
           <div class="admin-item__actions">
@@ -151,6 +169,10 @@
 
         <div>
           <h2>Ortskommando</h2>
+          <p class="text-sm text-muted">
+            Über den Schalter „Startseite: Ja/Nein“ steuern Sie direkt, wer in der
+            Kurzübersicht auf der Startseite erscheint.
+          </p>
           <div class="admin-list" id="person-liste"></div>
         </div>
       </div>
@@ -200,6 +222,50 @@
           <div class="admin-list" id="termin-liste"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Schnupperdienst & Formular -->
+    <div class="tab-panel" id="tab-schnupper" role="tabpanel" hidden>
+      <form class="card form" id="schnupper-formular">
+        <h2>Schnupperdienst-Banner &amp; Kontaktformular</h2>
+        <p class="text-sm text-muted">
+          Hier passen Sie den Text des Schnupperdienst-Banners, die Ziel-E-Mail-Adresse
+          und die Felder des Kontaktformulars an.
+        </p>
+
+        <div class="field">
+          <label for="s-titel">Überschrift des Banners</label>
+          <input type="text" id="s-titel" name="titel">
+        </div>
+
+        <div class="field">
+          <label for="s-text">Text des Banners</label>
+          <textarea id="s-text" name="text"></textarea>
+        </div>
+
+        <div class="form-row form-row--2">
+          <div class="field">
+            <label for="s-button">Beschriftung des Buttons</label>
+            <input type="text" id="s-button" name="buttonText">
+          </div>
+          <div class="field">
+            <label for="s-email">Ziel-E-Mail-Adresse</label>
+            <input type="email" id="s-email" name="email">
+          </div>
+        </div>
+
+        <h3>Formularfelder</h3>
+        <p class="text-sm text-muted">
+          Reihenfolge = Anzeigereihenfolge im Formular. Bei „Auswahlliste“ die
+          Optionen mit Komma trennen.
+        </p>
+        <div class="stack-sm" id="feld-liste"></div>
+
+        <div class="admin-item__actions">
+          <button class="btn btn--outline" type="button" id="feld-hinzufuegen">Feld hinzufügen</button>
+          <button class="btn btn--primary" type="submit">Einstellungen speichern</button>
+        </div>
+      </form>
     </div>
 
     <!-- Daten & Sicherung -->
