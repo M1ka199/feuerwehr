@@ -747,9 +747,6 @@
   PAGES.start = function () {
     var settings = Store.settings();
 
-    // Jahresstatistik auf Startseite
-    renderYearStats("#startseite-statistik");
-
     var opsBox = $("#startseite-einsaetze");
     if (opsBox) {
       renderOps(opsBox, Store.einsaetze().slice(0, CONFIG.frontpageOps));
