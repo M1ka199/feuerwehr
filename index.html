@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Offizielle Seite der Freiwilligen Feuerwehr Wulften am Harz: aktuelle Einsätze, Ansprechpartner, Dienstplan und Kontakt zum Schnupperdienst.">
+  <link rel="icon" href="image_0.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="start">
+
+  <!-- A. Notruf-Banner -->
+  <div class="emergency-bar">
+    Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
+  </div>
+
+  <!-- B. Haupt-Header & Navigation -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#start">
+        <img class="brand__logo" src="image_0.png" alt="Wappen der Feuerwehr Wulften am Harz">
+        <span class="brand__text">
+          <span class="brand__name">Feuerwehr Wulften am Harz</span>
+          <span class="brand__sub">Freiwillige Feuerwehr</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="hauptnavigation">
+        ☰ Menü
+      </button>
+
+      <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#start">Startseite</a></li>
+          <li><a href="#einsaetze">Einsätze</a></li>
+          <li><a href="#fuehrung">Führung / Ansprechpartner</a></li>
+          <li><a href="#kontakt">Kontakt &amp; Schnupperdienst</a></li>
+          <li><a class="nav-admin" href="admin.html">Admin / CMS</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="start">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <img class="hero__image" src="image_0.png" alt="Wappen der Freiwilligen Feuerwehr Wulften am Harz">
+        <div>
+          <h1>Freiwillige Feuerwehr Wulften am Harz</h1>
+          <p>
+            Rund um die Uhr ehrenamtlich für unseren Ort im Einsatz – bei Bränden,
+            technischer Hilfeleistung und im Katastrophenschutz. Wir freuen uns über
+            jede Verstärkung.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--accent" href="#kontakt">Mitglied werden</a>
+            <a class="btn btn--ghost-light" href="#einsaetze">Aktuelle Einsätze</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letzte Einsätze -->
+    <section class="section" id="einsaetze">
+      <div class="container">
+        <div class="section__head">
+          <h2>Letzte Einsätze</h2>
+          <p>Die drei jüngsten Alarmierungen unserer Ortsfeuerwehr.</p>
+        </div>
+
+        <div class="ops-list" id="einsaetze-kompakt"></div>
+
+        <div class="section__foot">
+          <button class="btn btn--primary" type="button" data-modal-open="modal-einsaetze">
+            Alle Einsätze anzeigen (<span id="einsatz-anzahl">0</span>)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Führung / Ansprechpartner -->
+    <section class="section section--alt" id="fuehrung">
+      <div class="container">
+        <div class="section__head">
+          <h2>Die wichtigsten Personen</h2>
+          <p>Ihre direkten Ansprechpartner in der Ortsfeuerwehr Wulften.</p>
+        </div>
+
+        <div class="grid grid--3" id="fuehrung-kompakt"></div>
+
+        <div class="section__foot">
+          <button class="btn btn--primary" type="button" data-modal-open="modal-kommando">
+            Komplettes Ortskommando ansehen
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dienstplan / Termine -->
+    <section class="section" id="termine">
+      <div class="container">
+        <div class="section__head">
+          <h2>Nächste Dienste &amp; Termine</h2>
+          <p>Übungsdienste finden in der Regel freitags um 19:00 Uhr am Feuerwehrhaus statt.</p>
+        </div>
+        <ul class="dates" id="termine-liste"></ul>
+      </div>
+    </section>
+
+    <!-- Bürgerservice & Kontakt -->
+    <section class="section section--alt" id="kontakt">
+      <div class="container">
+        <div class="section__head">
+          <h2>Bürgerservice, Kontakt &amp; Schnupperdienst</h2>
+          <p>
+            Sie haben eine Frage, möchten den Schnupperdienst besuchen oder den
+            Förderverein unterstützen? Schreiben Sie uns.
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <form class="form" id="kontakt-formular" novalidate>
+            <div class="field">
+              <label for="anliegen">Ihr Anliegen</label>
+              <select id="anliegen" name="anliegen">
+                <option>Allgemeine Frage</option>
+                <option>Schnupperdienst / Mitmachen</option>
+                <option>Förderverein</option>
+              </select>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="name">Name <span class="req">*</span></label>
+                <input type="text" id="name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="kontakt-daten">E-Mail oder Telefon <span class="req">*</span></label>
+                <input type="text" id="kontakt-daten" name="kontakt" autocomplete="email" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="nachricht">Nachricht <span class="req">*</span></label>
+              <textarea id="nachricht" name="nachricht" required></textarea>
+            </div>
+
+            <p class="form-message" id="kontakt-hinweis" role="status" hidden></p>
+
+            <div>
+              <button class="btn btn--primary" type="submit">Nachricht senden</button>
+            </div>
+            <p class="form-note">
+              <span class="req">*</span> Pflichtfeld. Hinweis: Dieses Formular ist kein
+              Notrufweg. Bei Gefahr bitte immer die <a href="tel:112">112</a> wählen.
+            </p>
+          </form>
+
+          <div class="card">
+            <h3>Feuerwehrhaus Wulften</h3>
+            <ul class="info-list">
+              <li><strong>Adresse</strong> Feuerwehrhaus Wulften, Hauptstraße 1, 37199 Wulften am Harz</li>
+              <li><strong>E-Mail</strong> <a href="mailto:kontakt@feuerwehr-wulften.de">kontakt@feuerwehr-wulften.de</a></li>
+              <li><strong>Übungsdienst</strong> in der Regel freitags, 19:00 Uhr</li>
+              <li><strong>Jugendfeuerwehr</strong> ab 10 Jahren, Schnuppern jederzeit möglich</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__grid">
+        <div>
+          <h3>Feuerwehrhaus</h3>
+          <p class="mb-0">
+            Freiwillige Feuerwehr Wulften am Harz<br>
+            Hauptstraße 1<br>
+            37199 Wulften am Harz
+          </p>
+        </div>
+        <div>
+          <h3>Notfallnummern</h3>
+          <ul>
+            <li>Feuerwehr &amp; Rettungsdienst: <a href="tel:112">112</a></li>
+            <li>Polizei: <a href="tel:110">110</a></li>
+            <li>Ärztlicher Bereitschaftsdienst: <a href="tel:116117">116 117</a></li>
+            <li>Leitstelle Göttingen: <a href="tel:+4955140050">0551 400 50</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Rechtliches</h3>
+          <ul>
+            <li><a href="#impressum">Impressum</a></li>
+            <li><a href="#datenschutz">Datenschutz</a></li>
+            <li><a href="admin.html">Admin / CMS</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>&copy; <span id="jahr">2026</span> Freiwillige Feuerwehr Wulften am Harz</span>
+        <span>Ehrenamt rettet Leben.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: alle Einsätze -->
+  <div class="modal" id="modal-einsaetze" role="dialog" aria-modal="true" aria-labelledby="modal-einsaetze-titel" hidden>
+    <button class="modal__backdrop" type="button" data-modal-close aria-label="Schließen"></button>
+    <div class="modal__dialog">
+      <div class="modal__head">
+        <h2 id="modal-einsaetze-titel">Alle Einsätze</h2>
+        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">✕</button>
+      </div>
+      <div class="filters">
+        <button class="filter-btn is-active" type="button" data-filter="alle">Alle</button>
+        <button class="filter-btn" type="button" data-filter="brand">Brand</button>
+        <button class="filter-btn" type="button" data-filter="thl">THL</button>
+      </div>
+      <div class="ops-list" id="einsaetze-komplett"></div>
+    </div>
+  </div>
+
+  <!-- Modal: komplettes Ortskommando -->
+  <div class="modal" id="modal-kommando" role="dialog" aria-modal="true" aria-labelledby="modal-kommando-titel" hidden>
+    <button class="modal__backdrop" type="button" data-modal-close aria-label="Schließen"></button>
+    <div class="modal__dialog">
+      <div class="modal__head">
+        <h2 id="modal-kommando-titel">Ortskommando</h2>
+        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">✕</button>
+      </div>
+      <div class="grid grid--3" id="kommando-komplett"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

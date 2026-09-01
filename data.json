@@ -1,0 +1,157 @@
+{
+  "einsaetze": [
+    {
+      "id": "e-2026-014",
+      "datum": "2026-08-24",
+      "uhrzeit": "18:42",
+      "stichwort": "F2 – Gartenlaubenbrand",
+      "art": "Brand",
+      "ort": "Wulften, Am Sportplatz",
+      "beschreibung": "Brennende Gartenlaube in unmittelbarer Nähe zur Nachbarbebauung. Ablöschen mit einem C-Rohr unter Atemschutz, anschließend Nachlöscharbeiten."
+    },
+    {
+      "id": "e-2026-013",
+      "datum": "2026-08-11",
+      "uhrzeit": "07:15",
+      "stichwort": "H1 – Ölspur",
+      "art": "THL",
+      "ort": "Wulften, Hauptstraße",
+      "beschreibung": "Ausgedehnte Ölspur über rund 400 Meter. Abstreuen mit Bindemittel und Übergabe an den Bauhof."
+    },
+    {
+      "id": "e-2026-012",
+      "datum": "2026-07-29",
+      "uhrzeit": "21:03",
+      "stichwort": "H2 – Verkehrsunfall, Person eingeklemmt",
+      "art": "THL",
+      "ort": "L 530 zwischen Wulften und Hattorf",
+      "beschreibung": "Technische Rettung einer eingeklemmten Person mit hydraulischem Rettungsgerät, Sicherstellung des Brandschutzes, Unterstützung des Rettungsdienstes."
+    },
+    {
+      "id": "e-2026-011",
+      "datum": "2026-07-02",
+      "uhrzeit": "14:20",
+      "stichwort": "F1 – Rauchentwicklung im Gebäude",
+      "art": "Brand",
+      "ort": "Wulften, Bahnhofstraße",
+      "beschreibung": "Angebranntes Kochgut. Kontrolle mit der Wärmebildkamera, Belüftung der Wohnung, keine Verletzten."
+    },
+    {
+      "id": "e-2026-010",
+      "datum": "2026-06-18",
+      "uhrzeit": "16:55",
+      "stichwort": "H1 – Sturmschaden / Baum auf Fahrbahn",
+      "art": "THL",
+      "ort": "Wulften, Lindenweg",
+      "beschreibung": "Umgestürzter Baum blockierte die Fahrbahn. Zerkleinerung mit der Motorsäge und Räumung der Straße."
+    },
+    {
+      "id": "e-2026-009",
+      "datum": "2026-05-30",
+      "uhrzeit": "03:12",
+      "stichwort": "F3 – Feuer Wirtschaftsgebäude",
+      "art": "Brand",
+      "ort": "Ortsrand Wulften",
+      "beschreibung": "Überörtliche Unterstützung mit Tanklöschfahrzeug und Atemschutzgeräteträgern, Einsatzdauer rund fünf Stunden."
+    }
+  ],
+  "personen": [
+    {
+      "id": "p-1",
+      "name": "Michael Bode",
+      "dienstgrad": "Erster Hauptbrandmeister",
+      "funktion": "Ortsbrandmeister",
+      "kern": true,
+      "bild": "",
+      "kontakt": "ortsbrandmeister@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-2",
+      "name": "Sabine Krüger",
+      "dienstgrad": "Hauptbrandmeisterin",
+      "funktion": "Stellvertretende Ortsbrandmeisterin",
+      "kern": true,
+      "bild": "",
+      "kontakt": "stellvertretung@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-3",
+      "name": "Tobias Lehmann",
+      "dienstgrad": "Oberlöschmeister",
+      "funktion": "Jugendfeuerwehrwart",
+      "kern": true,
+      "bild": "",
+      "kontakt": "jugendwart@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-4",
+      "name": "Andrea Wolters",
+      "dienstgrad": "Löschmeisterin",
+      "funktion": "Schriftführerin",
+      "kern": false,
+      "bild": "",
+      "kontakt": "schriftfuehrung@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-5",
+      "name": "Frank Osterloh",
+      "dienstgrad": "Hauptfeuerwehrmann",
+      "funktion": "Gerätewart",
+      "kern": false,
+      "bild": "",
+      "kontakt": "geraetewart@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-6",
+      "name": "Jens Rothert",
+      "dienstgrad": "Oberfeuerwehrmann",
+      "funktion": "Atemschutzbeauftragter",
+      "kern": false,
+      "bild": "",
+      "kontakt": "atemschutz@feuerwehr-wulften.de"
+    },
+    {
+      "id": "p-7",
+      "name": "Carolin Meiners",
+      "dienstgrad": "Feuerwehrfrau",
+      "funktion": "Kassenwartin / Förderverein",
+      "kern": false,
+      "bild": "",
+      "kontakt": "kasse@feuerwehr-wulften.de"
+    }
+  ],
+  "termine": [
+    {
+      "id": "t-1",
+      "datum": "2026-09-11",
+      "uhrzeit": "19:00",
+      "titel": "Übungsdienst: Technische Hilfeleistung",
+      "ort": "Feuerwehrhaus Wulften",
+      "hinweis": "Einsatzkleidung vollständig mitbringen."
+    },
+    {
+      "id": "t-2",
+      "datum": "2026-09-25",
+      "uhrzeit": "19:00",
+      "titel": "Übungsdienst: Atemschutz-Belastungsübung",
+      "ort": "Feuerwehrhaus Wulften",
+      "hinweis": "Nur für Atemschutzgeräteträger mit gültiger G26.3."
+    },
+    {
+      "id": "t-3",
+      "datum": "2026-10-09",
+      "uhrzeit": "18:30",
+      "titel": "Jugendfeuerwehr: Knoten und Stiche",
+      "ort": "Feuerwehrhaus Wulften",
+      "hinweis": "Schnuppergäste ab 10 Jahren herzlich willkommen."
+    },
+    {
+      "id": "t-4",
+      "datum": "2026-10-23",
+      "uhrzeit": "19:00",
+      "titel": "Gemeinsamer Dienst mit der Ortsfeuerwehr Hattorf",
+      "ort": "Feuerwehrhaus Hattorf",
+      "hinweis": "Abfahrt 18:40 Uhr am Feuerwehrhaus Wulften."
+    }
+  ]
+}

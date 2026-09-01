@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin / CMS – Feuerwehr Wulften am Harz</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="image_0.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body" data-page="admin">
+
+  <header class="admin-header">
+    <div class="container admin-header__inner">
+      <h1>CMS – Feuerwehr Wulften am Harz</h1>
+      <div class="admin-header__actions">
+        <a class="btn btn--light btn--sm" href="index.html">Zur Website</a>
+        <button class="btn btn--ghost-light btn--sm" type="button" id="logout">Abmelden</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login -->
+  <section class="container login-wrap" id="login-bereich">
+    <div class="card">
+      <h2>Anmeldung</h2>
+      <p class="text-sm text-muted">
+        Bitte geben Sie das Admin-Passwort ein, um Einsätze, Personen und Termine
+        zu verwalten.
+      </p>
+      <form class="form" id="login-formular">
+        <div class="field">
+          <label for="passwort">Passwort</label>
+          <input type="password" id="passwort" name="passwort" autocomplete="current-password" required>
+        </div>
+        <p class="form-message" id="login-fehler" role="alert" hidden></p>
+        <button class="btn btn--primary btn--block" type="submit">Anmelden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CMS -->
+  <section class="container" id="admin-bereich" hidden>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn is-active" type="button" role="tab" aria-selected="true" data-tab="tab-einsaetze">Einsätze</button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-personen">Personen</button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-termine">Dienstplan / Termine</button>
+      <button class="tab-btn" type="button" role="tab" aria-selected="false" data-tab="tab-daten">Daten &amp; Sicherung</button>
+    </div>
+
+    <!-- Einsatz-Manager -->
+    <div class="tab-panel" id="tab-einsaetze" role="tabpanel">
+      <div class="admin-grid">
+        <form class="card form" id="einsatz-formular">
+          <h2 id="einsatz-formular-titel">Neuen Einsatz anlegen</h2>
+          <input type="hidden" name="id">
+
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="e-datum">Datum <span class="req">*</span></label>
+              <input type="date" id="e-datum" name="datum" required>
+            </div>
+            <div class="field">
+              <label for="e-uhrzeit">Uhrzeit</label>
+              <input type="time" id="e-uhrzeit" name="uhrzeit">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="e-stichwort">Alarmierungsstichwort <span class="req">*</span></label>
+            <input type="text" id="e-stichwort" name="stichwort" placeholder="z. B. F2 – Kellerbrand" required>
+          </div>
+
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="e-art">Art</label>
+              <select id="e-art" name="art">
+                <option>Brand</option>
+                <option>THL</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="e-ort">Einsatzort</label>
+              <input type="text" id="e-ort" name="ort" placeholder="z. B. Wulften, Hauptstraße">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="e-beschreibung">Kurzbeschreibung</label>
+            <textarea id="e-beschreibung" name="beschreibung" placeholder="Was wurde gemacht? Keine personenbezogenen Daten veröffentlichen."></textarea>
+          </div>
+
+          <div class="admin-item__actions">
+            <button class="btn btn--primary" type="submit">Speichern</button>
+            <button class="btn btn--outline" type="button" id="einsatz-abbrechen" hidden>Abbrechen</button>
+          </div>
+        </form>
+
+        <div>
+          <h2>Erfasste Einsätze</h2>
+          <div class="admin-list" id="einsatz-liste"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personen-Manager -->
+    <div class="tab-panel" id="tab-personen" role="tabpanel" hidden>
+      <div class="admin-grid">
+        <form class="card form" id="person-formular">
+          <h2 id="person-formular-titel">Neue Person anlegen</h2>
+          <input type="hidden" name="id">
+
+          <div class="field">
+            <label for="p-name">Name <span class="req">*</span></label>
+            <input type="text" id="p-name" name="name" required>
+          </div>
+
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="p-dienstgrad">Dienstgrad</label>
+              <input type="text" id="p-dienstgrad" name="dienstgrad" placeholder="z. B. Hauptbrandmeister">
+            </div>
+            <div class="field">
+              <label for="p-funktion">Funktion <span class="req">*</span></label>
+              <input type="text" id="p-funktion" name="funktion" placeholder="z. B. Ortsbrandmeister" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="p-bild">Bild-Link</label>
+            <input type="text" id="p-bild" name="bild" placeholder="z. B. bilder/person.jpg">
+            <span class="field__hint">Leer lassen für den Platzhalter mit Initialen.</span>
+          </div>
+
+          <div class="field">
+            <label for="p-kontakt">Kontakt (E-Mail oder Telefon)</label>
+            <input type="text" id="p-kontakt" name="kontakt">
+          </div>
+
+          <label class="checkbox-field" for="p-kern">
+            <input type="checkbox" id="p-kern" name="kern">
+            Auf der Startseite als Kernführung anzeigen
+          </label>
+
+          <div class="admin-item__actions">
+            <button class="btn btn--primary" type="submit">Speichern</button>
+            <button class="btn btn--outline" type="button" id="person-abbrechen" hidden>Abbrechen</button>
+          </div>
+        </form>
+
+        <div>
+          <h2>Ortskommando</h2>
+          <div class="admin-list" id="person-liste"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Termine-Manager -->
+    <div class="tab-panel" id="tab-termine" role="tabpanel" hidden>
+      <div class="admin-grid">
+        <form class="card form" id="termin-formular">
+          <h2 id="termin-formular-titel">Neuen Termin anlegen</h2>
+          <input type="hidden" name="id">
+
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="t-datum">Datum <span class="req">*</span></label>
+              <input type="date" id="t-datum" name="datum" required>
+            </div>
+            <div class="field">
+              <label for="t-uhrzeit">Uhrzeit</label>
+              <input type="time" id="t-uhrzeit" name="uhrzeit" value="19:00">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="t-titel">Titel <span class="req">*</span></label>
+            <input type="text" id="t-titel" name="titel" placeholder="z. B. Übungsdienst: Atemschutz" required>
+          </div>
+
+          <div class="field">
+            <label for="t-ort">Ort</label>
+            <input type="text" id="t-ort" name="ort" value="Feuerwehrhaus Wulften">
+          </div>
+
+          <div class="field">
+            <label for="t-hinweis">Hinweis</label>
+            <textarea id="t-hinweis" name="hinweis" placeholder="z. B. Einsatzkleidung mitbringen"></textarea>
+          </div>
+
+          <div class="admin-item__actions">
+            <button class="btn btn--primary" type="submit">Speichern</button>
+            <button class="btn btn--outline" type="button" id="termin-abbrechen" hidden>Abbrechen</button>
+          </div>
+        </form>
+
+        <div>
+          <h2>Dienstplan</h2>
+          <div class="admin-list" id="termin-liste"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daten & Sicherung -->
+    <div class="tab-panel" id="tab-daten" role="tabpanel" hidden>
+      <div class="card">
+        <h2>Daten &amp; Sicherung</h2>
+        <p class="text-sm text-muted">
+          Alle Änderungen werden zunächst in diesem Browser gespeichert. Damit die
+          Inhalte für alle Besucher sichtbar werden, exportieren Sie die
+          <strong>data.json</strong> und laden Sie die Datei per FTP in das
+          Website-Verzeichnis hoch (vorhandene Datei überschreiben).
+        </p>
+        <div class="admin-item__actions">
+          <button class="btn btn--primary" type="button" id="export">data.json exportieren</button>
+          <button class="btn btn--outline" type="button" id="import">data.json importieren</button>
+          <button class="btn btn--danger" type="button" id="zuruecksetzen">Auf Serverstand zurücksetzen</button>
+        </div>
+        <input type="file" id="import-datei" accept="application/json,.json" class="visually-hidden">
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
