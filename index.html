@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freiwillige Feuerwehr Wulften am Harz</title>
+<meta name="description" content="Offizielle Website der Freiwilligen Feuerwehr Wulften am Harz: Einsätze, Termine, Bürgerservice und Mitmachen.">
+<link rel="icon" href="assets/image_0.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container topbar__inner">
+    <p class="topbar__info">Im Notfall wählen Sie immer den Notruf – wir sind rund um die Uhr für Sie da.</p>
+    <a class="btn-emergency" href="tel:112" aria-label="Notruf 112 anrufen">
+      <span class="btn-emergency__pulse" aria-hidden="true"></span>
+      <span class="btn-emergency__icon" aria-hidden="true">☎</span>
+      <span>Notruf 112</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a class="brand" href="index.html">
+      <img class="brand__logo" src="assets/image_0.png" alt="Logo der Freiwilligen Feuerwehr Wulften am Harz" width="72" height="72">
+      <span class="brand__text">
+        <span class="brand__line1">Freiwillige Feuerwehr</span>
+        <span class="brand__line2">Wulften am Harz</span>
+      </span>
+    </a>
+
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="primary-nav">
+      <span class="burger__bar" aria-hidden="true"></span>
+      <span class="burger__bar" aria-hidden="true"></span>
+      <span class="burger__bar" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="primary-nav" aria-label="Hauptnavigation">
+      <ul class="nav__list">
+        <li class="nav__item"><a class="nav__link is-active" href="index.html" aria-current="page">Startseite</a></li>
+
+        <li class="nav__item has-dropdown">
+          <button class="nav__link nav__toggle" aria-expanded="false" aria-controls="dd-einsaetze">Einsätze <span class="caret" aria-hidden="true"></span></button>
+          <ul class="dropdown" id="dd-einsaetze">
+            <li><a href="#einsatzarchiv">Einsatzberichte</a></li>
+            <li><a href="#statistik">Statistik</a></li>
+          </ul>
+        </li>
+
+        <li class="nav__item has-dropdown">
+          <button class="nav__link nav__toggle" aria-expanded="false" aria-controls="dd-ueberuns">Über uns <span class="caret" aria-hidden="true"></span></button>
+          <ul class="dropdown" id="dd-ueberuns">
+            <li><a href="#ortskommando">Ortskommando</a></li>
+            <li><a href="#abteilungen">Einsatzabteilung</a></li>
+            <li><a href="#abteilungen">Jugendfeuerwehr</a></li>
+            <li><a href="#abteilungen">Kinderfeuerwehr</a></li>
+            <li><a href="#abteilungen">Altersabteilung</a></li>
+            <li><a href="#fuhrpark">Fuhrpark / Technik</a></li>
+          </ul>
+        </li>
+
+        <li class="nav__item has-dropdown">
+          <button class="nav__link nav__toggle" aria-expanded="false" aria-controls="dd-termine">Termine <span class="caret" aria-hidden="true"></span></button>
+          <ul class="dropdown" id="dd-termine">
+            <li><a href="#termine">Dienstpläne</a></li>
+            <li><a href="#termine">Veranstaltungen</a></li>
+          </ul>
+        </li>
+
+        <li class="nav__item has-dropdown">
+          <button class="nav__link nav__toggle" aria-expanded="false" aria-controls="dd-service">Bürgerservice <span class="caret" aria-hidden="true"></span></button>
+          <ul class="dropdown" id="dd-service">
+            <li><a href="#rauchmelder">Rauchmelder-Info</a></li>
+            <li><a href="#notfall">Verhalten im Notfall</a></li>
+            <li><a href="#downloads">Downloads &amp; Formulare</a></li>
+          </ul>
+        </li>
+
+        <li class="nav__item"><a class="nav__link" href="#kontakt">Mitmachen / Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="nav-backdrop" id="nav-backdrop" hidden></div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media" aria-hidden="true"></div>
+    <div class="hero__watermark" aria-hidden="true"></div>
+    <div class="hero__checks" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="hero__eyebrow">Ortsfeuerwehr der Gemeinde Wulften am Harz</p>
+      <h1 class="hero__title" id="hero-title">Freiwillige Feuerwehr Wulften am Harz<span class="hero__title-sub">24/7 im Einsatz. Seit 1897.</span></h1>
+      <p class="hero__lead">Retten – Löschen – Bergen – Schützen. Ehrenamtlich, gut ausgebildet und jederzeit einsatzbereit für unsere Gemeinde.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#mitmachen">Mitmachen / Mitglied werden</a>
+        <a class="btn btn--ghost" href="#einsatzticker">Letzte Einsätze</a>
+      </div>
+      <dl class="hero__facts">
+        <div class="fact"><dt>Einsätze 2025</dt><dd>63</dd></div>
+        <div class="fact"><dt>Aktive Mitglieder</dt><dd>48</dd></div>
+        <div class="fact"><dt>Fahrzeuge</dt><dd>4</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ EINSATZ-TICKER ============ -->
+  <section class="section" id="einsatzticker" aria-labelledby="ticker-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Aktuell</p>
+          <h2 class="section__title" id="ticker-title">Letzte Einsätze</h2>
+        </div>
+        <a class="link-more" href="#einsatzarchiv">Alle Einsätze im Archiv <span aria-hidden="true">→</span></a>
+      </header>
+
+      <div class="grid grid--3">
+        <article class="card card--incident">
+          <p class="card__meta"><time datetime="2026-08-24T19:42">24.08.2026 · 19:42 Uhr</time></p>
+          <span class="badge badge--fire">Brand</span>
+          <h3 class="card__title">F2 – Gebäudebrand Nebengebäude</h3>
+          <p class="card__text">Ausgedehnter Brand einer Scheune an der Bahnhofstraße. Einsatzdauer 3,5 Stunden, Unterstützung durch Nachbarwehren.</p>
+          <a class="btn btn--link" href="#einsatzarchiv">Einsatzbericht lesen</a>
+        </article>
+
+        <article class="card card--incident">
+          <p class="card__meta"><time datetime="2026-08-11T06:15">11.08.2026 · 06:15 Uhr</time></p>
+          <span class="badge badge--thl">THL</span>
+          <h3 class="card__title">H1 – Verkehrsunfall, Person eingeklemmt</h3>
+          <p class="card__text">Technische Hilfeleistung auf der B243. Patientenrettung in Zusammenarbeit mit Rettungsdienst und Polizei.</p>
+          <a class="btn btn--link" href="#einsatzarchiv">Einsatzbericht lesen</a>
+        </article>
+
+        <article class="card card--incident">
+          <p class="card__meta"><time datetime="2026-07-29T14:08">29.07.2026 · 14:08 Uhr</time></p>
+          <span class="badge badge--storm">Unwetter</span>
+          <h3 class="card__title">H1 – Baum auf Fahrbahn</h3>
+          <p class="card__text">Nach Sturmtief mehrere Einsatzstellen im Ortsgebiet. Beseitigung der Gefahrenstellen mit Motorkettensäge.</p>
+          <a class="btn btn--link" href="#einsatzarchiv">Einsatzbericht lesen</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TERMINE + DOWNLOAD-BOX ============ -->
+  <section class="section section--alt" id="termine" aria-labelledby="termine-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Kalender</p>
+          <h2 class="section__title" id="termine-title">Nächste Termine &amp; Veranstaltungen</h2>
+        </div>
+      </header>
+
+      <div class="split">
+        <div class="panel">
+          <h3 class="panel__title">Terminkalender</h3>
+          <ul class="events">
+            <li class="event">
+              <span class="event__date"><span class="event__day">05</span><span class="event__month">Sep</span></span>
+              <span class="event__body">
+                <span class="event__title">Übungsdienst: Atemschutz-Notfalltraining</span>
+                <span class="event__info">19:00 Uhr · Feuerwehrhaus Wulften · Einsatzabteilung</span>
+              </span>
+            </li>
+            <li class="event">
+              <span class="event__date"><span class="event__day">12</span><span class="event__month">Sep</span></span>
+              <span class="event__body">
+                <span class="event__title">Jugendfeuerwehr: Knoten &amp; Stiche</span>
+                <span class="event__info">17:30 Uhr · Feuerwehrhaus Wulften · Jugendfeuerwehr</span>
+              </span>
+            </li>
+            <li class="event">
+              <span class="event__date"><span class="event__day">27</span><span class="event__month">Sep</span></span>
+              <span class="event__body">
+                <span class="event__title">Tag der offenen Tür</span>
+                <span class="event__info">11:00 – 17:00 Uhr · Feuerwehrhaus Wulften · Alle</span>
+              </span>
+            </li>
+            <li class="event">
+              <span class="event__date"><span class="event__day">10</span><span class="event__month">Okt</span></span>
+              <span class="event__body">
+                <span class="event__title">Gemeinsame Alarmübung mit der Ortswehr Hattorf</span>
+                <span class="event__info">18:00 Uhr · Ortsgebiet · Einsatzabteilung</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="panel panel--download" aria-labelledby="dienstplan-title">
+          <h3 class="panel__title" id="dienstplan-title">Dienstplan als PDF</h3>
+          <p>Der aktuelle Dienstplan enthält alle Übungsdienste, Lehrgänge und Veranstaltungen des laufenden Halbjahres.</p>
+          <a class="btn btn--secondary" href="downloads/dienstplan-2026.pdf" download>Dienstplan 2/2026 herunterladen (PDF, 240 KB)</a>
+          <p class="panel__note">Änderungen werden kurzfristig über die Alarmierungs-App und den Aushang im Feuerwehrhaus bekannt gegeben.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NACHRICHTEN ============ -->
+  <section class="section" id="berichte" aria-labelledby="news-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Aus der Wehr</p>
+          <h2 class="section__title" id="news-title">Aktuelle Nachrichten &amp; Berichte</h2>
+        </div>
+        <a class="link-more" href="#berichte">Alle Berichte <span aria-hidden="true">→</span></a>
+      </header>
+
+      <div class="grid grid--3">
+        <article class="card card--news">
+          <div class="card__image" role="img" aria-label="Platzhalterbild: Atemschutzübung"></div>
+          <div class="card__body">
+            <p class="card__meta"><time datetime="2026-08-18">18.08.2026</time> · Übung</p>
+            <h3 class="card__title">Heißausbildung in der Brandsimulationsanlage</h3>
+            <p class="card__text">Zwölf Atemschutzgeräteträger trainierten realistische Brandverläufe und die Rauchgasdurchzündung.</p>
+            <a class="btn btn--link" href="#berichte">Weiterlesen</a>
+          </div>
+        </article>
+
+        <article class="card card--news">
+          <div class="card__image" role="img" aria-label="Platzhalterbild: Lehrgang"></div>
+          <div class="card__body">
+            <p class="card__meta"><time datetime="2026-08-02">02.08.2026</time> · Lehrgang</p>
+            <h3 class="card__title">Vier neue Truppführerinnen und Truppführer</h3>
+            <p class="card__text">Nach erfolgreichem Abschluss des Lehrgangs verstärken vier Kameradinnen und Kameraden die Führungsebene.</p>
+            <a class="btn btn--link" href="#berichte">Weiterlesen</a>
+          </div>
+        </article>
+
+        <article class="card card--news">
+          <div class="card__image" role="img" aria-label="Platzhalterbild: Jugendfeuerwehr"></div>
+          <div class="card__body">
+            <p class="card__meta"><time datetime="2026-07-20">20.07.2026</time> · Jugend</p>
+            <h3 class="card__title">Zeltlager der Jugendfeuerwehr</h3>
+            <p class="card__text">Fünf Tage Gemeinschaft, Ausbildung und Spiel: Unsere Jugend war beim Kreiszeltlager erfolgreich dabei.</p>
+            <a class="btn btn--link" href="#berichte">Weiterlesen</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECRUITING ============ -->
+  <section class="section section--recruit" id="mitmachen" aria-labelledby="recruit-title">
+    <div class="container">
+      <header class="section__head section__head--center">
+        <div>
+          <p class="section__eyebrow">Mitmachen</p>
+          <h2 class="section__title" id="recruit-title">Werde Teil unserer Mannschaft</h2>
+          <p class="section__lead">Ob jung oder erfahren – bei uns findet jede und jeder den passenden Platz. Eine Vorbildung ist nicht erforderlich.</p>
+        </div>
+      </header>
+
+      <div class="grid grid--3">
+        <article class="card card--recruit">
+          <span class="card__age">6 – 10 Jahre</span>
+          <h3 class="card__title">Kinderfeuerwehr</h3>
+          <p class="card__text">Spielerisch die Feuerwehr entdecken: Basteln, Bewegung und erste Brandschutzerziehung.</p>
+          <a class="btn btn--primary btn--sm" href="#kontakt">Schnupperdienst anfragen</a>
+        </article>
+        <article class="card card--recruit">
+          <span class="card__age">10 – 17 Jahre</span>
+          <h3 class="card__title">Jugendfeuerwehr</h3>
+          <p class="card__text">Feuerwehrtechnische Ausbildung, Wettbewerbe, Zeltlager und echte Kameradschaft.</p>
+          <a class="btn btn--primary btn--sm" href="#kontakt">Schnupperdienst anfragen</a>
+        </article>
+        <article class="card card--recruit">
+          <span class="card__age">ab 16 Jahre</span>
+          <h3 class="card__title">Einsatzabteilung</h3>
+          <p class="card__text">Aktiver Dienst am Nächsten: Grundausbildung, Atemschutz, Technische Hilfeleistung.</p>
+          <a class="btn btn--primary btn--sm" href="#kontakt">Beitritt anfragen</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODUL A: ORTSKOMMANDO ============ -->
+  <section class="section" id="ortskommando" aria-labelledby="okdo-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Über uns</p>
+          <h2 class="section__title" id="okdo-title">Ortskommando</h2>
+          <p class="section__lead">Ihre Ansprechpartnerinnen und Ansprechpartner der Ortsfeuerwehr Wulften am Harz.</p>
+        </div>
+      </header>
+
+      <ul class="grid grid--4 people">
+        <li class="person">
+          <div class="person__photo" role="img" aria-label="Porträtplatzhalter Ortsbrandmeister"></div>
+          <h3 class="person__name">Max Mustermann</h3>
+          <p class="person__rank">Ortsbrandmeister · Hauptbrandmeister</p>
+          <a class="person__mail" href="mailto:ortsbrandmeister@feuerwehr-wulften.de">ortsbrandmeister@feuerwehr-wulften.de</a>
+        </li>
+        <li class="person">
+          <div class="person__photo" role="img" aria-label="Porträtplatzhalter stellvertretende Ortsbrandmeisterin"></div>
+          <h3 class="person__name">Erika Musterfrau</h3>
+          <p class="person__rank">Stellv. Ortsbrandmeisterin · Oberbrandmeisterin</p>
+          <a class="person__mail" href="mailto:stellvertretung@feuerwehr-wulften.de">stellvertretung@feuerwehr-wulften.de</a>
+        </li>
+        <li class="person">
+          <div class="person__photo" role="img" aria-label="Porträtplatzhalter Jugendfeuerwehrwart"></div>
+          <h3 class="person__name">Jonas Beispiel</h3>
+          <p class="person__rank">Jugendfeuerwehrwart · Löschmeister</p>
+          <a class="person__mail" href="mailto:jugend@feuerwehr-wulften.de">jugend@feuerwehr-wulften.de</a>
+        </li>
+        <li class="person">
+          <div class="person__photo" role="img" aria-label="Porträtplatzhalter Schriftwartin"></div>
+          <h3 class="person__name">Lena Beispiel</h3>
+          <p class="person__rank">Schriftwartin · Oberfeuerwehrfrau</p>
+          <a class="person__mail" href="mailto:schriftwart@feuerwehr-wulften.de">schriftwart@feuerwehr-wulften.de</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ MODUL B: EINSATZARCHIV MIT FILTER ============ -->
+  <section class="section section--alt" id="einsatzarchiv" aria-labelledby="archiv-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Einsätze</p>
+          <h2 class="section__title" id="archiv-title">Einsatzarchiv</h2>
+          <p class="section__lead">Filtern Sie die Einsatzberichte nach Jahr, Einsatzart oder Stichwort – ohne Neuladen der Seite.</p>
+        </div>
+      </header>
+
+      <form class="filterbar" id="incident-filter" role="search" aria-label="Einsätze filtern">
+        <div class="field">
+          <label for="filter-year">Jahr</label>
+          <select id="filter-year" name="year">
+            <option value="all">Alle Jahre</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-type">Einsatzart</label>
+          <select id="filter-type" name="type">
+            <option value="all">Alle Arten</option>
+            <option value="fire">Brand</option>
+            <option value="thl">Technische Hilfeleistung</option>
+            <option value="storm">Unwetter</option>
+            <option value="false">Fehlalarm</option>
+          </select>
+        </div>
+        <div class="field field--grow">
+          <label for="filter-search">Stichwort</label>
+          <input type="search" id="filter-search" name="q" placeholder="z. B. Bahnhofstraße">
+        </div>
+        <button class="btn btn--ghost btn--sm" type="reset" id="filter-reset">Filter zurücksetzen</button>
+      </form>
+
+      <p class="filter-status" id="filter-status" role="status" aria-live="polite"></p>
+
+      <ul class="incident-list" id="incident-list">
+        <li class="incident" data-year="2026" data-type="fire">
+          <span class="badge badge--fire">Brand</span>
+          <div class="incident__body">
+            <h3 class="incident__title">F2 – Gebäudebrand Nebengebäude</h3>
+            <p class="incident__meta"><time datetime="2026-08-24T19:42">24.08.2026, 19:42 Uhr</time> · Bahnhofstraße · Einsatzdauer 3:30 h</p>
+            <p class="incident__text">Scheunenbrand mit Ausbreitungsgefahr; Unterstützung durch die Ortswehren Hattorf und Elbingerode.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+        <li class="incident" data-year="2026" data-type="thl">
+          <span class="badge badge--thl">THL</span>
+          <div class="incident__body">
+            <h3 class="incident__title">H1 – Verkehrsunfall, Person eingeklemmt</h3>
+            <p class="incident__meta"><time datetime="2026-08-11T06:15">11.08.2026, 06:15 Uhr</time> · B243 · Einsatzdauer 1:45 h</p>
+            <p class="incident__text">Patientenorientierte Rettung, Sicherstellung des Brandschutzes und Aufnahme auslaufender Betriebsstoffe.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+        <li class="incident" data-year="2026" data-type="storm">
+          <span class="badge badge--storm">Unwetter</span>
+          <div class="incident__body">
+            <h3 class="incident__title">H1 – Baum auf Fahrbahn</h3>
+            <p class="incident__meta"><time datetime="2026-07-29T14:08">29.07.2026, 14:08 Uhr</time> · Ortsgebiet · Einsatzdauer 2:10 h</p>
+            <p class="incident__text">Mehrere Einsatzstellen nach Sturmtief; Beseitigung mit Motorkettensäge und Verkehrsabsicherung.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+        <li class="incident" data-year="2025" data-type="false">
+          <span class="badge badge--false">Fehlalarm</span>
+          <div class="incident__body">
+            <h3 class="incident__title">BMA – Auslösung Brandmeldeanlage</h3>
+            <p class="incident__meta"><time datetime="2025-11-03T09:12">03.11.2025, 09:12 Uhr</time> · Gewerbegebiet · Einsatzdauer 0:40 h</p>
+            <p class="incident__text">Täuschungsalarm durch Staubentwicklung bei Reinigungsarbeiten. Kein Feuer, keine Verletzten.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+        <li class="incident" data-year="2025" data-type="fire">
+          <span class="badge badge--fire">Brand</span>
+          <div class="incident__body">
+            <h3 class="incident__title">F1 – Kleinbrand im Freien</h3>
+            <p class="incident__meta"><time datetime="2025-08-14T16:55">14.08.2025, 16:55 Uhr</time> · Feldmark · Einsatzdauer 1:05 h</p>
+            <p class="incident__text">Brennender Strohballen; Ablöschen mit Schnellangriff und Kontrolle der Umgebung.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+        <li class="incident" data-year="2025" data-type="thl">
+          <span class="badge badge--thl">THL</span>
+          <div class="incident__body">
+            <h3 class="incident__title">H1 – Türöffnung für den Rettungsdienst</h3>
+            <p class="incident__meta"><time datetime="2025-05-21T22:30">21.05.2025, 22:30 Uhr</time> · Ortsmitte · Einsatzdauer 0:35 h</p>
+            <p class="incident__text">Schonende Türöffnung zur Unterstützung des Rettungsdienstes bei einem medizinischen Notfall.</p>
+          </div>
+          <a class="btn btn--link" href="#einsatzarchiv">Bericht lesen</a>
+        </li>
+      </ul>
+
+      <p class="empty-state" id="filter-empty" hidden>Für diese Filterauswahl liegen keine Einsatzberichte vor.</p>
+    </div>
+  </section>
+
+  <!-- ============ STATISTIK ============ -->
+  <section class="section" id="statistik" aria-labelledby="stat-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Zahlen</p>
+          <h2 class="section__title" id="stat-title">Einsatzstatistik 2025</h2>
+        </div>
+      </header>
+      <ul class="stats">
+        <li class="stat stat--fire"><span class="stat__value">21</span><span class="stat__label">Brandeinsätze</span></li>
+        <li class="stat stat--thl"><span class="stat__value">28</span><span class="stat__label">Technische Hilfeleistungen</span></li>
+        <li class="stat stat--storm"><span class="stat__value">9</span><span class="stat__label">Unwettereinsätze</span></li>
+        <li class="stat stat--false"><span class="stat__value">5</span><span class="stat__label">Fehlalarme</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ ABTEILUNGEN / FUHRPARK ============ -->
+  <section class="section section--alt" id="abteilungen" aria-labelledby="abt-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Über uns</p>
+          <h2 class="section__title" id="abt-title">Unsere Abteilungen</h2>
+        </div>
+      </header>
+      <div class="grid grid--4">
+        <article class="card"><h3 class="card__title">Einsatzabteilung</h3><p class="card__text">48 aktive Kameradinnen und Kameraden, davon 22 Atemschutzgeräteträger.</p></article>
+        <article class="card"><h3 class="card__title">Jugendfeuerwehr</h3><p class="card__text">19 Mitglieder von 10 bis 17 Jahren, Dienst alle 14 Tage.</p></article>
+        <article class="card"><h3 class="card__title">Kinderfeuerwehr</h3><p class="card__text">14 Kinder von 6 bis 10 Jahren, monatliche Gruppenstunde.</p></article>
+        <article class="card"><h3 class="card__title">Altersabteilung</h3><p class="card__text">16 Mitglieder, die die Wehr weiterhin aktiv begleiten.</p></article>
+      </div>
+
+      <h3 class="subsection__title" id="fuhrpark">Fuhrpark &amp; Technik</h3>
+      <div class="grid grid--4">
+        <article class="card card--vehicle"><h4 class="card__title">HLF 20</h4><p class="card__text">Hilfeleistungslöschfahrzeug, Baujahr 2019, Besatzung 1/8.</p></article>
+        <article class="card card--vehicle"><h4 class="card__title">TSF-W</h4><p class="card__text">Tragkraftspritzenfahrzeug-Wasser, Baujahr 2011, Besatzung 1/5.</p></article>
+        <article class="card card--vehicle"><h4 class="card__title">MTW</h4><p class="card__text">Mannschaftstransportwagen, Baujahr 2016, Besatzung 1/8.</p></article>
+        <article class="card card--vehicle"><h4 class="card__title">Anhänger Logistik</h4><p class="card__text">Materialanhänger für Hochwasser- und Unwetterlagen.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BÜRGERSERVICE ============ -->
+  <section class="section" id="rauchmelder" aria-labelledby="service-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Bürgerservice</p>
+          <h2 class="section__title" id="service-title">Sicherheit für Zuhause</h2>
+        </div>
+      </header>
+      <div class="split">
+        <div class="panel">
+          <h3 class="panel__title">Rauchmelder retten Leben</h3>
+          <ul class="list-check">
+            <li>Rauchmelderpflicht in Niedersachsen für alle Schlaf- und Kinderzimmer sowie Flure.</li>
+            <li>Montage mittig an der Zimmerdecke, mindestens 50 cm von Wänden entfernt.</li>
+            <li>Jährliche Funktionsprüfung über die Testtaste, Batteriewechsel nach Herstellerangabe.</li>
+            <li>Austausch der Geräte spätestens nach zehn Jahren.</li>
+          </ul>
+        </div>
+        <div class="panel" id="notfall">
+          <h3 class="panel__title">Verhalten im Notfall</h3>
+          <ol class="list-steps">
+            <li><strong>Ruhe bewahren</strong> und die Lage einschätzen.</li>
+            <li><strong>Notruf 112</strong> wählen: Wo? Was? Wie viele Betroffene? Welche Verletzungen? Warten auf Rückfragen.</li>
+            <li><strong>Gefahrenbereich verlassen</strong>, Türen schließen, andere warnen.</li>
+            <li><strong>Erste Hilfe leisten</strong> und die Einsatzkräfte einweisen.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODUL C: DOWNLOAD-ZENTRUM ============ -->
+  <section class="section section--alt" id="downloads" aria-labelledby="dl-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Bürgerservice</p>
+          <h2 class="section__title" id="dl-title">Dokumenten- &amp; Download-Zentrum</h2>
+        </div>
+      </header>
+
+      <div class="table-wrap">
+        <table class="table">
+          <caption class="sr-only">Downloads: Dienstpläne, Anträge und Merkblätter</caption>
+          <thead>
+            <tr><th scope="col">Dokument</th><th scope="col">Kategorie</th><th scope="col">Format</th><th scope="col">Stand</th><th scope="col"><span class="sr-only">Aktion</span></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Dienstplan 2. Halbjahr 2026</th>
+              <td>Dienstplan</td><td>PDF · 240 KB</td><td>01.07.2026</td>
+              <td><a class="btn btn--link" href="downloads/dienstplan-2026.pdf" download>Herunterladen</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Aufnahmeantrag Einsatzabteilung</th>
+              <td>Antrag</td><td>PDF · 180 KB</td><td>12.03.2026</td>
+              <td><a class="btn btn--link" href="downloads/aufnahmeantrag.pdf" download>Herunterladen</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Anmeldung Jugend-/Kinderfeuerwehr</th>
+              <td>Antrag</td><td>PDF · 165 KB</td><td>12.03.2026</td>
+              <td><a class="btn btn--link" href="downloads/anmeldung-jugend.pdf" download>Herunterladen</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Merkblatt Rauchmelder</th>
+              <td>Merkblatt</td><td>PDF · 90 KB</td><td>05.01.2026</td>
+              <td><a class="btn btn--link" href="downloads/merkblatt-rauchmelder.pdf" download>Herunterladen</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Merkblatt Osterfeuer &amp; Brauchtumsfeuer</th>
+              <td>Merkblatt</td><td>PDF · 110 KB</td><td>20.02.2026</td>
+              <td><a class="btn btn--link" href="downloads/merkblatt-osterfeuer.pdf" download>Herunterladen</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODUL D: FORMULAR ============ -->
+  <section class="section" id="kontakt" aria-labelledby="form-title">
+    <div class="container">
+      <header class="section__head">
+        <div>
+          <p class="section__eyebrow">Kontakt</p>
+          <h2 class="section__title" id="form-title">Schnupperdienst &amp; Beitritt</h2>
+          <p class="section__lead">Schreiben Sie uns – wir melden uns in der Regel innerhalb einer Woche zurück.</p>
+        </div>
+      </header>
+
+      <form class="form" id="join-form" novalidate>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Vor- und Nachname <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="f-name" name="name" required autocomplete="name" aria-describedby="e-name">
+            <p class="error" id="e-name" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-email">E-Mail-Adresse <span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="f-email" name="email" required autocomplete="email" aria-describedby="e-email">
+            <p class="error" id="e-email" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="f-phone">Telefon (optional)</label>
+            <input type="tel" id="f-phone" name="phone" autocomplete="tel" aria-describedby="e-phone">
+            <p class="error" id="e-phone" role="alert" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-dept">Gewünschte Abteilung <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-dept" name="dept" required aria-describedby="e-dept">
+              <option value="">Bitte wählen …</option>
+              <option value="kinder">Kinderfeuerwehr (6–10 Jahre)</option>
+              <option value="jugend">Jugendfeuerwehr (10–17 Jahre)</option>
+              <option value="einsatz">Einsatzabteilung (ab 16 Jahre)</option>
+              <option value="unterstuetzung">Unterstützungsabteilung</option>
+            </select>
+            <p class="error" id="e-dept" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-message">Ihre Nachricht <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-message" name="message" rows="5" required aria-describedby="e-message"></textarea>
+          <p class="error" id="e-message" role="alert" hidden></p>
+        </div>
+
+        <div class="field field--check">
+          <input type="checkbox" id="f-privacy" name="privacy" required aria-describedby="e-privacy">
+          <label for="f-privacy">Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. <span class="req" aria-hidden="true">*</span></label>
+          <p class="error" id="e-privacy" role="alert" hidden></p>
+        </div>
+
+        <button class="btn btn--primary" type="submit">Anfrage absenden</button>
+        <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container footer__grid">
+    <section class="footer__col footer__col--emergency" aria-labelledby="f-emergency">
+      <h2 class="footer__title" id="f-emergency">Im Notfall</h2>
+      <ul class="footer__list">
+        <li><a class="footer__emergency" href="tel:112">Feuerwehr &amp; Rettungsdienst: 112</a></li>
+        <li><a href="tel:110">Polizei: 110</a></li>
+        <li><a href="tel:116117">Ärztlicher Bereitschaftsdienst: 116 117</a></li>
+        <li>Leitstelle Northeim: <a href="tel:+4955196000">05551 96000</a></li>
+      </ul>
+    </section>
+
+    <section class="footer__col" aria-labelledby="f-location">
+      <h2 class="footer__title" id="f-location">Standort</h2>
+      <address class="footer__address">
+        Freiwillige Feuerwehr Wulften am Harz<br>
+        Feuerwehrhaus, Musterstraße 1<br>
+        37199 Wulften am Harz<br>
+        <a href="mailto:info@feuerwehr-wulften.de">info@feuerwehr-wulften.de</a>
+      </address>
+      <p class="footer__note">Keine Notrufannahme am Feuerwehrhaus – im Notfall immer 112 wählen.</p>
+    </section>
+
+    <section class="footer__col" aria-labelledby="f-links">
+      <h2 class="footer__title" id="f-links">Schnellzugriff</h2>
+      <ul class="footer__list">
+        <li><a href="#einsatzarchiv">Einsatzarchiv</a></li>
+        <li><a href="#termine">Termine &amp; Dienstpläne</a></li>
+        <li><a href="#downloads">Downloads &amp; Formulare</a></li>
+        <li><a href="#mitmachen">Mitmachen</a></li>
+      </ul>
+    </section>
+
+    <section class="footer__col" aria-labelledby="f-legal">
+      <h2 class="footer__title" id="f-legal">Rechtliches</h2>
+      <ul class="footer__list">
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+        <li><a href="barrierefreiheit.html">Barrierefreiheitserklärung</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p>&copy; <span id="year">2026</span> Freiwillige Feuerwehr Wulften am Harz</p>
+      <a class="to-top" href="#main">Nach oben <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>
