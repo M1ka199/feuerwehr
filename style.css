@@ -193,7 +193,7 @@ p {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 40;
   background-color: var(--color-surface);
   box-shadow: var(--shadow-header);
   border-bottom: var(--border-width) solid var(--color-border-subtle);
@@ -249,28 +249,52 @@ p {
   text-transform: uppercase;
 }
 
+/* Floating Bottom Hamburger Menu auf Mobilgeräten */
 .nav-toggle {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  background: none;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius);
-  color: var(--color-primary);
-  font: inherit;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
   font-size: var(--fs-sm);
-  padding: 0.4rem 0.75rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
   cursor: pointer;
+  transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
+}
+
+.nav-toggle__icon {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 18px;
+  height: 14px;
+}
+
+.nav-toggle__icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__icon span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 .site-nav {
   display: none;
-  width: 100%;
-  padding-bottom: var(--space-sm);
-}
-
-.site-nav.is-open {
-  display: block;
 }
 
 .site-nav ul {
@@ -278,8 +302,6 @@ p {
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
 }
 
 .site-nav a {
@@ -390,28 +412,99 @@ p {
   text-decoration: none;
 }
 
+/* Responsive Mobile Floating Menu Navigation */
 @media (max-width: 999px) {
-  .site-header__inner {
-    flex-wrap: wrap;
+  /* Schwebender Button unten mittig */
+  .nav-toggle {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: 2px solid rgba(194, 155, 56, 0.6);
+    border-radius: var(--radius-pill);
+    padding: 0.65rem 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 45, 98, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
   }
-  .header-actions {
-    margin-left: auto;
+
+  .nav-toggle:hover,
+  .nav-toggle:focus-visible {
+    background-color: var(--color-primary-light);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 14px 36px rgba(0, 45, 98, 0.5);
   }
+
+  /* Mobile Nav Drawer / Modal von unten */
   .site-nav {
-    order: 10;
+    position: fixed;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px) scale(0.96);
+    width: min(92vw, 380px);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 50px rgba(0, 28, 63, 0.35), 0 0 0 1px rgba(0, 45, 98, 0.08);
+    padding: var(--space-md);
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
   }
+
+  .site-nav.is-open {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
   .site-nav a {
-    padding: var(--space-xs) var(--space-sm);
+    display: block;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: var(--fs-base);
+    border-radius: var(--radius);
+    text-align: center;
   }
+
+  .site-nav a:hover,
+  .site-nav a.is-current {
+    background-color: var(--color-bg);
+  }
+
   .site-nav a::after {
-    left: var(--space-sm);
-    right: var(--space-sm);
+    display: none;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 28, 63, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .nav-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
 @media (min-width: 1000px) {
-  .nav-toggle {
-    display: none;
+  .nav-toggle,
+  .nav-backdrop {
+    display: none !important;
   }
   .site-nav {
     display: block;
@@ -429,6 +522,7 @@ p {
    5. Sektionen & Seitenkopf (Modern UI Whitespace 80-100px)
    --------------------------------------------------------- */
 .section {
+  position: relative;
   padding: 50px 0;
 }
 
@@ -438,10 +532,21 @@ p {
   }
 }
 
+/* Stilvoll aufgelockerte Sektionen für die Startseite und Unterseiten */
+.section--einsaetze-home {
+  background: linear-gradient(180deg, rgba(248, 249, 250, 0.6) 0%, rgba(237, 242, 247, 0.8) 100%);
+  position: relative;
+}
+
 .section--alt {
-  background-color: var(--color-surface);
+  background: linear-gradient(180deg, #ffffff 0%, #f7fafc 50%, #edf2f7 100%);
   border-top: var(--border-width) solid var(--color-border-subtle);
   border-bottom: var(--border-width) solid var(--color-border-subtle);
+  position: relative;
+}
+
+.section--cta-home {
+  background: radial-gradient(circle at 50% 0%, rgba(0, 45, 98, 0.05) 0%, rgba(248, 249, 250, 0) 70%);
 }
 
 .section__head {
@@ -476,12 +581,16 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+  justify-content: center;
 }
 
 .page-head {
   background-color: var(--color-primary);
+  background-image: linear-gradient(140deg, var(--color-primary-dark) 0%, var(--color-primary) 60%, var(--color-primary-light) 100%);
   color: #fff;
   padding: var(--space-xl) 0;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 28, 63, 0.15);
 }
 
 .page-head h1 {
@@ -491,9 +600,9 @@ p {
 }
 
 .page-head p {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.88);
   max-width: 65ch;
-  margin: 0;
+  margin: 0 auto;
 }
 
 /* ---------------------------------------------------------
@@ -969,7 +1078,7 @@ p {
 }
 
 /* ---------------------------------------------------------
-   10. Personen-Kacheln (Breiter & Flacher)
+   10. Personen-Kacheln (Zentriert, Breiter & Flacher)
    --------------------------------------------------------- */
 .level {
   margin-bottom: var(--space-xl);
@@ -978,8 +1087,10 @@ p {
 .level__head {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
+  text-align: center;
 }
 
 .level__title {
@@ -988,17 +1099,19 @@ p {
   text-transform: uppercase;
   color: var(--color-primary);
   margin: 0;
-  white-space: nowrap;
+  text-align: center;
 }
 
 .level__line {
   flex: 1;
+  max-width: 140px;
   height: 2px;
   border-radius: var(--radius-pill);
   background-image: linear-gradient(
     90deg,
-    var(--color-accent),
-    rgba(194, 155, 56, 0)
+    rgba(194, 155, 56, 0.1),
+    var(--color-accent) 50%,
+    rgba(194, 155, 56, 0.1)
   );
 }
 
@@ -1010,13 +1123,15 @@ p {
 
 @media (min-width: 640px) {
   .kommando-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(290px, 340px));
+    justify-content: center;
   }
 }
 
 @media (min-width: 1024px) {
   .kommando-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(310px, 350px));
+    justify-content: center;
   }
 }
 
@@ -1032,6 +1147,9 @@ p {
   box-shadow: var(--shadow-card);
   transition: transform var(--transition), box-shadow var(--transition);
   min-height: 120px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .person-card:hover {

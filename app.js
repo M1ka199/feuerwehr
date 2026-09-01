@@ -373,10 +373,54 @@
   function initNav() {
     var toggle = $(".nav-toggle");
     var nav = $("#hauptnavigation");
+    
+    // Backdrop für Mobile-Menü dynamisch erstellen, falls nicht vorhanden
+    var backdrop = $(".nav-backdrop");
+    if (!backdrop) {
+      backdrop = document.createElement("div");
+      backdrop.className = "nav-backdrop";
+      document.body.appendChild(backdrop);
+    }
+
+    function closeNav() {
+      if (nav) nav.classList.remove("is-open");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      if (backdrop) backdrop.classList.remove("is-visible");
+    }
+
+    function openNav() {
+      if (nav) nav.classList.add("is-open");
+      if (toggle) toggle.setAttribute("aria-expanded", "true");
+      if (backdrop) backdrop.classList.add("is-visible");
+    }
+
     if (toggle && nav) {
-      toggle.addEventListener("click", function () {
-        var open = nav.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var isOpen = nav.classList.contains("is-open");
+        if (isOpen) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+
+      backdrop.addEventListener("click", closeNav);
+
+      // Beim Klick auf einen Navigationslink auf Mobile schließen
+      $$("#hauptnavigation a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          if (window.innerWidth < 1000) {
+            closeNav();
+          }
+        });
+      });
+
+      // Escape-Taste schließt Nav
+      document.addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape" && nav.classList.contains("is-open")) {
+          closeNav();
+        }
       });
     }
 

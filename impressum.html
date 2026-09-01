@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Einsätze – Freiwillige Feuerwehr Wulften am Harz</title>
-  <meta name="description" content="Chronologischer Einsatzverlauf der Freiwilligen Feuerwehr Wulften am Harz mit Filter nach Jahr und Einsatzart.">
+  <title>Impressum – Freiwillige Feuerwehr Wulften am Harz</title>
+  <meta name="description" content="Impressum und rechtliche Hinweise der Freiwilligen Feuerwehr Wulften am Harz.">
   <link rel="icon" href="image_0.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="einsaetze">
+<body data-page="impressum">
 
+  <!-- Notruf-Banner -->
   <div class="emergency-bar">
     Notruf: <a href="tel:112">112</a> – Im Notfall Feuerwehr &amp; Rettungsdienst
   </div>
 
+  <!-- Header & Navigation -->
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="brand" href="index.html">
@@ -34,7 +36,7 @@
       <nav class="site-nav" id="hauptnavigation" aria-label="Hauptnavigation">
         <ul>
           <li><a href="index.html">Startseite</a></li>
-          <li><a class="is-current" href="einsaetze.html">Einsätze</a></li>
+          <li><a href="einsaetze.html">Einsätze</a></li>
           <li><a href="kommando.html">Ortskommando</a></li>
           <li><a href="schnupperdienst.html">Schnupperdienst</a></li>
           <li><a href="beitritt.html">Mitglied werden</a></li>
@@ -62,30 +64,76 @@
   <main>
     <section class="page-head">
       <div class="container">
-        <h1>Einsatzverlauf</h1>
-        <p>Alle dokumentierten Einsätze der Ortsfeuerwehr – filterbar nach Jahr und Einsatzart.</p>
+        <h1>Impressum</h1>
+        <p>Angaben gemäß § 5 TMG und Informationen über die Freiwillige Feuerwehr Wulften am Harz.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <!-- Neue Jahresstatistik -->
-        <div id="einsaetze-statistik"></div>
+      <div class="container container--narrow">
+        <div class="card stack-md">
+          <div>
+            <h2>Herausgeber &amp; Dienstanbieter</h2>
+            <p>
+              <strong>Freiwillige Feuerwehr Wulften am Harz</strong><br>
+              Ortsfeuerwehr der Samtgemeinde Hattorf am Harz<br>
+              Bahnhofstraße 1<br>
+              37199 Wulften am Harz<br>
+              Deutschland
+            </p>
+          </div>
 
-        <div class="filter-group">
-          <span class="filter-group__label" id="label-jahr">Nach Jahr filtern</span>
-          <div class="filters" id="filter-jahr" role="group" aria-labelledby="label-jahr"></div>
+          <div>
+            <h2>Vertreten durch</h2>
+            <p>
+              <strong>Ortsbrandmeister:</strong> Patrick Schaper<br>
+              <strong>Stellvertretender Ortsbrandmeister:</strong> Jan Waßmann<br>
+              E-Mail: <a href="mailto:info@feuerwehr-wulften.de">info@feuerwehr-wulften.de</a>
+            </p>
+          </div>
+
+          <div>
+            <h2>Träger des Brandschutzes</h2>
+            <p>
+              <strong>Samtgemeinde Hattorf am Harz</strong><br>
+              Otto-Escher-Straße 12<br>
+              37197 Hattorf am Harz<br>
+              Telefon: 05584 209-0<br>
+              Web: <a href="https://www.hattorf-am-harz.de" target="_blank" rel="noopener noreferrer">www.hattorf-am-harz.de</a>
+            </p>
+          </div>
+
+          <div>
+            <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+            <p>
+              Patrick Schaper (Ortsbrandmeister)<br>
+              Bahnhofstraße 1<br>
+              37199 Wulften am Harz
+            </p>
+          </div>
+
+          <div>
+            <h2>Haftung für Inhalte und Links</h2>
+            <p>
+              Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir übernehmen jedoch keine Gewähr für die Aktualität, Korrektheit und Vollständigkeit der bereitgestellten Informationen. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.
+            </p>
+            <p>
+              Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
+            </p>
+          </div>
+
+          <div>
+            <h2>Urheberrecht</h2>
+            <p>
+              Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Erstellers.
+            </p>
+          </div>
         </div>
-        <div class="filter-group">
-          <span class="filter-group__label" id="label-art">Nach Einsatzart filtern</span>
-          <div class="filters" id="filter-art" role="group" aria-labelledby="label-art"></div>
-        </div>
-        <p class="text-sm text-muted" id="einsatz-anzahl" aria-live="polite"></p>
-        <div id="einsatz-liste"></div>
       </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="site-footer__grid">
@@ -124,17 +172,6 @@
       </div>
     </div>
   </footer>
-
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titel" hidden>
-    <button class="modal__backdrop" type="button" data-modal-close aria-label="Dialog schließen"></button>
-    <div class="modal__dialog">
-      <div class="modal__head">
-        <h2 id="modal-titel">Einsatz</h2>
-        <button class="modal__close" type="button" data-modal-close aria-label="Schließen">×</button>
-      </div>
-      <div id="modal-body"></div>
-    </div>
-  </div>
 
   <script src="app.js"></script>
 </body>
