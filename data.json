@@ -16,7 +16,22 @@
     },
     "kontakt": {
       "email": "kontakt@feuerwehr-wulften.de"
-    }
+    },
+    "meta": {
+      "title": "Freiwillige Feuerwehr Wulften am Harz",
+      "description": "Offizielle Seite der Freiwilligen Feuerwehr Wulften am Harz: aktuelle Einsätze, Ortskommando, Schnupperdienst und Mitgliedschaft.",
+      "keywords": "Feuerwehr, Wulften am Harz, Notruf 112, Brandschutz, Hilfeleistung, Ehrenamt",
+      "ogImage": "image_0.png"
+    },
+    "smtp": {
+      "host": "mail.feuerwehr-wulften.de",
+      "port": "587",
+      "user": "webmaster@feuerwehr-wulften.de",
+      "pass": "",
+      "secure": "tls",
+      "from": "noreply@feuerwehr-wulften.de"
+    },
+    "customCss": ""
   },
   "einsaetze": [
     {

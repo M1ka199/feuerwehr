@@ -231,6 +231,67 @@
               <input id="s-mail-kt" name="mailKontakt" type="email">
             </div>
 
+            <h3>SEO &amp; Meta-Angaben</h3>
+            <div class="field">
+              <label for="s-meta-title">Standard-Seitentitel</label>
+              <input id="s-meta-title" name="metaTitle" type="text" placeholder="z. B. Freiwillige Feuerwehr Wulften am Harz">
+            </div>
+            <div class="field">
+              <label for="s-meta-desc">Meta-Beschreibung (Description)</label>
+              <textarea id="s-meta-desc" name="metaDesc" style="min-height:4.5rem" placeholder="Beschreibung für Suchmaschinen und Social Media Vorschauen"></textarea>
+            </div>
+            <div class="field">
+              <label for="s-meta-keywords">Suchbegriffe (Keywords)</label>
+              <input id="s-meta-keywords" name="metaKeywords" type="text" placeholder="z. B. Feuerwehr, Wulften, Harz, Notruf 112, Brandschutz">
+            </div>
+            <div class="field">
+              <label for="s-meta-ogimage">OpenGraph Bild-URL (Social Sharing Image)</label>
+              <input id="s-meta-ogimage" name="metaOgImage" type="text" placeholder="z. B. image_0.png oder hero.jpg">
+            </div>
+
+            <h3>SMTP &amp; E-Mail-Server</h3>
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="s-smtp-host">SMTP Host</label>
+                <input id="s-smtp-host" name="smtpHost" type="text" placeholder="z. B. mail.feuerwehr-wulften.de">
+              </div>
+              <div class="field">
+                <label for="s-smtp-port">Port</label>
+                <input id="s-smtp-port" name="smtpPort" type="number" placeholder="z. B. 587 oder 465">
+              </div>
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="s-smtp-user">SMTP Benutzername</label>
+                <input id="s-smtp-user" name="smtpUser" type="text" autocomplete="off" placeholder="user@domain.de">
+              </div>
+              <div class="field">
+                <label for="s-smtp-pass">SMTP Passwort</label>
+                <input id="s-smtp-pass" name="smtpPass" type="password" autocomplete="off" placeholder="••••••••">
+              </div>
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field">
+                <label for="s-smtp-secure">Verschlüsselung</label>
+                <select id="s-smtp-secure" name="smtpSecure">
+                  <option value="tls">STARTTLS / TLS (Port 587)</option>
+                  <option value="ssl">SSL (Port 465)</option>
+                  <option value="none">Keine Verschlüsselung (Port 25)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="s-smtp-from">Absenderadresse (From)</label>
+                <input id="s-smtp-from" name="smtpFrom" type="email" placeholder="noreply@feuerwehr-wulften.de">
+              </div>
+            </div>
+
+            <h3>Benutzerdefiniertes CSS (Custom CSS)</h3>
+            <div class="field">
+              <label for="s-custom-css">Zusätzlicher CSS-Code</label>
+              <textarea id="s-custom-css" name="customCss" style="min-height:7rem; font-family: monospace; font-size: 0.85rem;" placeholder="/* Eigene Stylesheet-Regeln hier eintragen */"></textarea>
+              <span class="field__hint">Wird global auf allen Seiten der Website eingebunden.</span>
+            </div>
+
             <div>
               <button class="btn btn--primary" type="submit">Einstellungen speichern</button>
             </div>

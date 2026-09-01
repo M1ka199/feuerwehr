@@ -1091,6 +1091,7 @@ p {
   gap: var(--space-md);
   margin-bottom: var(--space-lg);
   text-align: center;
+  width: 100%;
 }
 
 .level__title {
@@ -1100,18 +1101,36 @@ p {
   color: var(--color-primary);
   margin: 0;
   text-align: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .level__title {
+    white-space: normal;
+    font-size: var(--fs-md);
+  }
 }
 
 .level__line {
   flex: 1;
-  max-width: 140px;
   height: 2px;
   border-radius: var(--radius-pill);
+}
+
+.level__line--left {
   background-image: linear-gradient(
     90deg,
-    rgba(194, 155, 56, 0.1),
-    var(--color-accent) 50%,
-    rgba(194, 155, 56, 0.1)
+    rgba(194, 155, 56, 0),
+    var(--color-accent) 100%
+  );
+}
+
+.level__line--right {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    rgba(194, 155, 56, 0) 100%
   );
 }
 

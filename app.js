@@ -142,7 +142,22 @@
         email: "schnupperdienst@feuerwehr-wulften.de"
       },
       beitritt: { email: "beitritt@feuerwehr-wulften.de" },
-      kontakt: { email: "kontakt@feuerwehr-wulften.de" }
+      kontakt: { email: "kontakt@feuerwehr-wulften.de" },
+      meta: {
+        title: "Freiwillige Feuerwehr Wulften am Harz",
+        description: "Offizielle Seite der Freiwilligen Feuerwehr Wulften am Harz: aktuelle Einsätze, Ortskommando, Schnupperdienst und Mitgliedschaft.",
+        keywords: "Feuerwehr, Wulften am Harz, Notruf 112, Brandschutz, Hilfeleistung, Ehrenamt",
+        ogImage: "image_0.png"
+      },
+      smtp: {
+        host: "mail.feuerwehr-wulften.de",
+        port: "587",
+        user: "webmaster@feuerwehr-wulften.de",
+        pass: "",
+        secure: "tls",
+        from: "noreply@feuerwehr-wulften.de"
+      },
+      customCss: ""
     };
   }
 
@@ -155,6 +170,9 @@
       : {};
 
     var stufen = Array.isArray(s.stufen) && s.stufen.length ? s.stufen : std.stufen;
+    var meta = s.meta && typeof s.meta === "object" ? s.meta : {};
+    var smtp = s.smtp && typeof s.smtp === "object" ? s.smtp : {};
+
     data.einstellungen = {
       stufen: stufen.map(function (st, i) {
         var fallback = std.stufen[i] ? std.stufen[i].titel : "Ebene " + (i + 1);
@@ -176,7 +194,22 @@
       },
       kontakt: {
         email: (s.kontakt && s.kontakt.email) || std.kontakt.email
-      }
+      },
+      meta: {
+        title: meta.title || std.meta.title,
+        description: meta.description || std.meta.description,
+        keywords: meta.keywords || std.meta.keywords,
+        ogImage: meta.ogImage || std.meta.ogImage
+      },
+      smtp: {
+        host: smtp.host || std.smtp.host,
+        port: smtp.port || std.smtp.port,
+        user: smtp.user || std.smtp.user,
+        pass: smtp.pass || std.smtp.pass,
+        secure: smtp.secure || std.smtp.secure,
+        from: smtp.from || std.smtp.from
+      },
+      customCss: typeof s.customCss === "string" ? s.customCss : std.customCss
     };
 
     data.einsaetze = (Array.isArray(data.einsaetze) ? data.einsaetze : []).map(
@@ -934,8 +967,9 @@
 
       var section = el("section", "level");
       var head = el("div", "level__head");
+      head.appendChild(el("span", "level__line level__line--left"));
       head.appendChild(el("h2", "level__title", stufe.titel));
-      head.appendChild(el("span", "level__line"));
+      head.appendChild(el("span", "level__line level__line--right"));
       section.appendChild(head);
 
       var grid = el("div", "kommando-grid");
@@ -1379,12 +1413,29 @@
         var input = fld(settingsForm, "stufe" + (i + 1));
         if (input) input.value = stufe.titel;
       });
-      fld(settingsForm, "teaserTitel").value = s.schnupperdienst.titel;
-      fld(settingsForm, "teaserText").value = s.schnupperdienst.text;
-      fld(settingsForm, "teaserButton").value = s.schnupperdienst.buttonText;
-      fld(settingsForm, "mailSchnupperdienst").value = s.schnupperdienst.email;
-      fld(settingsForm, "mailBeitritt").value = s.beitritt.email;
-      fld(settingsForm, "mailKontakt").value = s.kontakt.email;
+      fld(settingsForm, "teaserTitel").value = s.schnupperdienst.titel || "";
+      fld(settingsForm, "teaserText").value = s.schnupperdienst.text || "";
+      fld(settingsForm, "teaserButton").value = s.schnupperdienst.buttonText || "";
+      fld(settingsForm, "mailSchnupperdienst").value = s.schnupperdienst.email || "";
+      fld(settingsForm, "mailBeitritt").value = s.beitritt.email || "";
+      fld(settingsForm, "mailKontakt").value = s.kontakt.email || "";
+
+      // Meta & SEO
+      if (fld(settingsForm, "metaTitle")) fld(settingsForm, "metaTitle").value = s.meta.title || "";
+      if (fld(settingsForm, "metaDesc")) fld(settingsForm, "metaDesc").value = s.meta.description || "";
+      if (fld(settingsForm, "metaKeywords")) fld(settingsForm, "metaKeywords").value = s.meta.keywords || "";
+      if (fld(settingsForm, "metaOgImage")) fld(settingsForm, "metaOgImage").value = s.meta.ogImage || "";
+
+      // SMTP
+      if (fld(settingsForm, "smtpHost")) fld(settingsForm, "smtpHost").value = s.smtp.host || "";
+      if (fld(settingsForm, "smtpPort")) fld(settingsForm, "smtpPort").value = s.smtp.port || "";
+      if (fld(settingsForm, "smtpUser")) fld(settingsForm, "smtpUser").value = s.smtp.user || "";
+      if (fld(settingsForm, "smtpPass")) fld(settingsForm, "smtpPass").value = s.smtp.pass || "";
+      if (fld(settingsForm, "smtpSecure")) fld(settingsForm, "smtpSecure").value = s.smtp.secure || "tls";
+      if (fld(settingsForm, "smtpFrom")) fld(settingsForm, "smtpFrom").value = s.smtp.from || "";
+
+      // Custom CSS
+      if (fld(settingsForm, "customCss")) fld(settingsForm, "customCss").value = s.customCss || "";
     }
 
     settingsForm.addEventListener("submit", function (ev) {
@@ -1400,7 +1451,26 @@
       s.schnupperdienst.email = val(settingsForm, "mailSchnupperdienst");
       s.beitritt.email = val(settingsForm, "mailBeitritt");
       s.kontakt.email = val(settingsForm, "mailKontakt");
+
+      // Meta & SEO
+      s.meta.title = val(settingsForm, "metaTitle");
+      s.meta.description = val(settingsForm, "metaDesc");
+      s.meta.keywords = val(settingsForm, "metaKeywords");
+      s.meta.ogImage = val(settingsForm, "metaOgImage");
+
+      // SMTP
+      s.smtp.host = val(settingsForm, "smtpHost");
+      s.smtp.port = val(settingsForm, "smtpPort");
+      s.smtp.user = val(settingsForm, "smtpUser");
+      s.smtp.pass = val(settingsForm, "smtpPass");
+      s.smtp.secure = val(settingsForm, "smtpSecure");
+      s.smtp.from = val(settingsForm, "smtpFrom");
+
+      // Custom CSS
+      s.customCss = val(settingsForm, "customCss");
+
       Store.save();
+      applyCustomSettings();
       fillStufenSelect();
       renderPersonList();
       toast("Einstellungen gespeichert.");
@@ -1460,6 +1530,31 @@
   };
 
   /* -------------------------------------------------------
+     Custom Meta & CSS Applier
+     ------------------------------------------------------- */
+  function applyCustomSettings() {
+    var settings = Store.settings();
+    if (!settings) return;
+
+    // Custom CSS Injection
+    var styleTag = $("#custom-injected-css");
+    if (!styleTag) {
+      styleTag = document.createElement("style");
+      styleTag.id = "custom-injected-css";
+      document.head.appendChild(styleTag);
+    }
+    styleTag.textContent = settings.customCss || "";
+
+    // Meta Description & Keywords
+    if (settings.meta) {
+      var descTag = $('meta[name="description"]');
+      if (descTag && settings.meta.description && document.body.getAttribute("data-page") === "start") {
+        descTag.setAttribute("content", settings.meta.description);
+      }
+    }
+  }
+
+  /* -------------------------------------------------------
      Start
      ------------------------------------------------------- */
   function boot() {
@@ -1467,6 +1562,7 @@
     Modal.init();
     var page = document.body.getAttribute("data-page");
     Store.load().then(function () {
+      applyCustomSettings();
       if (PAGES[page]) PAGES[page]();
       initForms();
     });
